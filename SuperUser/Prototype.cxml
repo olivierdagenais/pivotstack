@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Collection xmlns:p="http://schemas.microsoft.com/livelabs/pivot/collection/2009" SchemaVersion="1.0" Name="Tagged Questions: tips-and-tricks" p:Icon="W:\open source\tools\pivotstack\SuperUser\favicon.ico" p:BrandImage="W:\open source\tools\pivotstack\SuperUser\BrandImage.png" p:AdditionalSearchText="tips-and-tricks" xmlns="http://schemas.microsoft.com/collection/metadata/2009">
+  <FacetCategories>
+    <FacetCategory Name="Score" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Views" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Answers" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="User tags" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Date asked" Type="DateTime" Format="M/d/yyyy H:mm" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Is answered?" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Date first answered" Type="DateTime" Format="M/d/yyyy H:mm" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Date last answered" Type="DateTime" Format="M/d/yyyy H:mm" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Asker" Type="String" p:IsFilterVisible="false" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Has accepted answer?" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Accepted Answer" Type="String" p:IsFilterVisible="false" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Top Answer" Type="String" p:IsFilterVisible="false" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Is favorite?" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Favorites" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
+  </FacetCategories>
+  <Items ImgBase="Prototype_files\q2k4a0ip.e3m.xml" HrefBase="http://superuser.com/questions/">
+    <Item Id="0" Name="What are the best Excel tips?" Href="3232">
+      <Description>&lt;p&gt;What are your best tips/not so known features of excel?&lt;/p&gt;</Description>
+      <Facets>
+        <Facet Name="Score">
+          <String Value="7" />
+        </Facet>
+        <Facet Name="Views">
+          <Number Value="761" />
+        </Facet>
+        <Facet Name="Answers">
+          <Number Value="27" />
+        </Facet>
+        <Facet Name="User tags">
+          <String Value="excel " />
+          <String Value=" tips-and-tricks" />
+        </Facet>
+        <Facet Name="Date asked">
+          <DateTime Value="2009-07-15T18:41:08" />
+        </Facet>
+        <Facet Name="Is answered?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Date first answered">
+          <DateTime Value="2009-07-15T18:41:08" />
+        </Facet>
+        <Facet Name="Date last answered">
+          <DateTime Value="2010-06-16T09:46:07" />
+        </Facet>
+        <Facet Name="Asker">
+          <String Value="Bob" />
+        </Facet>
+        <Facet Name="Has accepted answer?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Accepted Answer">
+          <String Value="&lt;p&gt;My best advice for Excel is to know its limitations.  Engineer-types love Excel, but it's over-used to be:&lt;/p&gt; &lt;ul&gt; &lt;li&gt;A database&lt;/li&gt; &lt;li&gt;A report generator&lt;/li&gt; &lt;li&gt;An application deployment mechanism&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;If you need any of these things, think before blindly firing up Excel.&lt;/p&gt;" />
+        </Facet>
+        <Facet Name="Top Answer">
+          <String Value="&lt;p&gt;&lt;a href=&quot;http://techrageo.us/2007/09/23/in-cell-spreadsheet-graphs/&quot; rel=&quot;nofollow&quot;&gt;In-cell graphs&lt;/a&gt;, using REPT. The simple form (in column C below):&lt;/p&gt; &lt;pre&gt;&lt;code&gt;=REPT( &quot;|&quot;, B2 / 5 ) &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;and negative/positive (in columns G and H below):&lt;/p&gt; &lt;pre&gt;&lt;code&gt;=IF( F2 &amp;lt; 0, REPT( &quot;|&quot;, ABS( F2 / 5 )), &quot;&quot; ) =IF( F2 &amp;gt; 0, REPT( &quot;|&quot;, ABS( F2 / 5 )), &quot;&quot; ) &lt;/code&gt;&lt;/pre&gt; &lt;p&gt;Use Arial Narrow or similar. Of course negative values are right-justified and red.&lt;/p&gt; &lt;p&gt;&lt;img src=&quot;http://techrageo.us/images/incell2.gif&quot; alt=&quot;alt text&quot; /&gt;&lt;/p&gt;" />
+        </Facet>
+        <Facet Name="Is favorite?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Favorites">
+          <Number Value="10" />
+        </Facet>
+      </Facets>
+    </Item>
+    <Item Id="1" Name="Tips to increase security of computer?" Href="5520">
+      <Description>&lt;p&gt;Which are the tips you know will increase the security on the computer? For instance, the first one for me is disable the autorun. &lt;/p&gt;</Description>
+      <Facets>
+        <Facet Name="Score">
+          <String Value="3" />
+        </Facet>
+        <Facet Name="Views">
+          <Number Value="196" />
+        </Facet>
+        <Facet Name="Answers">
+          <Number Value="13" />
+        </Facet>
+        <Facet Name="User tags">
+          <String Value="security " />
+          <String Value=" tips-and-tricks " />
+          <String Value=" os-agnostic" />
+        </Facet>
+        <Facet Name="Date asked">
+          <DateTime Value="2009-07-16T13:45:25" />
+        </Facet>
+        <Facet Name="Is answered?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Date first answered">
+          <DateTime Value="2009-07-16T13:47:15" />
+        </Facet>
+        <Facet Name="Date last answered">
+          <DateTime Value="2009-08-13T20:20:38" />
+        </Facet>
+        <Facet Name="Asker">
+          <String Value="FerranB" />
+        </Facet>
+        <Facet Name="Has accepted answer?">
+          <String Value="no" />
+        </Facet>
+        <Facet Name="Top Answer">
+          <String Value="&lt;ul&gt; &lt;li&gt;Disable what you don't use&lt;/li&gt; &lt;li&gt;Work at the lowest privilege level possible&lt;/li&gt; &lt;/ul&gt; &lt;p&gt;(&lt;a href=&quot;http://www.cites.illinois.edu/security/by%5Fos/adv%5Fwin.html&quot; rel=&quot;nofollow&quot;&gt;more&lt;/a&gt;)&lt;/p&gt;" />
+        </Facet>
+        <Facet Name="Is favorite?">
+          <String Value="no" />
+        </Facet>
+        <Facet Name="Favorites">
+          <Number Value="0" />
+        </Facet>
+      </Facets>
+    </Item>
+    <Item Id="2" Name="Tips for selecting brands and models of computer parts" Href="5803">
+      <Description>&lt;p&gt;Typically when I buy computer parts I just go to NewEgg, select the category I'm interested in, and sort by the number of reviews. In my experience when a product has lots of reviews there it means that the product is well made and a good value for the money.&lt;/p&gt; &lt;p&gt;What other sorts of tips and tricks do you use for selecting brands or models of computer parts?&lt;/p&gt;</Description>
+      <Facets>
+        <Facet Name="Score">
+          <String Value="1" />
+        </Facet>
+        <Facet Name="Views">
+          <Number Value="110" />
+        </Facet>
+        <Facet Name="Answers">
+          <Number Value="3" />
+        </Facet>
+        <Facet Name="User tags">
+          <String Value="tips-and-tricks " />
+          <String Value=" shopping " />
+          <String Value=" quality " />
+          <String Value=" computer-parts " />
+          <String Value=" value" />
+        </Facet>
+        <Facet Name="Date asked">
+          <DateTime Value="2009-07-16T16:35:23" />
+        </Facet>
+        <Facet Name="Is answered?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Date first answered">
+          <DateTime Value="2009-07-16T16:36:47" />
+        </Facet>
+        <Facet Name="Date last answered">
+          <DateTime Value="2009-07-16T20:28:39" />
+        </Facet>
+        <Facet Name="Asker">
+          <String Value="emddudley" />
+        </Facet>
+        <Facet Name="Has accepted answer?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Accepted Answer">
+          <String Value="&lt;p&gt;In addition to what Ivo said about reading articles from Tom's Hardware (especially the device comparisons) and using best-buy guides, ask someone you know who deals a lot with computers, like technicians and computer enthusiasts.&lt;/p&gt; &lt;p&gt;These people are usually aware what devices would be compatible with each other, as well as some of the known issues behind them. They would also generally know how much these devices currently are, and if they happen to be in the business of building PCs as well, where to best buy them.&lt;/p&gt; &lt;p&gt;For some computer parts, I also tend to check the manufacturer's website to see how much support they usually provide - in terms of drivers, manuals, firmware updates, etc. If they don't have a decent website where you can download the necessary drivers, or search for PDF versions of their manuals, I'll look for something else. (I ran into something like that with the first PC a friend and I built ourselves.)&lt;/p&gt;" />
+        </Facet>
+        <Facet Name="Top Answer">
+          <String Value="&lt;p&gt;I would be very careful of no-name brands.  You're always taking a risk.  This video blog &lt;a href=&quot;http://www.alternatezone.com/eevblog/?p=97&quot; rel=&quot;nofollow&quot;&gt;entry on dodgy USB hubs&lt;/a&gt; will give you a good reason why. Make sure you check reviews.  Ivo makes a good suggestion with checking with Tom's hardware and Anandtech.&lt;/p&gt; &lt;p&gt;Then there's always the proverbial, &quot;I've used this brand before and have been satisfied, so I'll stick with them.&quot;&lt;/p&gt;" />
+        </Facet>
+        <Facet Name="Is favorite?">
+          <String Value="yes" />
+        </Facet>
+        <Facet Name="Favorites">
+          <Number Value="1" />
+        </Facet>
+      </Facets>
+    </Item>
+    <Item Id="3" />
+    <Item Id="4" />
+    <Item Id="5" />
+    <Item Id="6" />
+    <Item Id="7" />
+    <Item Id="8" />
+  </Items>
+  <Extension>
+    <p:Copyright Name="Pivot collection design © 2010 Olivier Dagenais; site logo © 2010 stack overflow internet services, inc; user contributions licensed under cc-wiki with attribution required" />
+  </Extension>
+</Collection>
