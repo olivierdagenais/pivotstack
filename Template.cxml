@@ -1,15 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Collection 
-	xmlns:p="http://schemas.microsoft.com/livelabs/pivot/collection/2009"
-	SchemaVersion="1.0"
-	p:Icon="favicon.ico"
-	p:BrandImage="BrandImage.png"
-	xmlns="http://schemas.microsoft.com/collection/metadata/2009">
+  xmlns:p="http://schemas.microsoft.com/livelabs/pivot/collection/2009"
+  SchemaVersion="1.0"
+  p:Icon="favicon.ico"
+  p:BrandImage="BrandImage.png"
+  xmlns="http://schemas.microsoft.com/collection/metadata/2009">
   <FacetCategories>
+    <!-- TODO: Generate class from this section -->
     <FacetCategory Name="Score" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Views" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Answers" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Tagged" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
+    <FacetCategory Name="Related Tags" Type="Link" p:IsFilterVisible="false" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Date asked" Type="DateTime" Format="M/d/yyyy H:mm" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Is answered?" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Date first answered" Type="DateTime" Format="M/d/yyyy H:mm" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
@@ -25,6 +27,6 @@
   </Items>
   <Extension>
     <p:Copyright
-		Name="Pivot collection design © 2010 Olivier Dagenais; site logo © 2010 stack overflow internet services, inc; user contributions licensed under cc-wiki with attribution required" />
+      Name="Pivot collection design © 2010 Olivier Dagenais; site logo © 2010 stack overflow internet services, inc; user contributions licensed under cc-wiki with attribution required" />
   </Extension>
 </Collection>

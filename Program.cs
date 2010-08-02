@@ -159,8 +159,8 @@ namespace PivotStack
             if (post.Tags != null)
             {
                 var tags = ParseTags (post.Tags);
-                // TODO: make these of type FacetType.Link
                 AddFacet (facetsNode, FacetType.String, "Tagged", tags.Cast<object>());
+                AddFacetLink (facetsNode, "Related Tags", tags.Select(t => new Pair<string, string>(t, t)));
             }
             #endregion
 
@@ -202,6 +202,7 @@ namespace PivotStack
             {
                 AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (post.AcceptedAnswer));
                 // TODO: link to accepted answer
+                // Accepted Answer Details: Link, Author(s), Score
             }
             #endregion
 
@@ -210,6 +211,7 @@ namespace PivotStack
             {
                 AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (post.TopAnswer));
                 // TODO: link to top answer
+                // Top Answer Details: Link, Author(s), Score
             }
             #endregion
 
@@ -246,6 +248,27 @@ namespace PivotStack
             {
                 var valueNode = new XElement(elementName, new XAttribute("Value", value));
                 facetNode.Add (valueNode);
+            }
+            facets.Add (facetNode);
+        }
+
+        internal static void AddFacetLink
+            (XElement facets, string facetName, Pair<string, string> hrefNamePair)
+        {
+            AddFacetLink (facets, facetName, new[] { hrefNamePair });
+        }
+
+        internal static void AddFacetLink
+            (XElement facets, string facetName, IEnumerable<Pair<string, string>> hrefNamePairs)
+        {
+            var facetNode = new XElement (CollectionNamespace + "Facet", new XAttribute ("Name", facetName));
+            var elementName = CollectionNamespace + FacetType.Link.ToString ();
+            foreach (var pair in hrefNamePairs)
+            {
+                var href = pair.First;
+                var name = pair.Second;
+                var linkNode = new XElement (elementName, new XAttribute ("Href", href), new XAttribute ("Name", name));
+                facetNode.Add (linkNode);
             }
             facets.Add (facetNode);
         }
