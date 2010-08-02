@@ -1,10 +1,10 @@
 SELECT
-    p.Id AS QuestionId,
-    p.Title,
-    p.Body AS QuestionBody,
+    p.Id AS Id,
+    p.Title As Title,
+    p.Body AS Description,
     p.Score,
     p.ViewCount AS Views,
-    p.AnswerCount AS Answers,
+    COALESCE (p.AnswerCount, 0) AS Answers,
     p.Tags,
     p.CreationDate AS DateAsked,
     (
@@ -14,7 +14,7 @@ SELECT
             Posts AS p2
         WHERE
             (p.Id = ParentId)
-    ) AS DateFirstAnswer,
+    ) AS DateFirstAnswered,
     (
         SELECT
             MAX(CreationDate) AS Expr1
@@ -22,7 +22,7 @@ SELECT
             Posts AS p2
         WHERE
             (p.Id = ParentId)
-    ) AS DateLastAnswer,
+    ) AS DateLastAnswered,
     COALESCE (
         p.OwnerDisplayName,
         (
@@ -50,7 +50,7 @@ SELECT
             Posts AS p2
         WHERE
             (p.AcceptedAnswerId = Id) AND (PostTypeId = 2)
-    ) AS AcceptedAnswerBody,
+    ) AS AcceptedAnswer,
     (
         SELECT
             TOP (1) Id
@@ -70,7 +70,7 @@ SELECT
             (p.Id = ParentId)
         ORDER BY
             Score DESC
-    ) AS TopAnswerBody,
+    ) AS TopAnswer,
     COALESCE (p.FavoriteCount, 0) AS Favorites
 FROM
     Posts AS p

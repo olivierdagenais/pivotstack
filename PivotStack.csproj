@@ -34,6 +34,10 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\nunit.framework.dll</HintPath>
     </Reference>
+    <Reference Include="SoftwareNinjas.Core, Version=1.0.53.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\SoftwareNinjas.Core.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data" />
@@ -47,6 +51,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <EmbeddedResource Include="Template.cxml" />
     <EmbeddedResource Include="select-posts-by-tag.sql" />
     <EmbeddedResource Include="select-tags.sql" />
   </ItemGroup>
