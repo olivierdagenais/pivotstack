@@ -101,6 +101,10 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Views""><Number Value=""761"" /></Facet>
         <Facet Name=""Answers""><Number Value=""27"" /></Facet>
         <Facet Name=""Tagged""><String Value=""excel"" /><String Value=""tips-and-tricks"" /></Facet>
+        <Facet Name=""Related Tags"">
+            <Link Href=""excel.cxml"" Name=""excel"" />
+            <Link Href=""tips-and-tricks.cxml"" Name=""tips-and-tricks"" />
+        </Facet>
         <Facet Name=""Date asked""><DateTime Value=""2009-07-15T18:36:28"" /></Facet>
         <Facet Name=""Is answered?""><String Value=""yes"" /></Facet>
         <Facet Name=""Date first answered""><DateTime Value=""2009-07-15T18:41:08"" /></Facet>
@@ -147,6 +151,10 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Views""><Number Value=""761"" /></Facet>
         <Facet Name=""Answers""><Number Value=""27"" /></Facet>
         <Facet Name=""Tagged""><String Value=""excel"" /><String Value=""tips-and-tricks"" /></Facet>
+        <Facet Name=""Related Tags"">
+            <Link Href=""excel.cxml"" Name=""excel"" />
+            <Link Href=""tips-and-tricks.cxml"" Name=""tips-and-tricks"" />
+        </Facet>
         <Facet Name=""Date asked""><DateTime Value=""2009-07-15T18:36:28"" /></Facet>
         <Facet Name=""Is answered?""><String Value=""yes"" /></Facet>
         <Facet Name=""Date first answered""><DateTime Value=""2009-07-15T18:41:08"" /></Facet>
@@ -192,6 +200,10 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Views""><Number Value=""761"" /></Facet>
         <Facet Name=""Answers""><Number Value=""0"" /></Facet>
         <Facet Name=""Tagged""><String Value=""excel"" /><String Value=""tips-and-tricks"" /></Facet>
+        <Facet Name=""Related Tags"">
+            <Link Href=""excel.cxml"" Name=""excel"" />
+            <Link Href=""tips-and-tricks.cxml"" Name=""tips-and-tricks"" />
+        </Facet>
         <Facet Name=""Date asked""><DateTime Value=""2009-07-15T18:36:28"" /></Facet>
         <Facet Name=""Is answered?""><String Value=""no"" /></Facet>
         <Facet Name=""Asker""><String Value=""Bob"" /></Facet>

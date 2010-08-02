@@ -155,14 +155,17 @@ namespace PivotStack
             AddFacet (facetsNode, FacetType.Number, "Answers", post.Answers);
             #endregion
 
-            #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
             if (post.Tags != null)
             {
                 var tags = ParseTags (post.Tags);
-                AddFacet (facetsNode, FacetType.String, "Tagged", tags.Cast<object>());
-                AddFacetLink (facetsNode, "Related Tags", tags.Select(t => new Pair<string, string>(t, t)));
+                #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
+                AddFacet (facetsNode, FacetType.String, "Tagged", tags.Cast<object> ());
+                #endregion
+
+                #region <Facet Name="Related Tags"><Link Href="excel.cxml" Name="excel" /></Facet>
+                AddFacetLink (facetsNode, "Related Tags", tags.Select (t => new Pair<string, string> (t + ".cxml", t)));
+                #endregion
             }
-            #endregion
 
             #region <Facet Name="Date asked"><DateTime Value="2009-07-15T18:41:08" /></Facet>
             AddFacet (facetsNode, FacetType.DateTime, "Date asked", post.DateAsked.ToString ("s"));
@@ -197,7 +200,7 @@ namespace PivotStack
             AddFacet (facetsNode, FacetType.String, "Has accepted answer?", YesNo (post.AcceptedAnswerId.HasValue));
             #endregion
 
-            #region <Facet Name="Accepted Answer"><String Value="My best advice for Excel..." /></Facet>
+            #region <Facet Name="Accepted Answer"><LongString Value="My best advice for Excel..." /></Facet>
             if (post.AcceptedAnswer != null)
             {
                 AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (post.AcceptedAnswer));
@@ -206,7 +209,7 @@ namespace PivotStack
             }
             #endregion
 
-            #region <Facet Name="Top Answer"><String Value="In-cell graphs..." /></Facet>
+            #region <Facet Name="Top Answer"><LongString Value="In-cell graphs..." /></Facet>
             if (post.TopAnswer != null)
             {
                 AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (post.TopAnswer));
