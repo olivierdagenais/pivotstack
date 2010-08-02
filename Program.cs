@@ -46,6 +46,9 @@ namespace PivotStack
         };
         internal static readonly Regex TagsRegex
             = new Regex (@"<(?<tag>[^>]+)>", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
+        // http://stackoverflow.com/questions/286813/how-do-you-convert-html-to-plain-text/286825#286825
+        internal static readonly Regex ElementRegex
+            = new Regex (@"<[^>]*>", RegexOptions.Compiled);
 
         internal static IEnumerable<string> ParseTags (string tagsColumn)
         {
@@ -55,6 +58,17 @@ namespace PivotStack
                 var tag = match.Groups["tag"].Value;
                 yield return tag;
             }
+        }
+
+        internal static string CleanHtml (string html)
+        {
+            // TODO: list items (i.e. <li>) should probably have at least a dash inserted on the line, with line breaks
+            // TODO: what about links inside the text? we could have Body Links, Accepted Answer Links, Top Answer Links
+            // TODO: we should probably convert <strong>bold</strong> to *bold*
+            // TODO: StackOverflow will have code samples; how should we filter those?
+            var plainText = ElementRegex.Replace (html, String.Empty);
+            // TODO: truncate the text (with an elipsis...) to an appropriate length
+            return plainText;
         }
 
         public static int Main (string[] args)
@@ -124,8 +138,7 @@ namespace PivotStack
 
             #region <Description>What are your best tips/not so known features of excel?</Description>
             var description = (string)row[2];
-            // TODO: strip HTML?
-            var descriptionNode = new XElement(CollectionNamespace + "Description", description);
+            var descriptionNode = new XElement (CollectionNamespace + "Description", CleanHtml (description));
             itemNode.Add (descriptionNode);
             #endregion
 
@@ -199,8 +212,7 @@ namespace PivotStack
             string acceptedAnswer = ( row[12] != DBNull.Value ) ? (string)row[12] : null;
             if (acceptedAnswer != null)
             {
-                // TODO: strip HTML?
-                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", acceptedAnswer);
+                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (acceptedAnswer));
                 // TODO: link to accepted answer
             }
             #endregion
@@ -210,8 +222,7 @@ namespace PivotStack
             if (row[14] != DBNull.Value)
             {
                 var topAnswer = (string)row[14];
-                // TODO: strip HTML?
-                AddFacet (facetsNode, FacetType.LongString, "Top Answer", topAnswer);
+                AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (topAnswer));
                 // TODO: link to top answer
             }
             #endregion

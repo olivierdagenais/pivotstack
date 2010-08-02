@@ -11,6 +11,28 @@ namespace PivotStack.Test
     [TestFixture]
     public class ProgramTest
     {
+        [Test]
+        public void CleanHtml ()
+        {
+            const string html = @"
+<p>After reading <a href=""http://superuser.com/questions/2902/which-online-game-you-are-playing-in-your-free-time"">this question</a>, I was inspired to create this wiki on Nethack tips and tricks.</p>
+
+<p>There must be many people in the SU community that play nethack, so I ask you, what are some of your best strategies for nethack?</p>
+
+<p>Also if you want, share some of your best stories that have happened while playing the game.</p>
+
+<p>For those you out there that don't know what nethack is: <a href=""http://nethack.wikia.com/wiki/Main%5FPage"" rel=""nofollow"" title=""Nethack Wiki"">please inform</a> <a href=""http://en.wikipedia.org/wiki/NetHack"" rel=""nofollow"" title=""Wiki on Nethack"">your selves</a></p>";
+            const string expected = @"
+After reading this question, I was inspired to create this wiki on Nethack tips and tricks.
+
+There must be many people in the SU community that play nethack, so I ask you, what are some of your best strategies for nethack?
+
+Also if you want, share some of your best stories that have happened while playing the game.
+
+For those you out there that don't know what nethack is: please inform your selves";
+            Assert.AreEqual (expected, Program.CleanHtml (html));
+        }
+
         private static void TestParseTags (string input, params string[] expected)
         {
             var actual = Program.ParseTags (input);
@@ -55,7 +77,7 @@ namespace PivotStack.Test
             {
                 {"Id", 3232},
                 {"Title", "What are the best Excel tips?"},
-                {"Description", "What are your best tips/not so known features of excel?"},
+                {"Description", "<p>What are your best tips/not so known features of excel?</p>"},
                 {"Score", 7},
                 {"Views", 761},
                 {"Answers", 27},
@@ -65,9 +87,9 @@ namespace PivotStack.Test
                 {"DateLastAnswered", new DateTime(2010, 06, 16, 09, 46, 07)},
                 {"Asker", "Bob"},
                 {"AcceptedAnswerId", 3274},
-                {"AcceptedAnswer", "My best advice for Excel..."},
+                {"AcceptedAnswer", "<p>My best advice for Excel...</p>"},
                 {"TopAnswerId", 21231},
-                {"TopAnswer", "In-cell graphs..."},
+                {"TopAnswer", @"<p><a href=""http://techrageo.us/2007/09/23/in-cell-spreadsheet-graphs/"" rel=""nofollow"">In-cell graphs</a>, using REPT..."},
                 {"Favorites", 10},
             };
             const string expectedXml = @"
@@ -86,7 +108,7 @@ namespace PivotStack.Test
         <Facet Name=""Asker""><String Value=""Bob"" /></Facet>
         <Facet Name=""Has accepted answer?""><String Value=""yes"" /></Facet>
         <Facet Name=""Accepted Answer""><LongString Value=""My best advice for Excel..."" /></Facet>
-        <Facet Name=""Top Answer""><LongString Value=""In-cell graphs..."" /></Facet>
+        <Facet Name=""Top Answer""><LongString Value=""In-cell graphs, using REPT..."" /></Facet>
         <Facet Name=""Is favorite?""><String Value=""yes"" /></Facet>
         <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
       </Facets>
