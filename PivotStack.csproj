@@ -56,6 +56,7 @@
     <EmbeddedResource Include="select-tags.sql" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="PostsByTagRow.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>

@@ -126,19 +126,17 @@ namespace PivotStack
 
         internal static XElement PivotizePost (IList row)
         {
+            var post = PostsByTagRow.Load (row);
             #region <Item Id="3232" Href="3232" Name="What are the best Excel tips?">
             var itemNode = new XElement (CollectionNamespace + "Item");
 
-            var id = (int)row[0];
-            itemNode.SetAttributeValue ("Id", id);
-            itemNode.SetAttributeValue ("Href", id);
+            itemNode.SetAttributeValue ("Id", post.Id);
+            itemNode.SetAttributeValue ("Href", post.Id);
 
-            var name = (string)row[1];
-            itemNode.SetAttributeValue ("Name", name);
+            itemNode.SetAttributeValue ("Name", post.Name);
 
             #region <Description>What are your best tips/not so known features of excel?</Description>
-            var description = (string)row[2];
-            var descriptionNode = new XElement (CollectionNamespace + "Description", CleanHtml (description));
+            var descriptionNode = new XElement (CollectionNamespace + "Description", CleanHtml (post.Description));
             itemNode.Add (descriptionNode);
             #endregion
 
@@ -146,94 +144,81 @@ namespace PivotStack
             var facetsNode = new XElement(CollectionNamespace + "Facets");
 
             #region <Facet Name="Score"><Number Value="7" /></Facet>
-            var score = (int)row[3];
-            AddFacet (facetsNode, FacetType.Number, "Score", score);
+            AddFacet (facetsNode, FacetType.Number, "Score", post.Score);
             #endregion
 
             #region <Facet Name="Views"><Number Value="761" /></Facet>
-            var views = (int)row[4];
-            AddFacet (facetsNode, FacetType.Number, "Views", views);
+            AddFacet (facetsNode, FacetType.Number, "Views", post.Views);
             #endregion
 
             #region <Facet Name="Answers"><Number Value="27" /></Facet>
-            var answers = (int)row[5];
-            AddFacet (facetsNode, FacetType.Number, "Answers", answers);
+            AddFacet (facetsNode, FacetType.Number, "Answers", post.Answers);
             #endregion
 
             #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
-            if (row[6] != DBNull.Value)
+            if (post.Tags != null)
             {
-                var rawTags = (string)row[6];
-                var tags = ParseTags (rawTags);
+                var tags = ParseTags (post.Tags);
                 // TODO: make these of type FacetType.Link
                 AddFacet (facetsNode, FacetType.String, "Tagged", tags.Cast<object>());
             }
             #endregion
 
             #region <Facet Name="Date asked"><DateTime Value="2009-07-15T18:41:08" /></Facet>
-            var dateAsked = (DateTime)row[7];
-            AddFacet (facetsNode, FacetType.DateTime, "Date asked", dateAsked.ToString ("s"));
+            AddFacet (facetsNode, FacetType.DateTime, "Date asked", post.DateAsked.ToString ("s"));
             #endregion
 
-            DateTime? dateFirstAnswered = ( row[8] != DBNull.Value ) ? (DateTime?)row[8] : null;
             #region <Facet Name="Is answered?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is answered?", YesNo (dateFirstAnswered.HasValue));
+            AddFacet (facetsNode, FacetType.String, "Is answered?", YesNo (post.DateFirstAnswered.HasValue));
             #endregion
 
             #region <Facet Name="Date first answered"><DateTime Value="2009-07-15T18:41:08" /></Facet>
-            if (dateFirstAnswered.HasValue)
+            if (post.DateFirstAnswered.HasValue)
             {
-                AddFacet (facetsNode, FacetType.DateTime, "Date first answered", dateFirstAnswered.Value.ToString ("s"));
+                AddFacet (facetsNode, FacetType.DateTime, "Date first answered", post.DateFirstAnswered.Value.ToString ("s"));
             }
             #endregion
 
             #region <Facet Name="Date last answered"><DateTime Value="2010-06-16T09:46:07" /></Facet>
-            DateTime? dateLastAnswered = ( row[9] != DBNull.Value ) ? (DateTime?)row[9] : null;
-            if (dateLastAnswered.HasValue)
+            if (post.DateLastAnswered.HasValue)
             {
-                AddFacet (facetsNode, FacetType.DateTime, "Date last answered", dateLastAnswered.Value.ToString ("s"));
+                AddFacet (facetsNode, FacetType.DateTime, "Date last answered", post.DateLastAnswered.Value.ToString ("s"));
             }
             #endregion
 
             #region <Facet Name="Asker"><String Value="Bob" /></Facet>
-            var asker = (string)row[10];
-            if (asker != null)
+            if (post.Asker != null)
             {
-                AddFacet (facetsNode, FacetType.String, "Asker", asker);
+                AddFacet (facetsNode, FacetType.String, "Asker", post.Asker);
             }
             #endregion
 
             #region <Facet Name="Has accepted answer?"><String Value="yes" /></Facet>
-            int? acceptedAnswerId = ( row[11] != DBNull.Value ) ? (int?)row[11] : null;
-            AddFacet (facetsNode, FacetType.String, "Has accepted answer?", YesNo (acceptedAnswerId.HasValue));
+            AddFacet (facetsNode, FacetType.String, "Has accepted answer?", YesNo (post.AcceptedAnswerId.HasValue));
             #endregion
 
             #region <Facet Name="Accepted Answer"><String Value="My best advice for Excel..." /></Facet>
-            string acceptedAnswer = ( row[12] != DBNull.Value ) ? (string)row[12] : null;
-            if (acceptedAnswer != null)
+            if (post.AcceptedAnswer != null)
             {
-                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (acceptedAnswer));
+                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (post.AcceptedAnswer));
                 // TODO: link to accepted answer
             }
             #endregion
 
             #region <Facet Name="Top Answer"><String Value="In-cell graphs..." /></Facet>
-            int? topAnswerId = ( row[13] != DBNull.Value ) ? (int?)row[13] : null;
-            if (row[14] != DBNull.Value)
+            if (post.TopAnswer != null)
             {
-                var topAnswer = (string)row[14];
-                AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (topAnswer));
+                AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (post.TopAnswer));
                 // TODO: link to top answer
             }
             #endregion
 
-            var favorites = (int)row[15];
             #region <Facet Name="Is favorite?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is favorite?", YesNo (favorites > 0));
+            AddFacet (facetsNode, FacetType.String, "Is favorite?", YesNo (post.Favorites > 0));
             #endregion
 
             #region <Facet Name="Favorites"><Number Value="10" /></Facet>
-            AddFacet (facetsNode, FacetType.Number, "Favorites", favorites);
+            AddFacet (facetsNode, FacetType.Number, "Favorites", post.Favorites);
             #endregion
 
             itemNode.Add (facetsNode);
