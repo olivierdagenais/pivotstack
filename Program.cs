@@ -3,6 +3,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
@@ -90,6 +91,7 @@ namespace PivotStack
                 namespaceManager.AddNamespace("p", PivotNamespace.NamespaceName);
             }
             var collectionNode = doc.Root;
+            Debug.Assert(collectionNode != null);
             collectionNode.SetAttributeValue ("Name", "Tagged Questions: {0}".FormatInvariant(tag));
             // TODO: do we want to strip hyphens from tag for AdditionalSearchText?
             collectionNode.SetAttributeValue (PivotNamespace + "AdditionalSearchText", tag);
@@ -103,6 +105,7 @@ namespace PivotStack
             }
             using (var writer = XmlWriter.Create (destination, WriterSettings))
             {
+                Debug.Assert(writer != null);
                 doc.Save (writer);
             }
         }
@@ -236,15 +239,16 @@ namespace PivotStack
 
         internal static void AddFacet (XElement facets, FacetType facetType, string name, object value)
         {
-            AddFacet (facets, facetType, name, new object[] { value });
+            AddFacet (facets, facetType, name, new[] { value });
         }
 
         internal static void AddFacet (XElement facets, FacetType facetType, string name, IEnumerable<object> values)
         {
             var facetNode = new XElement(CollectionNamespace + "Facet", new XAttribute("Name", name));
+            var elementName = CollectionNamespace + facetType.ToString();
             foreach (var value in values)
             {
-                var valueNode = new XElement(CollectionNamespace + facetType.ToString(), new XAttribute("Value", value));
+                var valueNode = new XElement(elementName, new XAttribute("Value", value));
                 facetNode.Add (valueNode);
             }
             facets.Add (facetNode);
@@ -264,6 +268,7 @@ namespace PivotStack
 
                 using (var reader = command.ExecuteReader (CommandBehavior.SingleResult))
                 {
+                    Debug.Assert(reader != null);
                     while (reader.Read ())
                     {
                         var destination = new object[reader.FieldCount];
@@ -281,6 +286,7 @@ namespace PivotStack
                 command.CommandText = SelectTags;
                 using (var reader = command.ExecuteReader (CommandBehavior.SingleResult))
                 {
+                    Debug.Assert(reader != null);
                     while (reader.Read ())
                     {
                         yield return reader.GetString(0);
