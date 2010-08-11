@@ -5,22 +5,22 @@ namespace PivotStack
 {
     public struct Post
     {
-        public int Id;
-        public string Name;
-        public string Description;
-        public int Score;
-        public int Views;
-        public int Answers;
-        public string Tags;
-        public DateTime DateAsked;
-        public DateTime? DateFirstAnswered;
-        public DateTime? DateLastAnswered;
-        public string Asker;
-        public int? AcceptedAnswerId;
-        public string AcceptedAnswer;
-        public int? TopAnswerId;
-        public string TopAnswer;
-        public int Favorites;
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string Description { get; set; }
+        public int Score { get; set; }
+        public int Views { get; set; }
+        public int Answers { get; set; }
+        public string Tags { get; set; }
+        public DateTime DateAsked { get; set; }
+        public DateTime? DateFirstAnswered { get; set; }
+        public DateTime? DateLastAnswered { get; set; }
+        public string Asker { get; set; }
+        public int? AcceptedAnswerId { get; set; }
+        public string AcceptedAnswer { get; set; }
+        public int? TopAnswerId { get; set; }
+        public string TopAnswer { get; set; }
+        public int Favorites { get; set; }
 
         public static Post Load (IList row)
         {
