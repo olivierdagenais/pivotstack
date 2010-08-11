@@ -126,7 +126,12 @@ namespace PivotStack
 
         internal static XElement PivotizePost (IList row)
         {
-            var post = PostsByTagRow.Load (row);
+            var post = Post.Load (row);
+            return PivotizePost (post);
+        }
+
+        internal static XElement PivotizePost (Post post)
+        {
             #region <Item Id="3232" Href="3232" Name="What are the best Excel tips?">
             var itemNode = new XElement (CollectionNamespace + "Item");
 

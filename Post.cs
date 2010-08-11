@@ -3,7 +3,7 @@ using System.Collections;
 
 namespace PivotStack
 {
-    public struct PostsByTagRow
+    public struct Post
     {
         public int Id;
         public string Name;
@@ -22,9 +22,9 @@ namespace PivotStack
         public string TopAnswer;
         public int Favorites;
 
-        public static PostsByTagRow Load (IList row)
+        public static Post Load (IList row)
         {
-            var result = new PostsByTagRow
+            var result = new Post
             {
                 Id = (int)row[0],
                 Name = (string)row[1],
