@@ -159,11 +159,11 @@ namespace PivotStack
             {
                 var tags = ParseTags (post.Tags);
                 #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
-                AddFacet (facetsNode, FacetType.String, "Tagged", tags.Cast<object> ());
+                AddFacet (facetsNode, FacetType.String, "Tagged", tags.Map (t => (object) t));
                 #endregion
 
                 #region <Facet Name="Related Tags"><Link Href="excel.cxml" Name="excel" /></Facet>
-                AddFacetLink (facetsNode, "Related Tags", tags.Select (t => new Pair<string, string> (t + ".cxml", t)));
+                AddFacetLink (facetsNode, "Related Tags", tags.Map (t => new Pair<string, string> (t + ".cxml", t)));
                 #endregion
             }
 
