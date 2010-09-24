@@ -57,14 +57,23 @@ For those you out there that don't know what nethack is: please inform your selv
             TestParseTags ("<ie8><ubuntu-10.04-lts><visual-c++>", "ie8", "ubuntu-10.04-lts", "visual-c++");
         }
 
-        private static void TestPivotizePost (string expectedXml, OrderedDictionary source)
+        private static void TestPivotizePost (string expectedXml, ICollection values)
         {
             // arrange
-            var row = new ArrayList (source.Values);
+            var row = new ArrayList (values);
+            var post = Post.Load (row);
+
+            // act and assert
+            TestPivotizePost (expectedXml, post);
+        }
+
+        private static void TestPivotizePost (string expectedXml, Post post)
+        {
+            // arrange
             var expectedItemNode = XElement.Parse (expectedXml);
 
             // act
-            var actualItemNode = Program.PivotizePost (row);
+            var actualItemNode = Program.PivotizePost (post);
 
             // assert
             Assert.AreEqual (expectedItemNode.ToString (), actualItemNode.ToString ());
@@ -73,25 +82,6 @@ For those you out there that don't know what nethack is: please inform your selv
         [Test]
         public void PivotizePost_AnsweredAndAccepted ()
         {
-            var data = new OrderedDictionary
-            {
-                {"Id", 3232},
-                {"Title", "What are the best Excel tips?"},
-                {"Description", "<p>What are your best tips/not so known features of excel?</p>"},
-                {"Score", 7},
-                {"Views", 761},
-                {"Answers", 27},
-                {"Tagged", "<excel><tips-and-tricks>"},
-                {"DateAsked", new DateTime(2009, 07, 15, 18, 36, 28)},
-                {"DateFirstAnswered", new DateTime(2009, 07, 15, 18, 41, 08)},
-                {"DateLastAnswered", new DateTime(2010, 06, 16, 09, 46, 07)},
-                {"Asker", "Bob"},
-                {"AcceptedAnswerId", 3274},
-                {"AcceptedAnswer", "<p>My best advice for Excel...</p>"},
-                {"TopAnswerId", 21231},
-                {"TopAnswer", @"<p><a href=""http://techrageo.us/2007/09/23/in-cell-spreadsheet-graphs/"" rel=""nofollow"">In-cell graphs</a>, using REPT..."},
-                {"Favorites", 10},
-            };
             const string expectedXml = @"
     <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?""
         xmlns=""http://schemas.microsoft.com/collection/metadata/2009"">
@@ -117,7 +107,7 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
       </Facets>
     </Item>";
-            TestPivotizePost (expectedXml, data);
+            TestPivotizePost (expectedXml, PostTest.AnsweredAndAccepted);
         }
 
         [Test]
@@ -166,7 +156,7 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
       </Facets>
     </Item>";
-            TestPivotizePost (expectedXml, data);
+            TestPivotizePost (expectedXml, data.Values);
         }
 
         [Test]
@@ -212,7 +202,7 @@ For those you out there that don't know what nethack is: please inform your selv
         <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
       </Facets>
     </Item>";
-            TestPivotizePost (expectedXml, data);
+            TestPivotizePost (expectedXml, data.Values);
         }
     }
 }
