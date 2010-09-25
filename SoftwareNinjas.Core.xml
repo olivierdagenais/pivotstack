@@ -1073,6 +1073,24 @@
             <see cref="M:SoftwareNinjas.Core.Process.ICapturedProcessFactory.Create(System.String,System.Collections.Generic.IEnumerable{System.Object},System.Action{System.String},System.Action{System.String})"/>.
             </param>
         </member>
+        <member name="T:SoftwareNinjas.Core.StreamExtensions">
+            <summary>
+            Provides extension methods for <see cref="T:System.IO.Stream"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.StreamExtensions.EnumerateBytes(System.IO.Stream)">
+            <summary>
+            Enumerates the bytes in the provided <paramref name="stream"/>.
+            </summary>
+            
+            <param name="stream">
+            The <see cref="T:System.IO.Stream"/> to read, one byte at a time.
+            </param>
+            
+            <returns>
+            A <see cref="T:System.Byte"/> sequence originating from the specified <paramref name="stream"/>.
+            </returns>
+        </member>
         <member name="T:SoftwareNinjas.Core.StringExtensions">
             <summary>
             Extension methods to augment implementations of <see cref="T:System.String"/>.
@@ -1825,6 +1843,17 @@
             <summary>
             Tests <see cref="M:SoftwareNinjas.Core.EnumExtensions.HasFlag``1(``0,``0)"/> with
             the even less likely (but still possible!) case of strings representing integers.
+            </summary>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Test.StreamExtensions">
+            <summary>
+            A class to test <see cref="T:SoftwareNinjas.Core.StreamExtensions"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.StreamExtensions.EnumerateBytes_MemoryStreamFromByteArray">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.StreamExtensions.EnumerateBytes(System.IO.Stream)"/> method with
+            a memory stream that was initialized from a byte array.
             </summary>
         </member>
         <member name="T:SoftwareNinjas.Core.Test.StringExtensions">

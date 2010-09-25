@@ -39,7 +39,10 @@
     <Reference Include="PresentationCore">
       <RequiredTargetFramework>3.0</RequiredTargetFramework>
     </Reference>
-    <Reference Include="SoftwareNinjas.Core, Version=1.0.53.0, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="PresentationFramework">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="SoftwareNinjas.Core">
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\SoftwareNinjas.Core.dll</HintPath>
     </Reference>
@@ -73,6 +76,15 @@
     </Compile>
     <Compile Include="Test\PostTest.cs" />
     <Compile Include="Test\ProgramTest.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Test\TestTemplate.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Test\AnsweredAndAccepted.png" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

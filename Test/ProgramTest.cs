@@ -1,16 +1,30 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.IO;
 using System.Xml.Linq;
+using System.Windows.Controls;
+using System.Windows.Markup;
 
 using NUnit.Framework;
-using SoftwareNinjas.Core.Test;
+using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
+using SoftwareNinjas.Core;
 
 namespace PivotStack.Test
 {
     [TestFixture]
     public class ProgramTest
     {
+        private readonly Page _testTemplate;
+
+        public ProgramTest()
+        {
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<ProgramTest> ("TestTemplate.xaml"))
+            {
+                _testTemplate = (Page) XamlReader.Load (stream);
+            }
+        }
+
         [Test]
         public void CleanHtml ()
         {
@@ -31,6 +45,38 @@ Also if you want, share some of your best stories that have happened while playi
 
 For those you out there that don't know what nethack is: please inform your selves";
             Assert.AreEqual (expected, Program.CleanHtml (html));
+        }
+
+        [Test]
+        public void ImagePost_AnsweredAndAccepted ()
+        {
+            TestImagePost ("AnsweredAndAccepted.png", PostTest.AnsweredAndAccepted);
+        }
+
+        private void TestImagePost (string expectedFileName, Post inputPost)
+        {
+            using (var expectedStream = AssemblyExtensions.OpenScopedResourceStream<ProgramTest> (expectedFileName))
+            using (var outputStream = new MemoryStream())
+            {
+                var expectedBytes = expectedStream.EnumerateBytes ();
+
+                Program.ImagePost (inputPost, _testTemplate, BitmapEncoding.Png, outputStream);
+                outputStream.Seek (0, SeekOrigin.Begin);
+                try
+                {
+                    var actualBytes = outputStream.EnumerateBytes ();
+                    EnumerableExtensions.EnumerateSame (expectedBytes, actualBytes);
+                }
+                catch (AssertionException)
+                {
+                    outputStream.Seek (0, SeekOrigin.Begin);
+                    using (var fileStream = new FileStream (expectedFileName, FileMode.Create, FileAccess.Write))
+                    {
+                        outputStream.WriteTo (fileStream);
+                    }
+                    throw;
+                }
+            }
         }
 
         private static void TestParseTags (string input, params string[] expected)

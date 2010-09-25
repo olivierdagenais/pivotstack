@@ -5,11 +5,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
 using System.Text.RegularExpressions;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 using PivotStack.Properties;
 using SoftwareNinjas.Core;
@@ -90,6 +94,80 @@ namespace PivotStack
                 }
             }
             return 0;
+        }
+
+        internal static void ImagePost (Post post, Page pageTemplate, BitmapEncoding encoding, Stream destination)
+        {
+            pageTemplate.DataContext = post;
+            WaitForDataBinding();
+
+            var image = ToImageSource (pageTemplate);
+            var encoder = encoding.CreateEncoder (image);
+            encoder.Save (destination);
+        }
+
+        /// <summary>
+        /// Needed for the <see cref="WaitForDataBinding"/> method.
+        /// </summary>
+        internal static readonly DispatcherOperationCallback NullCallback = delegate
+        {
+            return null;
+        };
+
+        /// <summary>
+        /// Performs the equivalent to "DoEvents", which is needed because data binding happens in another thread.
+        /// </summary>
+        /// <remarks>
+        /// <seealso href="http://www.hanselman.com/blog/TheWeeklySourceCode40TweetSharpAndIntroducingTweetSandwich.aspx">
+        ///     TweetSharp and Introducing Tweet Sandwich
+        /// </see>
+        /// </remarks>
+        internal static void WaitForDataBinding()
+        {
+            Dispatcher.CurrentDispatcher.Invoke (DispatcherPriority.SystemIdle, NullCallback, null);
+        }
+
+        /// <remarks>
+        /// Stolen and adapted from
+        /// <see href="http://www.vistax64.com/avalon/180411-save-wpf-control-png-image.html">
+        ///     Save WPF Control as PNG image
+        /// </see>
+        /// </remarks>
+        internal static BitmapSource ToImageSource(FrameworkElement obj)
+        {
+            if (Equals(obj.Width, Double.NaN))
+            {
+               throw new ArgumentOutOfRangeException("obj", "Object width was not specified");
+            }
+
+            if (Equals(obj.Height, Double.NaN))
+            {
+                throw new ArgumentOutOfRangeException ("obj", "Object height was not specified");
+            }
+
+            // Save current canvas transform
+            var transform = obj.LayoutTransform;
+            obj.LayoutTransform = null;
+            
+            // fix margin offset as well
+            var margin = obj.Margin;
+            obj.Margin = new Thickness(0, 0, margin.Right - margin.Left, margin.Bottom - margin.Top);
+
+            // Get the size of canvas
+            var size = new Size(obj.Width, obj.Height);
+            
+            // force control to Update
+            obj.Measure(size);
+            obj.Arrange(new Rect(size));
+
+            var bmp = new RenderTargetBitmap((int) obj.Width, (int) obj.Height, 96, 96, PixelFormats.Pbgra32);
+            
+            bmp.Render(obj);
+
+            // return values as they were before
+            obj.LayoutTransform = transform;
+            obj.Margin = margin;
+            return bmp;
         }
 
         internal static void PivotizeTag (string tag, IEnumerable<object[]> posts, Stream destination)
@@ -238,6 +316,7 @@ namespace PivotStack
             #endregion
         }
 
+        // TODO: This would make a great extension method for bool
         internal static string YesNo (bool input)
         {
             return input ? "yes" : "no";
