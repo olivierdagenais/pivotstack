@@ -28,7 +28,7 @@ SELECT
         (
             /* TODO: not all users have a DisplayName set, such as SuperUser #429; should fetch UserName instead */
             SELECT
-                DisplayName
+                CASE WHEN DisplayName = '' THEN 'user' + CAST(Id AS NVARCHAR) ELSE DisplayName END
             FROM
                 Users AS u1
             WHERE
@@ -36,7 +36,7 @@ SELECT
         ),
         (
             SELECT
-                DisplayName
+                CASE WHEN DisplayName = '' THEN 'user' + CAST(Id AS NVARCHAR) ELSE DisplayName END
             FROM
                 Users AS u2
             WHERE
