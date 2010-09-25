@@ -5,6 +5,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
+using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows.Markup;
 using System.Xml;
@@ -106,6 +107,64 @@ namespace PivotStack
             foreach (var post in posts)
             {
                 ImagePost (post, template);
+            }
+        }
+
+        internal static string FileNameToBinnedPath(string fileName, int binSize)
+        {
+            var withoutExtension = Path.GetFileNameWithoutExtension (fileName);
+            var length = withoutExtension.Length;
+            var binCount = length / binSize;
+            var estimatedCapacity = (binCount - 1) * (binSize + 1) + fileName.Length;
+            var sb = new StringBuilder (estimatedCapacity);
+            var e = BreakUpString (withoutExtension, binSize).GetEnumerator ();
+            e.MoveNext ();
+            while (true)
+            {
+                var value = e.Current;
+                var hasNext = e.MoveNext ();
+                if (hasNext)
+                {
+                    sb.Append (value);
+                    sb.Append ('/');
+                }
+                else
+                {
+                    break;
+                }
+            }
+            sb.Append (fileName);
+            return sb.ToString ();
+        }
+
+        internal static IEnumerable<string> BreakUpStringReverse(string input, int binSize)
+        {
+            int c;
+            for (c = input.Length; c >= binSize; c -= binSize)
+            {
+                var chunk = input.Substring (c - binSize, binSize);
+                yield return chunk;
+            }
+            if (c > 0)
+            {
+                var chunk = input.Substring (0, c);
+                yield return chunk;
+            }
+        }
+
+        internal static IEnumerable<string> BreakUpString (string input, int binSize)
+        {
+            int leftoverCharacters = input.Length % binSize;
+            if (leftoverCharacters > 0)
+            {
+                var chunk = input.Substring (0, leftoverCharacters);
+                yield return chunk;
+            }
+            int c;
+            for (c = leftoverCharacters; c < input.Length; c += binSize)
+            {
+                var chunk = input.Substring (c, binSize);
+                yield return chunk;
             }
         }
 

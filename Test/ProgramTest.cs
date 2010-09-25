@@ -48,6 +48,134 @@ For those you out there that don't know what nethack is: please inform your selv
         }
 
         [Test]
+        public void FileNameToBinnedPath_LotsOfBins ()
+        {
+            Assert.AreEqual ("123/456/789/123456789ABC.png", Program.FileNameToBinnedPath ("123456789ABC.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_MultipleOfBinSize ()
+        {
+            Assert.AreEqual ("123/123456.png", Program.FileNameToBinnedPath ("123456.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_OneShortOfSecondBin ()
+        {
+            Assert.AreEqual ("12/12456.png", Program.FileNameToBinnedPath ("12456.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_OneInSecondBin ()
+        {
+            Assert.AreEqual ("1/1456.png", Program.FileNameToBinnedPath ("1456.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_One ()
+        {
+            Assert.AreEqual ("1.png", Program.FileNameToBinnedPath ("1.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_OneShortOfBin ()
+        {
+            Assert.AreEqual ("12.png", Program.FileNameToBinnedPath ("12.png", 3));
+        }
+
+        [Test]
+        public void FileNameToBinnedPath_OneBin ()
+        {
+            Assert.AreEqual ("123.png", Program.FileNameToBinnedPath ("123.png", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_LotsOfBins ()
+        {
+            var expected = new[] { "ABC", "789", "456", "123" };
+            EnumerableExtensions.EnumerateSame (expected, Program.BreakUpStringReverse ("123456789ABC", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_MultipleOfBinSize ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "456", "123" }, Program.BreakUpStringReverse ("123456", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_OneShortOfSecondBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "456", "12" }, Program.BreakUpStringReverse ("12456", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_OneInSecondBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "456", "1" }, Program.BreakUpStringReverse ("1456", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_One ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "1" }, Program.BreakUpStringReverse ("1", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_OneShortOfBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "12" }, Program.BreakUpStringReverse ("12", 3));
+        }
+
+        [Test]
+        public void BreakUpStringReverse_OneBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "123" }, Program.BreakUpStringReverse ("123", 3));
+        }
+
+        [Test]
+        public void BreakUpString_LotsOfBins ()
+        {
+            var expected = new[] { "123", "456", "789", "ABC" };
+            EnumerableExtensions.EnumerateSame (expected, Program.BreakUpString ("123456789ABC", 3));
+        }
+
+        [Test]
+        public void BreakUpString_MultipleOfBinSize ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "123", "456" }, Program.BreakUpString ("123456", 3));
+        }
+
+        [Test]
+        public void BreakUpString_OneShortOfSecondBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "12", "456" }, Program.BreakUpString ("12456", 3));
+        }
+
+        [Test]
+        public void BreakUpString_OneInSecondBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "1", "456" }, Program.BreakUpString ("1456", 3));
+        }
+
+        [Test]
+        public void BreakUpString_One ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "1" }, Program.BreakUpString ("1", 3));
+        }
+
+        [Test]
+        public void BreakUpString_OneShortOfBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "12" }, Program.BreakUpString ("12", 3));
+        }
+
+        [Test]
+        public void BreakUpString_OneBin ()
+        {
+            EnumerableExtensions.EnumerateSame (new[] { "123" }, Program.BreakUpString ("123", 3));
+        }
+
+        [Test]
         public void ImagePost_AnsweredAndAccepted ()
         {
             TestImagePost ("AnsweredAndAccepted.png", PostTest.AnsweredAndAccepted);
