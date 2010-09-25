@@ -1,0 +1,74 @@
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Width="800" Height="400">
+  <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
+    <Grid.ColumnDefinitions>
+      <ColumnDefinition Width="120px" />
+      <ColumnDefinition />
+    </Grid.ColumnDefinitions>
+    <Grid.RowDefinitions>
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+      <RowDefinition />
+    </Grid.RowDefinitions>
+
+    <Label HorizontalAlignment="Right" Grid.Row="0">Id:</Label>
+    <Label Grid.Row="0" Grid.Column="1" Content="{Binding Path=Id}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="1">Name:</Label>
+    <Label Grid.Row="1" Grid.Column="1" Content="{Binding Path=Name}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="2">Description:</Label>
+    <Label Grid.Row="2" Grid.Column="1" Content="{Binding Path=Description}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="3">Score:</Label>
+    <Label Grid.Row="3" Grid.Column="1" Content="{Binding Path=Score}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="4">Views:</Label>
+    <Label Grid.Row="4" Grid.Column="1" Content="{Binding Path=Views}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="5">Answers:</Label>
+    <Label Grid.Row="5" Grid.Column="1" Content="{Binding Path=Answers}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="6">Tags:</Label>
+    <Label Grid.Row="6" Grid.Column="1" Content="{Binding Path=Tags}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="7">DateAsked:</Label>
+    <Label Grid.Row="7" Grid.Column="1" Content="{Binding Path=DateAsked}" ContentStringFormat="{}{0:yyyy/MM/dd HH:mm:ss}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="8">DateFirstAnswered:</Label>
+    <Label Grid.Row="8" Grid.Column="1" Content="{Binding Path=DateFirstAnswered}" ContentStringFormat="{}{0:yyyy/MM/dd HH:mm:ss}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="9">DateLastAnswered:</Label>
+    <Label Grid.Row="9" Grid.Column="1" Content="{Binding Path=DateLastAnswered}" ContentStringFormat="{}{0:yyyy/MM/dd HH:mm:ss}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="10">Asker:</Label>
+    <Label Grid.Row="10" Grid.Column="1" Content="{Binding Path=Asker}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="11">AcceptedAnswerId:</Label>
+    <Label Grid.Row="11" Grid.Column="1" Content="{Binding Path=AcceptedAnswerId}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="12">AcceptedAnswer:</Label>
+    <Label Grid.Row="12" Grid.Column="1" Content="{Binding Path=AcceptedAnswer}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="13">TopAnswerId:</Label>
+    <Label Grid.Row="13" Grid.Column="1" Content="{Binding Path=TopAnswerId}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="14">TopAnswer:</Label>
+    <Label Grid.Row="14" Grid.Column="1" Content="{Binding Path=TopAnswer}" />
+
+    <Label HorizontalAlignment="Right" Grid.Row="15">Favorites:</Label>
+    <Label Grid.Row="15" Grid.Column="1" Content="{Binding Path=Favorites}" />
+  </Grid>
+</Page>

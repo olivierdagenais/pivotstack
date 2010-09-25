@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Text.RegularExpressions;
+using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
@@ -39,6 +40,8 @@ namespace PivotStack
         internal static readonly XNamespace PivotNamespace 
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
         internal static readonly string SelectTags = LoadCommandText ("select-tags.sql");
+        internal static readonly string SelectPosts = LoadCommandText ("select-posts.sql");
+        // TODO: selecting by tag is 99% like selecting posts; can we avoid the duplication in the SQL code?
         internal static readonly string SelectPostsByTag = LoadCommandText ("select-posts-by-tag.sql");
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
@@ -53,6 +56,8 @@ namespace PivotStack
         // http://stackoverflow.com/questions/286813/how-do-you-convert-html-to-plain-text/286825#286825
         internal static readonly Regex ElementRegex
             = new Regex (@"<[^>]*>", RegexOptions.Compiled);
+        // TODO: this would be well suited for a launch parameter
+        internal static readonly BitmapEncoding PostImageEncoding = BitmapEncoding.Png;
 
         internal static IEnumerable<string> ParseTags (string tagsColumn)
         {
@@ -75,14 +80,44 @@ namespace PivotStack
             return plainText;
         }
 
+        [STAThread]
         public static int Main (string[] args)
         {
             using (var conn = new SqlConnection(Settings.Default.DatabaseConnectionString))
             {
                 conn.Open ();
                 PivotizeTags (conn);
+                ImagePosts (conn);
             }
             return 0;
+        }
+
+        internal static void ImagePosts (SqlConnection conn)
+        {
+            Page template;
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
+            {
+                template = (Page) XamlReader.Load (stream);
+            }
+
+            var parameters = new Dictionary<string, object> ();
+            var rows = EnumerateRecords (conn, SelectPosts, parameters);
+            var posts = rows.Map (row => Post.Load (row));
+            foreach (var post in posts)
+            {
+                ImagePost (post, template);
+            }
+        }
+
+        internal static void ImagePost (Post post, Page template)
+        {
+            // TODO: break up filename into subfolders:  123456.png would give 123/123456.png
+            var fileName = Path.ChangeExtension (post.Id.ToString (), PostImageEncoding.Extension);
+            using (var outputStream
+                = new FileStream (fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                ImagePost (post, template, PostImageEncoding, outputStream);
+            }
         }
 
         internal static void PivotizeTags (SqlConnection conn)
