@@ -26,6 +26,7 @@ SELECT
     COALESCE (
         p.OwnerDisplayName,
         (
+            /* TODO: not all users have a DisplayName set, such as SuperUser #429; should fetch UserName instead */
             SELECT
                 DisplayName
             FROM

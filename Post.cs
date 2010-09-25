@@ -36,7 +36,7 @@ namespace PivotStack
                 DateAsked = (DateTime)row[7],
                 DateFirstAnswered = Value<DateTime?>(row[8]),
                 DateLastAnswered = Value<DateTime?>(row[9]),
-                Asker = (string)row[10],
+                Asker = Value<string>(row[10]),
                 AcceptedAnswerId = Value<int?>(row[11]),
                 AcceptedAnswer = Value<string>(row[12]),
                 TopAnswerId = Value<int?>(row[13]),

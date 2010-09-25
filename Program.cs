@@ -33,8 +33,12 @@ namespace PivotStack
 
     public class Program
     {
-        // TODO: parameterize
+        // TODO: parameterize the following batch of constants
         internal const string SiteDomain = "superuser.com";
+        internal const int MaximumNumberOfItems = 1000000;
+        internal static readonly int MaximumNumberOfDecimalPlaces = (int) Math.Log10 (MaximumNumberOfItems);
+        internal static readonly string FileNameIdFormat = new String ('0', MaximumNumberOfDecimalPlaces);
+        internal static readonly BitmapEncoding PostImageEncoding = BitmapEncoding.Png;
 
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
@@ -57,8 +61,6 @@ namespace PivotStack
         // http://stackoverflow.com/questions/286813/how-do-you-convert-html-to-plain-text/286825#286825
         internal static readonly Regex ElementRegex
             = new Regex (@"<[^>]*>", RegexOptions.Compiled);
-        // TODO: this would be well suited for a launch parameter
-        internal static readonly BitmapEncoding PostImageEncoding = BitmapEncoding.Png;
 
         internal static IEnumerable<string> ParseTags (string tagsColumn)
         {
@@ -170,10 +172,12 @@ namespace PivotStack
 
         internal static void ImagePost (Post post, Page template)
         {
-            // TODO: break up filename into subfolders:  123456.png would give 123/123456.png
-            var fileName = Path.ChangeExtension (post.Id.ToString (), PostImageEncoding.Extension);
+            var fileName = Path.ChangeExtension (post.Id.ToString (FileNameIdFormat), PostImageEncoding.Extension);
+            var binnedPath = FileNameToBinnedPath (fileName, 3);
+            var folders = Path.GetDirectoryName (binnedPath);
+            Directory.CreateDirectory (folders);
             using (var outputStream
-                = new FileStream (fileName, FileMode.Create, FileAccess.Write, FileShare.Read))
+                = new FileStream (binnedPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 ImagePost (post, template, PostImageEncoding, outputStream);
             }

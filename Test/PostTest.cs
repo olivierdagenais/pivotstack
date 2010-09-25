@@ -88,5 +88,51 @@ namespace PivotStack.Test
             Assert.AreEqual (PostTopAnswer, actual.TopAnswer);
             Assert.AreEqual (PostFavorites, actual.Favorites);
         }
+
+        [Test]
+        public void Load_NullAsker ()
+        {
+            // arrange
+            var row = new object[] 
+            {
+                PostId,
+                PostName,
+                PostDescription,
+                PostScore,
+                PostViews,
+                PostAnswers,
+                PostTags,
+                PostDateAsked,
+                PostDateFirstAnswered,
+                PostDateLastAnswered,
+                DBNull.Value,
+                PostAcceptedAnswerId,
+                PostAcceptedAnswer,
+                PostTopAnswerId,
+                PostTopAnswer,
+                PostFavorites,
+            };
+
+            // act
+            var actual = Post.Load (row);
+
+            // assert
+            Assert.AreEqual (PostId, actual.Id);
+            Assert.AreEqual (PostName, actual.Name);
+            Assert.AreEqual (PostDescription, actual.Description);
+            Assert.AreEqual (PostScore, actual.Score);
+            Assert.AreEqual (PostViews, actual.Views);
+            Assert.AreEqual (PostAnswers, actual.Answers);
+            Assert.AreEqual (PostTags, actual.Tags);
+            Assert.AreEqual (PostDateAsked, actual.DateAsked);
+            Assert.AreEqual (PostDateFirstAnswered, actual.DateFirstAnswered);
+            Assert.AreEqual (PostDateLastAnswered, actual.DateLastAnswered);
+            Assert.AreEqual (null, actual.Asker);
+            Assert.AreEqual (PostAcceptedAnswerId, actual.AcceptedAnswerId);
+            Assert.AreEqual (PostAcceptedAnswer, actual.AcceptedAnswer);
+            Assert.AreEqual (PostTopAnswerId, actual.TopAnswerId);
+            Assert.AreEqual (PostTopAnswer, actual.TopAnswer);
+            Assert.AreEqual (PostFavorites, actual.Favorites);
+        }
     }
 }
