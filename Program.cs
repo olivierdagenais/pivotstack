@@ -80,20 +80,29 @@ namespace PivotStack
             using (var conn = new SqlConnection(Settings.Default.DatabaseConnectionString))
             {
                 conn.Open ();
-                var tags = EnumerateTags (conn);
-                //foreach (var tag in tags)
-                var tag = "tips-and-tricks";
-                {
-                    using (var outputStream 
-                        = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
-                    {
-                        var parameters = new Dictionary<string, object> { {"@tag", tag} };
-                        var posts = EnumerateRecords (conn, SelectPostsByTag, parameters);
-                        PivotizeTag (tag, posts, outputStream);
-                    }
-                }
+                PivotizeTags (conn);
             }
             return 0;
+        }
+
+        internal static void PivotizeTags (SqlConnection conn)
+        {
+            var tags = EnumerateTags (conn);
+            foreach (var tag in tags)
+            {
+                PivotizeTag (conn, tag);
+            }
+        }
+
+        internal static void PivotizeTag (SqlConnection conn, string tag)
+        {
+            using (var outputStream 
+                = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                var parameters = new Dictionary<string, object> { {"@tag", tag} };
+                var posts = EnumerateRecords (conn, SelectPostsByTag, parameters);
+                PivotizeTag (tag, posts, outputStream);
+            }
         }
 
         internal static void ImagePost (Post post, Page pageTemplate, BitmapEncoding encoding, Stream destination)
