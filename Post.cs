@@ -52,10 +52,7 @@ namespace PivotStack
             {
                 return default (T);
             }
-            else
-            {
-                return (T)data;
-            }
+            return (T)data;
         }
     }
 }
