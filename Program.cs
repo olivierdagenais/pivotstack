@@ -17,7 +17,6 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Threading;
 
-using PivotStack.Properties;
 using SoftwareNinjas.Core;
 
 namespace PivotStack
@@ -33,13 +32,6 @@ namespace PivotStack
 
     public class Program
     {
-        // TODO: parameterize the following batch of constants
-        internal const string SiteDomain = "superuser.com";
-        internal const int MaximumNumberOfItems = 1000000;
-        internal static readonly int MaximumNumberOfDecimalPlaces = (int) Math.Log10 (MaximumNumberOfItems);
-        internal static readonly string FileNameIdFormat = new String ('0', MaximumNumberOfDecimalPlaces);
-        internal static readonly BitmapEncoding PostImageEncoding = BitmapEncoding.Png;
-
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
         internal static readonly XNamespace PivotNamespace 
@@ -86,16 +78,25 @@ namespace PivotStack
         [STAThread]
         public static int Main (string[] args)
         {
-            using (var conn = new SqlConnection(Settings.Default.DatabaseConnectionString))
+            // TODO: initialize Settings instance from app.config and/or command-line
+            var settings = new Settings
+            {
+                DatabaseConnectionString = "Data Source=SECHOIR;Initial Catalog=SuperUser;Integrated Security=True",
+                SiteDomain = "superuser.com",
+                MaximumNumberOfItems = 1000000,
+                PostImageEncoding = BitmapEncoding.Png,
+            };
+
+            using (var conn = new SqlConnection(settings.DatabaseConnectionString))
             {
                 conn.Open ();
-                PivotizeTags (conn);
-                ImagePosts (conn);
+                PivotizeTags (conn, settings.SiteDomain);
+                ImagePosts (conn, settings.FileNameIdFormat, settings.PostImageEncoding);
             }
             return 0;
         }
 
-        internal static void ImagePosts (SqlConnection conn)
+        internal static void ImagePosts (SqlConnection conn, string fileNameIdFormat, BitmapEncoding postImageEncoding)
         {
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
@@ -108,7 +109,7 @@ namespace PivotStack
             var posts = rows.Map (row => Post.Load (row));
             foreach (var post in posts)
             {
-                ImagePost (post, template);
+                ImagePost (post, template, fileNameIdFormat, postImageEncoding);
             }
         }
 
@@ -170,36 +171,36 @@ namespace PivotStack
             }
         }
 
-        internal static void ImagePost (Post post, Page template)
+        internal static void ImagePost (Post post, Page template, string fileNameIdFormat, BitmapEncoding postImageEncoding)
         {
-            var fileName = Path.ChangeExtension (post.Id.ToString (FileNameIdFormat), PostImageEncoding.Extension);
+            var fileName = Path.ChangeExtension (post.Id.ToString (fileNameIdFormat), postImageEncoding.Extension);
             var binnedPath = FileNameToBinnedPath (fileName, 3);
             var folders = Path.GetDirectoryName (binnedPath);
             Directory.CreateDirectory (folders);
             using (var outputStream
                 = new FileStream (binnedPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                ImagePost (post, template, PostImageEncoding, outputStream);
+                ImagePost (post, template, postImageEncoding, outputStream);
             }
         }
 
-        internal static void PivotizeTags (SqlConnection conn)
+        internal static void PivotizeTags (SqlConnection conn, string siteDomain)
         {
             var tags = EnumerateTags (conn);
             foreach (var tag in tags)
             {
-                PivotizeTag (conn, tag);
+                PivotizeTag (conn, tag, siteDomain);
             }
         }
 
-        internal static void PivotizeTag (SqlConnection conn, string tag)
+        internal static void PivotizeTag (SqlConnection conn, string tag, string siteDomain)
         {
             using (var outputStream 
                 = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 var parameters = new Dictionary<string, object> { {"@tag", tag} };
                 var posts = EnumerateRecords (conn, SelectPostsByTag, parameters);
-                PivotizeTag (tag, posts, outputStream);
+                PivotizeTag (tag, posts, outputStream, siteDomain);
             }
         }
 
@@ -277,7 +278,7 @@ namespace PivotStack
             return bmp;
         }
 
-        internal static void PivotizeTag (string tag, IEnumerable<object[]> posts, Stream destination)
+        internal static void PivotizeTag (string tag, IEnumerable<object[]> posts, Stream destination, string siteDomain)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
@@ -296,7 +297,7 @@ namespace PivotStack
             collectionNode.SetAttributeValue (PivotNamespace + "AdditionalSearchText", tag);
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
-            itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (SiteDomain));
+            itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
             foreach (var row in posts)
             {
                 var element = PivotizePost (row);
