@@ -1,19 +1,20 @@
 ﻿using System;
+using System.Windows;
 
 namespace PivotStack
 {
     public class DeepZoomImage
     {
-        internal static readonly Size<int> OneByOne = Size.Create (1, 1);
+        internal static readonly Size OneByOne = new Size (1, 1);
 
-        internal static Size<int> ComputeLevelSize(Size<int> originalSize, int levelNumber)
+        internal static Size ComputeLevelSize(Size originalSize, int levelNumber)
         {
             if (levelNumber < 0)
             {
                 throw new ArgumentOutOfRangeException("levelNumber", levelNumber, "levelNumber must be >= 0");
             }
 
-            Size<int> result;
+            Size result;
             if (0 == levelNumber)
             {
                 result = OneByOne; 
@@ -33,7 +34,7 @@ namespace PivotStack
                     var divisor = Math.Pow (2, levelDifference);
                     var width = (int) Math.Ceiling (originalSize.Width / divisor);
                     var height = (int) Math.Ceiling (originalSize.Height / divisor);
-                    result = Size.Create(width, height);
+                    result = new Size(width, height);
                 }
             }
 
