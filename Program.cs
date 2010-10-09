@@ -262,7 +262,7 @@ namespace PivotStack
             obj.Margin = new Thickness(0, 0, margin.Right - margin.Left, margin.Bottom - margin.Top);
 
             // Get the size of canvas
-            var size = new Size(obj.Width, obj.Height);
+            var size = new System.Windows.Size(obj.Width, obj.Height);
             
             // force control to Update
             obj.Measure(size);
