@@ -93,6 +93,22 @@ namespace PivotStack.Test
         }
 
         [Test]
+        public void ComputeTiles_OnePixelBiggerThanTile ()
+        {
+            var size = new Size (255, 255);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(254, 254)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(254, 254)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(254, 254)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
         public void ComputeTiles_OriginalSize ()
         {
             var size = new Size (1200, 1500);
@@ -140,12 +156,9 @@ namespace PivotStack.Test
         [Test]
         public void Resize_Half()
         {
-            Bitmap sourceBitmap;
             using (var inputStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomImageTest> ("1200x1500.png"))
-            {
-                sourceBitmap = new Bitmap (inputStream);
-            }
-            var targetBitmap = DeepZoomImage.Resize (sourceBitmap, 600, 750);
+            using (var sourceBitmap = new Bitmap (inputStream))
+            using (var targetBitmap = DeepZoomImage.Resize (sourceBitmap, 600, 750))
             using (var actualStream = new MemoryStream())
             {
                 targetBitmap.Save (actualStream, ImageFormat.Png);

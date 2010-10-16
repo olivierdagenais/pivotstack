@@ -92,6 +92,7 @@ namespace PivotStack
             }
         }
 
+        // TODO: Looks like DrawImage() could be used to resize and slice into tiles at the same time...?
         internal static Bitmap Resize(Bitmap sourceImage, int targetWidth, int targetHeight)
         {
             var targetImage = new Bitmap (targetWidth, targetHeight);
