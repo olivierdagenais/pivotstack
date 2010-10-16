@@ -183,28 +183,37 @@ For those you out there that don't know what nethack is: please inform your selv
 
         private void TestImagePost (string expectedFileName, Post inputPost)
         {
-            using (var expectedStream = AssemblyExtensions.OpenScopedResourceStream<ProgramTest> (expectedFileName))
             using (var outputStream = new MemoryStream())
+            {
+                Program.ImagePost (inputPost, _testTemplate, BitmapEncoding.Png, outputStream);
+                AssertStreamsAreEqual<ProgramTest> (expectedFileName, outputStream);
+            }
+        }
+
+        // TODO: Move to re-usable class library
+        internal static void AssertStreamsAreEqual<T>(string expectedResourceFileName, MemoryStream actualStream)
+        {
+            using (var expectedStream = AssemblyExtensions.OpenScopedResourceStream<T> (expectedResourceFileName))
             {
                 var expectedBytes = expectedStream.EnumerateBytes ();
 
-                Program.ImagePost (inputPost, _testTemplate, BitmapEncoding.Png, outputStream);
-                outputStream.Seek (0, SeekOrigin.Begin);
+                actualStream.Seek (0, SeekOrigin.Begin);
+                var actualBytes = actualStream.EnumerateBytes ();
+
                 try
                 {
-                    var actualBytes = outputStream.EnumerateBytes ();
                     EnumerableExtensions.EnumerateSame (expectedBytes, actualBytes);
                 }
                 catch (AssertionException)
                 {
-                    outputStream.Seek (0, SeekOrigin.Begin);
-                    using (var fileStream = new FileStream (expectedFileName, FileMode.Create, FileAccess.Write))
+                    actualStream.Seek (0, SeekOrigin.Begin);
+                    using (var fileStream = new FileStream (expectedResourceFileName, FileMode.Create, FileAccess.Write))
                     {
-                        outputStream.WriteTo (fileStream);
+                        actualStream.WriteTo (fileStream);
                     }
                     throw;
                 }
-            }
+            }            
         }
 
         private static void TestParseTags (string input, params string[] expected)
