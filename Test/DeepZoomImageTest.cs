@@ -77,9 +77,9 @@ namespace PivotStack.Test
             var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(255, 255)), "0_0"),
-                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(255, 375)), "0_1"),
-                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(300, 255)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(254, 375)), "0_1"),
+                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(300, 254)), "1_0"),
                 new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(300, 375)), "1_1"),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
