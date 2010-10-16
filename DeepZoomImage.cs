@@ -73,16 +73,17 @@ namespace PivotStack
             {
                 var columns = Math.Ceiling (width / tileSize);
                 var rows = Math.Ceiling (height / tileSize);
+                var tileOffsetMultiplier = tileSize + tileOverlap - 1;
 
                 for (int column = 0; column < columns; column++)
                 {
                     var left = 0 == column ? 0 : column * tileSize - tileOverlap;
-                    var right = Math.Min (width - 1, (column + 1) * tileSize);
+                    var right = Math.Min (width - 1, (column + 1) * tileOffsetMultiplier);
 
                     for (int row = 0; row < rows; row++)
                     {
                         var top = 0 == row ? 0 : row * tileSize - tileOverlap;
-                        var bottom = Math.Min (height - 1, (row + 1) * tileSize);
+                        var bottom = Math.Min (height - 1, (row + 1) * tileOffsetMultiplier);
 
                         var rect = new Rect (new Point (left, top), new Point (right, bottom));
                         var tileName = TileName (row, column);

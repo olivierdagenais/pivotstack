@@ -93,6 +93,38 @@ namespace PivotStack.Test
         }
 
         [Test]
+        public void ComputeTiles_BiggerThanTileWithOverlapOfTwo ()
+        {
+            var size = new Size (300, 375);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(255, 255)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 252), new Point(255, 374)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(252,   0), new Point(299, 255)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(252, 252), new Point(299, 374)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_BiggerThanTileWithOverlapOfThree ()
+        {
+            var size = new Size (300, 375);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 3);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(256, 256)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 251), new Point(256, 374)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(251,   0), new Point(299, 256)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(251, 251), new Point(299, 374)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
         public void ComputeTiles_OnePixelBiggerThanTile ()
         {
             var size = new Size (255, 255);
@@ -104,6 +136,54 @@ namespace PivotStack.Test
 
                 new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(254, 254)), "1_0"),
                 new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(254, 254)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_OnePixelBiggerThanTileWithOverlapOfTwo ()
+        {
+            var size = new Size (255, 255);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 252), new Point(254, 254)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(252,   0), new Point(254, 254)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(252, 252), new Point(254, 254)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_TwoPixelsBiggerThanTile ()
+        {
+            var size = new Size (256, 256);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(254, 255)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(255, 254)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(255, 255)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_TwoPixelsBiggerThanTileWithOverlapOfTwo ()
+        {
+            var size = new Size (256, 256);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(255, 255)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 252), new Point(255, 255)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(252,   0), new Point(255, 255)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(252, 252), new Point(255, 255)), "1_1"),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
