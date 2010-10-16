@@ -1,6 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Windows;
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
+
 using SoftwareNinjas.Core;
 
 namespace PivotStack
@@ -85,6 +90,27 @@ namespace PivotStack
                     }
                 }
             }
+        }
+
+        internal static Bitmap Resize(Bitmap sourceImage, int targetWidth, int targetHeight)
+        {
+            var targetImage = new Bitmap (targetWidth, targetHeight);
+
+            using (var graphics = Graphics.FromImage (targetImage) )
+            {
+                graphics.InterpolationMode = InterpolationMode.Default;
+                graphics.DrawImage (
+                    sourceImage,
+                    new Rectangle (0, 0, targetWidth, targetHeight),
+                    0,
+                    0,
+                    sourceImage.Width,
+                    sourceImage.Height,
+                    GraphicsUnit.Pixel
+                );
+            }
+
+            return targetImage;
         }
     }
 }

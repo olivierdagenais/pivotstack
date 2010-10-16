@@ -1,4 +1,10 @@
-﻿using System.Windows;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using System.Windows;
+using Point = System.Windows.Point;
+using Size = System.Windows.Size;
+
 using NUnit.Framework;
 using SoftwareNinjas.Core;
 using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
@@ -131,5 +137,21 @@ namespace PivotStack.Test
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
 
+        [Test]
+        public void Resize_Half()
+        {
+            Bitmap sourceBitmap;
+            using (var inputStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomImageTest> ("1200x1500.png"))
+            {
+                sourceBitmap = new Bitmap (inputStream);
+            }
+            var targetBitmap = DeepZoomImage.Resize (sourceBitmap, 600, 750);
+            using (var actualStream = new MemoryStream())
+            {
+                targetBitmap.Save (actualStream, ImageFormat.Png);
+
+                ProgramTest.AssertStreamsAreEqual<DeepZoomImageTest> ("600x750.png", actualStream);
+            }
+        }
     }
 }
