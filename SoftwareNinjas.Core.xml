@@ -799,11 +799,11 @@
             Provides a basic utility class that is used to store two related items.
             </summary>
             
-            <typeparam name="F">
+            <typeparam name="TFirst">
             The type of the first item.
             </typeparam>
             
-            <typeparam name="S">
+            <typeparam name="TSecond">
             The type of the second item.
             </typeparam>
             
@@ -821,6 +821,40 @@
             <param name="second">
             The second item to set.
             </param>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Pair`2.Equals(System.Object)">
+            <summary>
+            Returns a value indicating whether this instance is equal to a specified <paramref name="object"/>.
+            </summary>
+            
+            <param name="object">
+            An object to compare to this instance.
+            </param>
+            
+            <returns>
+            <see langword="true"/> if <paramref name="object"/> is a <see cref="T:SoftwareNinjas.Core.Pair`2"/> and contains the
+            same <see cref="P:SoftwareNinjas.Core.Pair`2.First"/> and <see cref="P:SoftwareNinjas.Core.Pair`2.Second"/> values as this <see cref="T:SoftwareNinjas.Core.Pair`2"/>;
+            otherwise <see langword="false"/>.
+            </returns>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Pair`2.GetHashCode">
+            <summary>
+            Returns the hash code for this <see cref="T:SoftwareNinjas.Core.Pair`2"/>.
+            </summary>
+            
+            <returns>
+            The hash code for this <see cref="T:SoftwareNinjas.Core.Pair`2"/> instance.
+            </returns>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Pair`2.ToString">
+            <summary>
+            Creates a <see cref="T:System.String"/> representation of this <see cref="T:SoftwareNinjas.Core.Pair`2"/>.
+            </summary>
+            
+            <returns>
+            A <see cref="T:System.String"/> containing the <see cref="P:SoftwareNinjas.Core.Pair`2.First"/> and <see cref="P:SoftwareNinjas.Core.Pair`2.Second"/> values of this
+            <see cref="T:SoftwareNinjas.Core.Pair`2"/> instance.
+            </returns>
         </member>
         <member name="P:SoftwareNinjas.Core.Pair`2.First">
             <summary>
@@ -1843,6 +1877,106 @@
             <summary>
             Tests <see cref="M:SoftwareNinjas.Core.EnumExtensions.HasFlag``1(``0,``0)"/> with
             the even less likely (but still possible!) case of strings representing integers.
+            </summary>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Test.EqualsTester`1">
+            <summary>
+            A class to help test implementations of <see cref="M:System.Object.Equals(System.Object)"/>
+            and <see cref="M:System.Object.GetHashCode"/> for the type <typeparamref name="T"/>.
+            </summary>
+            
+            <typeparam name="T">
+            A type that overrides  <see cref="M:System.Object.Equals(System.Object)"/> and <see cref="M:System.Object.GetHashCode"/>.
+            </typeparam>
+            
+            <remarks>
+            <see cref="T:SoftwareNinjas.Core.Test.EqualsTester`1"/> can be used as a super-class for a test fixture or invoked manually.
+            </remarks>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.#ctor(`0,`0,`0,`0)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SoftwareNinjas.Core.Test.EqualsTester`1"/> with the provided samples of
+            <typeparamref name="T"/> where <paramref name="x"/>, <paramref name="y"/> and <paramref name="z"/> are
+            expected to be equal to one another and <paramref name="a"/> is expected to be not equal to any of the
+            others.
+            </summary>
+            
+            <param name="x">
+            A sample of <typeparamref name="T"/> equal to <paramref name="y"/> and <paramref name="z"/>.
+            </param>
+            
+            <param name="y">
+            A sample of <typeparamref name="T"/> equal to <paramref name="x"/> and <paramref name="z"/>.
+            </param>
+            
+            <param name="z">
+            A sample of <typeparamref name="T"/> equal to <paramref name="x"/> and <paramref name="y"/>.
+            </param>
+            
+            <param name="a">
+            A sample of <typeparamref name="T"/> equal to none of <paramref name="x"/>, <paramref name="y"/> and
+            <paramref name="z"/>.
+            </param>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.Run">
+            <summary>
+            Runs all tests.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertReflexivity">
+            <summary>
+            Confirms that <c>x.Equals(x)</c> returns <see langword="true"/> for any <c>x</c>.
+            </summary>
+            
+            <seealso href="http://en.wikipedia.org/wiki/Reflexive_relation">
+            Reflexive relation
+            </seealso>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertSymmetry">
+            <summary>
+            Confirms that <c>x.Equals(y)</c> returns the same value as <c>y.Equals(x)</c>.
+            </summary>
+            
+            <seealso href="http://en.wikipedia.org/wiki/Symmetric_relation">
+            Symmetric relation
+            </seealso>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertTransitivity">
+            <summary>
+            Confirms that <c>(x.Equals(y) &amp;&amp; y.Equals(z))</c> returns <see langword="true"/> if and only if
+            <c>x.Equals(z)</c> returns <see langword="true"/>.
+            </summary>
+            
+            <seealso href="http://en.wikipedia.org/wiki/Transitive_relation">
+            Transitive relation
+            </seealso>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertNotEqualToNull">
+            <summary>
+            Confirms that <c>x.Equals(null)</c> returns <see langword="false"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertConsistentWithHashCode">
+            <summary>
+            Confirms that if two instances of <typeparamref name="T"/> compare as equal, the
+            <see cref="M:System.Object.GetHashCode"/> method for each object returns the same value.
+            </summary>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Test.PairTest">
+            <summary>
+            A class to test <see cref="T:SoftwareNinjas.Core.Pair`2"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.PairTest.#ctor">
+            <summary>
+            Initializes the <see cref="T:SoftwareNinjas.Core.Test.EqualsTester`1"/> super-class with four instances of
+            <see cref="T:SoftwareNinjas.Core.Pair`2"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.PairTest.ToString_UsingSamples">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Pair`2.ToString"/> method with
+            the samples used for equality testing.
             </summary>
         </member>
         <member name="T:SoftwareNinjas.Core.Test.StreamExtensions">

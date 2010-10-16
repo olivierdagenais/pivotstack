@@ -1,5 +1,7 @@
 ﻿using System.Windows;
 using NUnit.Framework;
+using SoftwareNinjas.Core;
+using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
 
 namespace PivotStack.Test
 {
@@ -48,6 +50,39 @@ namespace PivotStack.Test
             Assert.AreEqual (new Size (4, 2), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 2));
             Assert.AreEqual (new Size (2, 1), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 1));
             Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 0));
+        }
+
+        [Test]
+        public void ComputeTiles_SmallerThanTile ()
+        {
+            var size = new Size(150, 188);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[] {new Pair<Rect, string> (new Rect (size), "0_0")};
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_SizeOfTile ()
+        {
+            var size = new Size (254, 254);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[] {new Pair<Rect, string> (new Rect (size), "0_0")};
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_BiggerThanTile ()
+        {
+            var size = new Size (300, 375);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(255, 255)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(255, 375)), "0_1"),
+                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(300, 255)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(300, 375)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
         }
 
     }
