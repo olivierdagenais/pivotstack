@@ -8,6 +8,8 @@ using Size = System.Windows.Size;
 
 using SoftwareNinjas.Core;
 
+using Tile = SoftwareNinjas.Core.Pair<System.Windows.Rect, string>;
+
 namespace PivotStack
 {
     public class DeepZoomImage
@@ -59,14 +61,14 @@ namespace PivotStack
             return TileNameTemplate.FormatInvariant (column, row);
         }
 
-        internal static IEnumerable<Pair<Rect, string>> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
+        internal static IEnumerable<Tile> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
         {
             var width = levelSize.Width;
             var height = levelSize.Height;
             var maxDimension = Math.Max (width, height);
             if (maxDimension <= tileSize)
             {
-                var pair = new Pair<Rect, string> (new Rect(levelSize), TileZeroZero);
+                var pair = new Tile (new Rect(levelSize), TileZeroZero);
                 yield return pair;
             }
             else
@@ -87,7 +89,7 @@ namespace PivotStack
 
                         var rect = new Rect (new Point (left, top), new Point (right, bottom));
                         var tileName = TileName (row, column);
-                        yield return new Pair<Rect, string> (rect, tileName);
+                        yield return new Tile (rect, tileName);
                     }
                 }
             }
