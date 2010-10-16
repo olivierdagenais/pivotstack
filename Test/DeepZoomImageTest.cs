@@ -78,9 +78,55 @@ namespace PivotStack.Test
             var expected = new[]
             {
                 new Pair<Rect, string> (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(254, 375)), "0_1"),
-                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(300, 254)), "1_0"),
-                new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(300, 375)), "1_1"),
+                new Pair<Rect, string> (new Rect (new Point(  0, 253), new Point(254, 374)), "0_1"),
+
+                new Pair<Rect, string> (new Rect (new Point(253,   0), new Point(299, 254)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point(253, 253), new Point(299, 374)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_OriginalSize ()
+        {
+            var size = new Size (1200, 1500);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[]
+            {
+                new Pair<Rect, string> (new Rect (new Point(   0,    0), new Point( 254,  254)), "0_0"),
+                new Pair<Rect, string> (new Rect (new Point(   0,  253), new Point( 254,  508)), "0_1"),
+                new Pair<Rect, string> (new Rect (new Point(   0,  507), new Point( 254,  762)), "0_2"),
+                new Pair<Rect, string> (new Rect (new Point(   0,  761), new Point( 254, 1016)), "0_3"),
+                new Pair<Rect, string> (new Rect (new Point(   0, 1015), new Point( 254, 1270)), "0_4"),
+                new Pair<Rect, string> (new Rect (new Point(   0, 1269), new Point( 254, 1499)), "0_5"),
+
+                new Pair<Rect, string> (new Rect (new Point( 253,    0), new Point( 508,  254)), "1_0"),
+                new Pair<Rect, string> (new Rect (new Point( 253,  253), new Point( 508,  508)), "1_1"),
+                new Pair<Rect, string> (new Rect (new Point( 253,  507), new Point( 508,  762)), "1_2"),
+                new Pair<Rect, string> (new Rect (new Point( 253,  761), new Point( 508, 1016)), "1_3"),
+                new Pair<Rect, string> (new Rect (new Point( 253, 1015), new Point( 508, 1270)), "1_4"),
+                new Pair<Rect, string> (new Rect (new Point( 253, 1269), new Point( 508, 1499)), "1_5"),
+
+                new Pair<Rect, string> (new Rect (new Point( 507,    0), new Point( 762,  254)), "2_0"),
+                new Pair<Rect, string> (new Rect (new Point( 507,  253), new Point( 762,  508)), "2_1"),
+                new Pair<Rect, string> (new Rect (new Point( 507,  507), new Point( 762,  762)), "2_2"),
+                new Pair<Rect, string> (new Rect (new Point( 507,  761), new Point( 762, 1016)), "2_3"),
+                new Pair<Rect, string> (new Rect (new Point( 507, 1015), new Point( 762, 1270)), "2_4"),
+                new Pair<Rect, string> (new Rect (new Point( 507, 1269), new Point( 762, 1499)), "2_5"),
+
+                new Pair<Rect, string> (new Rect (new Point( 761,    0), new Point(1016,  254)), "3_0"),
+                new Pair<Rect, string> (new Rect (new Point( 761,  253), new Point(1016,  508)), "3_1"),
+                new Pair<Rect, string> (new Rect (new Point( 761,  507), new Point(1016,  762)), "3_2"),
+                new Pair<Rect, string> (new Rect (new Point( 761,  761), new Point(1016, 1016)), "3_3"),
+                new Pair<Rect, string> (new Rect (new Point( 761, 1015), new Point(1016, 1270)), "3_4"),
+                new Pair<Rect, string> (new Rect (new Point( 761, 1269), new Point(1016, 1499)), "3_5"),
+
+                new Pair<Rect, string> (new Rect (new Point(1015,    0), new Point(1199,  254)), "4_0"),
+                new Pair<Rect, string> (new Rect (new Point(1015,  253), new Point(1199,  508)), "4_1"),
+                new Pair<Rect, string> (new Rect (new Point(1015,  507), new Point(1199,  762)), "4_2"),
+                new Pair<Rect, string> (new Rect (new Point(1015,  761), new Point(1199, 1016)), "4_3"),
+                new Pair<Rect, string> (new Rect (new Point(1015, 1015), new Point(1199, 1270)), "4_4"),
+                new Pair<Rect, string> (new Rect (new Point(1015, 1269), new Point(1199, 1499)), "4_5"),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
