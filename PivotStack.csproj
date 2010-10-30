@@ -93,6 +93,13 @@
     <EmbeddedResource Include="Test\600x750.png" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Test\0_0.png" />
+    <EmbeddedResource Include="Test\0_1.png" />
+    <EmbeddedResource Include="Test\1_0.png" />
+    <EmbeddedResource Include="Test\1_1.png" />
+    <EmbeddedResource Include="Test\300x375.png" />
+  </ItemGroup>
+  <ItemGroup>
     <Folder Include="Properties\" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />

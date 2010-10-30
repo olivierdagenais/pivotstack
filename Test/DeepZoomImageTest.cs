@@ -1,4 +1,5 @@
-﻿using System.Drawing;
+﻿using System.Collections.Generic;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows;
@@ -253,6 +254,51 @@ namespace PivotStack.Test
                 targetBitmap.Save (actualStream, ImageFormat.Png);
 
                 ProgramTest.AssertStreamsAreEqual<DeepZoomImageTest> ("600x750.png", actualStream);
+            }
+        }
+
+        [Test]
+        public void Slice_Typical ()
+        {
+            var tiles = new[]
+            {
+                new Tile (new Rect (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Tile (new Rect (new Point(  0, 253), new Point(254, 374)), "0_1"),
+
+                new Tile (new Rect (new Point(253,   0), new Point(299, 254)), "1_0"),
+                new Tile (new Rect (new Point(253, 253), new Point(299, 374)), "1_1"),
+            };
+            var streams = new Dictionary<string, MemoryStream>
+            {
+                {"0_0", new MemoryStream()},
+                {"0_1", new MemoryStream()},
+                {"1_0", new MemoryStream()},
+                {"1_1", new MemoryStream()},
+            };
+
+            try
+            {
+                using (var inputStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomImageTest> ("300x375.png"))
+                using (var sourceBitmap = new Bitmap (inputStream))
+                {
+                    DeepZoomImage.Slice (sourceBitmap, tiles, ImageFormat.Png, tilename => streams[tilename]);
+                }
+
+                foreach (var keyValuePair in streams)
+                {
+                    var expectedResourceFileName = keyValuePair.Key + ".png";
+                    var actualStream = keyValuePair.Value;
+                    ProgramTest.AssertStreamsAreEqual<DeepZoomImageTest> (expectedResourceFileName, actualStream);
+                }
+
+            }
+            finally
+            {
+                foreach (var stream in streams.Values)
+                {
+                    stream.Close ();
+                    stream.Dispose ();
+                }
             }
         }
     }

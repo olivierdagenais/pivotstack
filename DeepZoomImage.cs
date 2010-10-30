@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Drawing.Imaging;
+using System.IO;
 using System.Windows;
 using Point = System.Windows.Point;
 using Size = System.Windows.Size;
@@ -65,6 +67,34 @@ namespace PivotStack
                 return TileZeroZero;
             }
             return TileNameTemplate.FormatInvariant (column, row);
+        }
+
+        internal static void Slice
+            (Bitmap source, IEnumerable<Tile> tiles, ImageFormat encoder, Func<string, Stream> streamGenerator)
+        {
+            foreach (var tile in tiles)
+            {
+                var rect = tile.First;
+                var targetWidth = (int) (rect.Right - rect.Left + 1);
+                var targetHeight = (int) (rect.Bottom - rect.Top + 1);
+                var targetImage = new Bitmap (targetWidth, targetHeight);
+                using (var graphics = Graphics.FromImage (targetImage))
+                {
+                    graphics.InterpolationMode = InterpolationMode.Default;
+                    var destRect = new Rectangle(0, 0, targetWidth, targetHeight);
+                    graphics.DrawImage (
+                        source,
+                        destRect,
+                        (int) rect.Left,
+                        (int) rect.Top,
+                        targetWidth,
+                        targetHeight,
+                        GraphicsUnit.Pixel
+                    );
+                    var stream = streamGenerator (tile.Second);
+                    targetImage.Save (stream, encoder);
+                }
+            }
         }
 
         internal static IEnumerable<Tile> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
