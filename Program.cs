@@ -209,8 +209,8 @@ namespace PivotStack
             pageTemplate.DataContext = post;
             WaitForDataBinding();
 
-            var image = ToImageSource (pageTemplate);
-            var encoder = encoding.CreateEncoder (image);
+            var imageSource = ToBitmapSource (pageTemplate);
+            var encoder = encoding.CreateEncoder (imageSource);
             encoder.Save (destination);
         }
 
@@ -241,7 +241,7 @@ namespace PivotStack
         ///     Save WPF Control as PNG image
         /// </see>
         /// </remarks>
-        internal static BitmapSource ToImageSource(FrameworkElement obj)
+        internal static BitmapSource ToBitmapSource(FrameworkElement obj)
         {
             if (Equals(obj.Width, Double.NaN))
             {
