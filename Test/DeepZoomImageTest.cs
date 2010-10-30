@@ -19,6 +19,14 @@ namespace PivotStack.Test
         private static readonly Size PowerOfTwoSize = new Size (1024, 512);
 
         [Test]
+        public void DetermineMaximumLevel_Base ()
+        {
+            Assert.AreEqual (11, DeepZoomImage.DetermineMaximumLevel (new Size (1200, 1500)));
+            Assert.AreEqual (10, DeepZoomImage.DetermineMaximumLevel (new Size (1024, 512)));
+            Assert.AreEqual (0, DeepZoomImage.DetermineMaximumLevel (new Size (1, 1)));
+        }
+
+        [Test]
         public void ComputeLevelSize_Base ()
         {
             Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 0));

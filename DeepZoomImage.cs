@@ -18,6 +18,13 @@ namespace PivotStack
         internal static readonly string TileZeroZero = "0_0";
         internal static readonly Size OneByOne = new Size (1, 1);
 
+        internal static int DetermineMaximumLevel (Size originalSize)
+        {
+            var maxDimension = Math.Max (originalSize.Height, originalSize.Width);
+            return (int) Math.Ceiling (Math.Log (maxDimension, 2));
+        }
+
+        // TODO: Consider accepting a maximumLevel parameter, obtained by calling DetermineMaximumLevel()
         internal static Size ComputeLevelSize(Size originalSize, int levelNumber)
         {
             if (levelNumber < 0)
@@ -32,8 +39,7 @@ namespace PivotStack
             }
             else
             {
-                var maxDimension = Math.Max (originalSize.Height, originalSize.Width);
-                var maxLevel = (int) Math.Ceiling (Math.Log (maxDimension, 2));
+                int maxLevel = DetermineMaximumLevel (originalSize);
                 if (levelNumber >= maxLevel)
                 {
                     result = originalSize;
