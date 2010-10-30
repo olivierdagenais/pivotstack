@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing.Imaging;
 
 namespace PivotStack
 {
@@ -6,7 +7,7 @@ namespace PivotStack
     {
         public string SiteDomain { get; set; }
         public int MaximumNumberOfItems { get; set; }
-        public BitmapEncoding PostImageEncoding { get; set; }
+        public ImageFormat PostImageEncoding { get; set; }
         // TODO: path to XAML template?
         public string PathToFavIcon { get; set; }
         public string PathToBrandImage { get; set; }

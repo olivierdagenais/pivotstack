@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Specialized;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Xml.Linq;
 using System.Windows.Controls;
@@ -185,7 +186,7 @@ For those you out there that don't know what nethack is: please inform your selv
         {
             using (var outputStream = new MemoryStream())
             {
-                Program.ImagePost (inputPost, _testTemplate, BitmapEncoding.Png, outputStream);
+                Program.ImagePost (inputPost, _testTemplate, ImageFormat.Png, outputStream);
                 AssertStreamsAreEqual<ProgramTest> (expectedFileName, outputStream);
             }
         }

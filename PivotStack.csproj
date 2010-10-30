@@ -64,7 +64,6 @@
     <EmbeddedResource Include="select-tags.sql" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="BitmapEncoding.cs" />
     <Compile Include="BitmapSourceExtensions.cs" />
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />

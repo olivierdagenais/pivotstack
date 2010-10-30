@@ -4,6 +4,7 @@ using System.Data.SqlClient;
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing.Imaging;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -81,7 +82,7 @@ namespace PivotStack
                 DatabaseConnectionString = "Data Source=SECHOIR;Initial Catalog=SuperUser;Integrated Security=True",
                 SiteDomain = "superuser.com",
                 MaximumNumberOfItems = 1000000,
-                PostImageEncoding = BitmapEncoding.Png,
+                PostImageEncoding = ImageFormat.Png,
             };
 
             using (var conn = new SqlConnection(settings.DatabaseConnectionString))
@@ -93,7 +94,7 @@ namespace PivotStack
             return 0;
         }
 
-        internal static void ImagePosts (SqlConnection conn, string fileNameIdFormat, BitmapEncoding postImageEncoding)
+        internal static void ImagePosts (SqlConnection conn, string fileNameIdFormat, ImageFormat imageFormat)
         {
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
@@ -106,7 +107,7 @@ namespace PivotStack
             var posts = rows.Map (row => Post.Load (row));
             foreach (var post in posts)
             {
-                ImagePost (post, template, fileNameIdFormat, postImageEncoding);
+                ImagePost (post, template, fileNameIdFormat, imageFormat);
             }
         }
 
@@ -168,16 +169,17 @@ namespace PivotStack
             }
         }
 
-        internal static void ImagePost (Post post, Page template, string fileNameIdFormat, BitmapEncoding postImageEncoding)
+        internal static void ImagePost (Post post, Page template, string fileNameIdFormat, ImageFormat imageFormat)
         {
-            var fileName = Path.ChangeExtension (post.Id.ToString (fileNameIdFormat), postImageEncoding.Extension);
+            var extension = imageFormat.ToString ().ToLower ();
+            var fileName = Path.ChangeExtension (post.Id.ToString (fileNameIdFormat), extension);
             var binnedPath = FileNameToBinnedPath (fileName, 3);
             var folders = Path.GetDirectoryName (binnedPath);
             Directory.CreateDirectory (folders);
             using (var outputStream
                 = new FileStream (binnedPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                ImagePost (post, template, postImageEncoding, outputStream);
+                ImagePost (post, template, imageFormat, outputStream);
             }
         }
 
@@ -201,14 +203,14 @@ namespace PivotStack
             }
         }
 
-        internal static void ImagePost (Post post, Page pageTemplate, BitmapEncoding encoding, Stream destination)
+        internal static void ImagePost (Post post, Page pageTemplate, ImageFormat imageFormat, Stream destination)
         {
             pageTemplate.DataContext = post;
             WaitForDataBinding();
 
             var imageSource = pageTemplate.ToBitmapSource ();
-            var encoder = encoding.CreateEncoder (imageSource);
-            encoder.Save (destination);
+            var bitmap = imageSource.ConvertToGdiPlusBitmap ();
+            bitmap.Save (destination, imageFormat);
         }
 
         /// <summary>
