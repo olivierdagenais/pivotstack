@@ -67,6 +67,7 @@
     <Compile Include="BitmapEncoding.cs" />
     <Compile Include="BitmapSourceExtensions.cs" />
     <Compile Include="DeepZoomImage.cs" />
+    <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Settings.cs" />
