@@ -67,11 +67,13 @@
     <Compile Include="BitmapSourceExtensions.cs" />
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
+    <Compile Include="MortonLayout.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Settings.cs" />
     <Compile Include="Test\BitmapSourceExtensionsTest.cs" />
     <Compile Include="Test\DeepZoomImageTest.cs" />
+    <Compile Include="Test\MortonLayoutTest.cs" />
     <Compile Include="Test\PostTest.cs" />
     <Compile Include="Test\ProgramTest.cs" />
   </ItemGroup>
