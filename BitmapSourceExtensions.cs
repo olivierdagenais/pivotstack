@@ -1,6 +1,5 @@
 ﻿using GdiPlus = System.Drawing;
-using Wpf = System.Windows.Media;
-using System.Windows;
+using Wpf = System.Windows;
 
 namespace PivotStack
 {
@@ -12,7 +11,7 @@ namespace PivotStack
         ///     Is there a good way to convert between BitmapSource and Bitmap?
         /// </seealso>
         /// </remarks>
-        internal static GdiPlus.Bitmap ConvertToGdiPlusBitmap (this Wpf.Imaging.BitmapSource bitmapSource)
+        internal static GdiPlus.Bitmap ConvertToGdiPlusBitmap (this Wpf.Media.Imaging.BitmapSource bitmapSource)
         {
             var bmp = new GdiPlus.Bitmap (
                 bitmapSource.PixelWidth,
@@ -26,7 +25,7 @@ namespace PivotStack
                 GdiPlus.Imaging.PixelFormat.Format32bppPArgb
                 );
             bitmapSource.CopyPixels (
-                Int32Rect.Empty,
+                Wpf.Int32Rect.Empty,
                 data.Scan0,
                 data.Height * data.Stride,
                 data.Stride);
