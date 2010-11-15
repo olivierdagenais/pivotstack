@@ -4,13 +4,10 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Windows;
-using Point = System.Windows.Point;
-using Size = System.Windows.Size;
 
 using SoftwareNinjas.Core;
 
-using Tile = SoftwareNinjas.Core.Pair<System.Windows.Rect, string>;
+using Tile = SoftwareNinjas.Core.Pair<System.Drawing.Rectangle, string>;
 
 namespace PivotStack
 {
@@ -75,8 +72,8 @@ namespace PivotStack
             foreach (var tile in tiles)
             {
                 var rect = tile.First;
-                var targetWidth = (int) (rect.Right - rect.Left + 1);
-                var targetHeight = (int) (rect.Bottom - rect.Top + 1);
+                var targetWidth = rect.Right - rect.Left + 1;
+                var targetHeight = rect.Bottom - rect.Top + 1;
                 var targetImage = new Bitmap (targetWidth, targetHeight);
                 using (var graphics = Graphics.FromImage (targetImage))
                 {
@@ -85,8 +82,8 @@ namespace PivotStack
                     graphics.DrawImage (
                         source,
                         destRect,
-                        (int) rect.Left,
-                        (int) rect.Top,
+                        rect.Left,
+                        rect.Top,
                         targetWidth,
                         targetHeight,
                         GraphicsUnit.Pixel
@@ -99,12 +96,12 @@ namespace PivotStack
 
         internal static IEnumerable<Tile> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
         {
-            var width = levelSize.Width;
-            var height = levelSize.Height;
+            double width = levelSize.Width;
+            double height = levelSize.Height;
             var maxDimension = Math.Max (width, height);
             if (maxDimension <= tileSize)
             {
-                var pair = new Tile (new Rect(levelSize), TileZeroZero);
+                var pair = new Tile (CreateRectangle (levelSize), TileZeroZero);
                 yield return pair;
             }
             else
@@ -116,14 +113,14 @@ namespace PivotStack
                 for (int column = 0; column < columns; column++)
                 {
                     var left = 0 == column ? 0 : column * tileSize - tileOverlap;
-                    var right = Math.Min (width - 1, (column + 1) * tileOffsetMultiplier);
+                    var right = Math.Min ((int) width - 1, (column + 1) * tileOffsetMultiplier);
 
                     for (int row = 0; row < rows; row++)
                     {
                         var top = 0 == row ? 0 : row * tileSize - tileOverlap;
-                        var bottom = Math.Min (height - 1, (row + 1) * tileOffsetMultiplier);
+                        var bottom = Math.Min ((int) height - 1, (row + 1) * tileOffsetMultiplier);
 
-                        var rect = new Rect (new Point (left, top), new Point (right, bottom));
+                        var rect = CreateRectangle (new Point (left, top), new Point (right, bottom));
                         var tileName = TileName (row, column);
                         yield return new Tile (rect, tileName);
                     }
@@ -151,6 +148,16 @@ namespace PivotStack
             }
 
             return targetImage;
+        }
+
+        internal static Rectangle CreateRectangle(Size size)
+        {
+            return new Rectangle (0, 0, size.Width, size.Height);
+        }
+
+        internal static Rectangle CreateRectangle(Point point1, Point point2)
+        {
+            return new Rectangle (point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y);
         }
     }
 }
