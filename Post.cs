@@ -22,7 +22,7 @@ namespace PivotStack
         public string TopAnswer { get; set; }
         public int Favorites { get; set; }
 
-        public static Post Load (IList row)
+        public static Post LoadFromRow (IList row)
         {
             var result = new Post
             {

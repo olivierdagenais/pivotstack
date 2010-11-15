@@ -68,7 +68,7 @@ namespace PivotStack.Test
             };
 
             // act
-            var actual = Post.Load (row);
+            var actual = Post.LoadFromRow (row);
 
             // assert
             Assert.AreEqual (PostId, actual.Id);
@@ -114,7 +114,7 @@ namespace PivotStack.Test
             };
 
             // act
-            var actual = Post.Load (row);
+            var actual = Post.LoadFromRow (row);
 
             // assert
             Assert.AreEqual (PostId, actual.Id);

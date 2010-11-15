@@ -104,7 +104,7 @@ namespace PivotStack
 
             var parameters = new Dictionary<string, object> ();
             var rows = EnumerateRecords (conn, SelectPosts, parameters);
-            var posts = rows.Map (row => Post.Load (row));
+            var posts = rows.Map (row => Post.LoadFromRow (row));
             foreach (var post in posts)
             {
                 ImagePost (post, template, fileNameIdFormat, imageFormat);
@@ -268,7 +268,7 @@ namespace PivotStack
 
         internal static XElement PivotizePost (IList row)
         {
-            var post = Post.Load (row);
+            var post = Post.LoadFromRow (row);
             return PivotizePost (post);
         }
 

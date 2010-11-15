@@ -245,7 +245,7 @@ For those you out there that don't know what nethack is: please inform your selv
         {
             // arrange
             var row = new ArrayList (values);
-            var post = Post.Load (row);
+            var post = Post.LoadFromRow (row);
 
             // act and assert
             TestPivotizePost (expectedXml, post);
