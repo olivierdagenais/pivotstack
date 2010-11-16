@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 // General assembly properties
@@ -18,3 +19,4 @@ using System.Runtime.InteropServices;
 
 // Assembly version information
 [assembly: AssemblyVersion("1.0.*")]
+[assembly: InternalsVisibleTo("PivotStack.Tests")]

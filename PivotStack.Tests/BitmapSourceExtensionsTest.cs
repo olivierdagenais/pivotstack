@@ -5,7 +5,7 @@ using Wpf = System.Windows.Media;
 using NUnit.Framework;
 using SoftwareNinjas.Core;
 
-namespace PivotStack.Test
+namespace PivotStack.Tests
 {
     [TestFixture]
     public class BitmapSourceExtensionsTest

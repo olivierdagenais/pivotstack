@@ -1,7 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 
-namespace PivotStack.Test
+namespace PivotStack.Tests
 {
     [TestFixture]
     public class PostTest

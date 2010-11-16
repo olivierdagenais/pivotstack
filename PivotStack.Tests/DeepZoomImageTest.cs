@@ -8,7 +8,7 @@ using SoftwareNinjas.Core;
 using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
 using Tile = SoftwareNinjas.Core.Pair<System.Drawing.Rectangle, string>;
 
-namespace PivotStack.Test
+namespace PivotStack.Tests
 {
     [TestFixture]
     public class DeepZoomImageTest

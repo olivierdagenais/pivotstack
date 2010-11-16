@@ -1,7 +1,7 @@
 ﻿using System.Windows;
 using NUnit.Framework;
 
-namespace PivotStack.Test
+namespace PivotStack.Tests
 {
     [TestFixture]
     public class MortonLayoutTest

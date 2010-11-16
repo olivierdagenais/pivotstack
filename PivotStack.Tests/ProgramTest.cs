@@ -11,7 +11,7 @@ using NUnit.Framework;
 using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
 using SoftwareNinjas.Core;
 
-namespace PivotStack.Test
+namespace PivotStack.Tests
 {
     [TestFixture]
     public class ProgramTest
