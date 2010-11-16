@@ -319,7 +319,7 @@ namespace PivotStack
             #endregion
 
             #region <Facet Name="Is answered?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is answered?", YesNo (post.DateFirstAnswered.HasValue));
+            AddFacet (facetsNode, FacetType.String, "Is answered?", post.DateFirstAnswered.HasValue.YesNo());
             #endregion
 
             #region <Facet Name="Date first answered"><DateTime Value="2009-07-15T18:41:08" /></Facet>
@@ -344,7 +344,7 @@ namespace PivotStack
             #endregion
 
             #region <Facet Name="Has accepted answer?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Has accepted answer?", YesNo (post.AcceptedAnswerId.HasValue));
+            AddFacet (facetsNode, FacetType.String, "Has accepted answer?", post.AcceptedAnswerId.HasValue.YesNo());
             #endregion
 
             #region <Facet Name="Accepted Answer"><LongString Value="My best advice for Excel..." /></Facet>
@@ -366,7 +366,7 @@ namespace PivotStack
             #endregion
 
             #region <Facet Name="Is favorite?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is favorite?", YesNo (post.Favorites > 0));
+            AddFacet (facetsNode, FacetType.String, "Is favorite?", ( post.Favorites > 0 ).YesNo());
             #endregion
 
             #region <Facet Name="Favorites"><Number Value="10" /></Facet>
@@ -378,12 +378,6 @@ namespace PivotStack
 
             return itemNode;
             #endregion
-        }
-
-        // TODO: This would make a great extension method for bool
-        internal static string YesNo (bool input)
-        {
-            return input ? "yes" : "no";
         }
 
         internal static void AddFacet (XElement facets, FacetType facetType, string name, object value)

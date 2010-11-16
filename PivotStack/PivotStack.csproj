@@ -61,6 +61,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapSourceExtensions.cs" />
+    <Compile Include="BoolExtensions.cs" />
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="MortonLayout.cs" />
