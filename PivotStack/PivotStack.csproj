@@ -64,6 +64,7 @@
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="MortonLayout.cs" />
+    <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

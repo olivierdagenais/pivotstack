@@ -32,27 +32,18 @@ namespace PivotStack
                 Score = (int)row[3],
                 Views = (int)row[4],
                 Answers = (int)row[5],
-                Tags = Value<string>(row[6]),
+                Tags = row[6].FromDBNull<string> (),
                 DateAsked = (DateTime)row[7],
-                DateFirstAnswered = Value<DateTime?>(row[8]),
-                DateLastAnswered = Value<DateTime?>(row[9]),
-                Asker = Value<string>(row[10]),
-                AcceptedAnswerId = Value<int?>(row[11]),
-                AcceptedAnswer = Value<string>(row[12]),
-                TopAnswerId = Value<int?>(row[13]),
-                TopAnswer = Value<string>(row[14]),
+                DateFirstAnswered = row[8].FromDBNull<DateTime?> (),
+                DateLastAnswered = row[9].FromDBNull<DateTime?> (),
+                Asker = row[10].FromDBNull<string> (),
+                AcceptedAnswerId = row[11].FromDBNull<int?> (),
+                AcceptedAnswer = row[12].FromDBNull<string> (),
+                TopAnswerId = row[13].FromDBNull<int?> (),
+                TopAnswer = row[14].FromDBNull<string> (),
                 Favorites = (int)row[15],
             };
             return result;
-        }
-
-        internal static T Value<T>(object data)
-        {
-            if (data == DBNull.Value)
-            {
-                return default (T);
-            }
-            return (T)data;
         }
     }
 }
