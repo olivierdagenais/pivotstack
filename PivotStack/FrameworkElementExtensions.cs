@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Threading;
 
 namespace PivotStack
 {
@@ -13,7 +14,7 @@ namespace PivotStack
         ///     Save WPF Control as PNG image
         /// </see>
         /// </remarks>
-        internal static BitmapSource ToBitmapSource(this FrameworkElement obj)
+        public static BitmapSource ToBitmapSource(this FrameworkElement obj)
         {
             if (Equals(obj.Width, Double.NaN))
             {
@@ -48,6 +49,33 @@ namespace PivotStack
             obj.LayoutTransform = transform;
             obj.Margin = margin;
             return bmp;
+        }
+
+        /// <summary>
+        /// Needed for the <see cref="WaitForDataBinding"/> method.
+        /// </summary>
+        internal static readonly DispatcherOperationCallback NullCallback = delegate
+        {
+            return null;
+        };
+
+        /// <summary>
+        /// Performs the equivalent to "DoEvents", which is needed because data binding happens in another thread.
+        /// </summary>
+        /// <remarks>
+        /// <seealso href="http://www.hanselman.com/blog/TheWeeklySourceCode40TweetSharpAndIntroducingTweetSandwich.aspx">
+        ///     TweetSharp and Introducing Tweet Sandwich
+        /// </see>
+        /// </remarks>
+        internal static void WaitForDataBinding ()
+        {
+            Dispatcher.CurrentDispatcher.Invoke (DispatcherPriority.SystemIdle, NullCallback, null);
+        }
+
+        public static void DataBindAndWait(this FrameworkElement obj, object dataContext)
+        {
+            obj.DataContext = dataContext;
+            WaitForDataBinding ();
         }
     }
 }

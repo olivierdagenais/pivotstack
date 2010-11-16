@@ -11,7 +11,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Windows.Controls;
-using System.Windows.Threading;
 
 using SoftwareNinjas.Core;
 
@@ -119,33 +118,11 @@ namespace PivotStack
 
         internal static void ImagePost (Post post, Page pageTemplate, ImageFormat imageFormat, Stream destination)
         {
-            pageTemplate.DataContext = post;
-            WaitForDataBinding();
+            pageTemplate.DataBindAndWait (post);
 
             var imageSource = pageTemplate.ToBitmapSource ();
             var bitmap = imageSource.ConvertToGdiPlusBitmap ();
             bitmap.Save (destination, imageFormat);
-        }
-
-        /// <summary>
-        /// Needed for the <see cref="WaitForDataBinding"/> method.
-        /// </summary>
-        internal static readonly DispatcherOperationCallback NullCallback = delegate
-        {
-            return null;
-        };
-
-        /// <summary>
-        /// Performs the equivalent to "DoEvents", which is needed because data binding happens in another thread.
-        /// </summary>
-        /// <remarks>
-        /// <seealso href="http://www.hanselman.com/blog/TheWeeklySourceCode40TweetSharpAndIntroducingTweetSandwich.aspx">
-        ///     TweetSharp and Introducing Tweet Sandwich
-        /// </see>
-        /// </remarks>
-        internal static void WaitForDataBinding()
-        {
-            Dispatcher.CurrentDispatcher.Invoke (DispatcherPriority.SystemIdle, NullCallback, null);
         }
 
         internal static void PivotizeTag (string tag, IEnumerable<object[]> posts, Stream destination, string siteDomain)
