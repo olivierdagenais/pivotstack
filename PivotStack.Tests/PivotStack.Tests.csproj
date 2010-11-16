@@ -60,6 +60,7 @@
     <Compile Include="MortonLayoutTest.cs" />
     <Compile Include="PostTest.cs" />
     <Compile Include="ProgramTest.cs" />
+    <Compile Include="StringExtensionsTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="TestTemplate.xaml">

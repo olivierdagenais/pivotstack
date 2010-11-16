@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
@@ -46,32 +44,6 @@ namespace PivotStack
             NewLineChars = "\n",
 #endif
         };
-        internal static readonly Regex TagsRegex
-            = new Regex (@"<(?<tag>[^>]+)>", RegexOptions.Compiled | RegexOptions.ExplicitCapture);
-        // http://stackoverflow.com/questions/286813/how-do-you-convert-html-to-plain-text/286825#286825
-        internal static readonly Regex ElementRegex
-            = new Regex (@"<[^>]*>", RegexOptions.Compiled);
-
-        internal static IEnumerable<string> ParseTags (string tagsColumn)
-        {
-            var matches = TagsRegex.Matches (tagsColumn);
-            foreach (Match match in matches)
-            {
-                var tag = match.Groups["tag"].Value;
-                yield return tag;
-            }
-        }
-
-        internal static string CleanHtml (string html)
-        {
-            // TODO: list items (i.e. <li>) should probably have at least a dash inserted on the line, with line breaks
-            // TODO: what about links inside the text? we could have Body Links, Accepted Answer Links, Top Answer Links
-            // TODO: we should probably convert <strong>bold</strong> to *bold*
-            // TODO: StackOverflow will have code samples; how should we filter those?
-            var plainText = ElementRegex.Replace (html, String.Empty);
-            // TODO: truncate the text (with an elipsis...) to an appropriate length
-            return plainText;
-        }
 
         [STAThread]
         public static int Main (string[] args)
@@ -111,69 +83,11 @@ namespace PivotStack
             }
         }
 
-        internal static string FileNameToBinnedPath(string fileName, int binSize)
-        {
-            var withoutExtension = Path.GetFileNameWithoutExtension (fileName);
-            var length = withoutExtension.Length;
-            var binCount = length / binSize;
-            var estimatedCapacity = (binCount - 1) * (binSize + 1) + fileName.Length;
-            var sb = new StringBuilder (estimatedCapacity);
-            var e = BreakUpString (withoutExtension, binSize).GetEnumerator ();
-            e.MoveNext ();
-            while (true)
-            {
-                var value = e.Current;
-                var hasNext = e.MoveNext ();
-                if (hasNext)
-                {
-                    sb.Append (value);
-                    sb.Append ('/');
-                }
-                else
-                {
-                    break;
-                }
-            }
-            sb.Append (fileName);
-            return sb.ToString ();
-        }
-
-        internal static IEnumerable<string> BreakUpStringReverse(string input, int binSize)
-        {
-            int c;
-            for (c = input.Length; c >= binSize; c -= binSize)
-            {
-                var chunk = input.Substring (c - binSize, binSize);
-                yield return chunk;
-            }
-            if (c > 0)
-            {
-                var chunk = input.Substring (0, c);
-                yield return chunk;
-            }
-        }
-
-        internal static IEnumerable<string> BreakUpString (string input, int binSize)
-        {
-            int leftoverCharacters = input.Length % binSize;
-            if (leftoverCharacters > 0)
-            {
-                var chunk = input.Substring (0, leftoverCharacters);
-                yield return chunk;
-            }
-            int c;
-            for (c = leftoverCharacters; c < input.Length; c += binSize)
-            {
-                var chunk = input.Substring (c, binSize);
-                yield return chunk;
-            }
-        }
-
         internal static void ImagePost (Post post, Page template, string fileNameIdFormat, ImageFormat imageFormat)
         {
             var extension = imageFormat.ToString ().ToLower ();
             var fileName = Path.ChangeExtension (post.Id.ToString (fileNameIdFormat), extension);
-            var binnedPath = FileNameToBinnedPath (fileName, 3);
+            var binnedPath = fileName.ToBinnedPath (3);
             var folders = Path.GetDirectoryName (binnedPath);
             Directory.CreateDirectory (folders);
             using (var outputStream
@@ -283,7 +197,7 @@ namespace PivotStack
             itemNode.SetAttributeValue ("Name", post.Name);
 
             #region <Description>What are your best tips/not so known features of excel?</Description>
-            var descriptionNode = new XElement (CollectionNamespace + "Description", CleanHtml (post.Description));
+            var descriptionNode = new XElement (CollectionNamespace + "Description", post.Description.CleanHtml ());
             itemNode.Add (descriptionNode);
             #endregion
 
@@ -304,7 +218,7 @@ namespace PivotStack
 
             if (post.Tags != null)
             {
-                var tags = ParseTags (post.Tags);
+                var tags = post.Tags.ParseTags ();
                 #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
                 AddFacet (facetsNode, FacetType.String, "Tagged", tags.Map (t => (object) t));
                 #endregion
@@ -350,7 +264,7 @@ namespace PivotStack
             #region <Facet Name="Accepted Answer"><LongString Value="My best advice for Excel..." /></Facet>
             if (post.AcceptedAnswer != null)
             {
-                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", CleanHtml (post.AcceptedAnswer));
+                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", post.AcceptedAnswer.CleanHtml ());
                 // TODO: link to accepted answer
                 // Accepted Answer Details: Link, Author(s), Score
             }
@@ -359,7 +273,7 @@ namespace PivotStack
             #region <Facet Name="Top Answer"><LongString Value="In-cell graphs..." /></Facet>
             if (post.TopAnswer != null)
             {
-                AddFacet (facetsNode, FacetType.LongString, "Top Answer", CleanHtml (post.TopAnswer));
+                AddFacet (facetsNode, FacetType.LongString, "Top Answer", post.TopAnswer.CleanHtml ());
                 // TODO: link to top answer
                 // Top Answer Details: Link, Author(s), Score
             }

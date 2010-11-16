@@ -3,3 +3,4 @@ glob:**/obj/**
 glob:PivotStack.suo
 glob:PivotStack.4.5.resharper.user
 glob:PivotStack/PivotStack.csproj.user
+glob:PivotStack.Tests/PivotStack.Tests.csproj.user
