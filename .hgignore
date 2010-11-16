@@ -1,0 +1,5 @@
+glob:**/bin/**
+glob:**/obj/**
+glob:PivotStack.suo
+glob:PivotStack.4.5.resharper.user
+glob:PivotStack/PivotStack.csproj.user
