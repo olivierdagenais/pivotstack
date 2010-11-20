@@ -6,9 +6,17 @@
 ### @FrameworkElementExtensions@
 ### Investigate @PivotSerializer@ that converts decorated POCO into XML
 ## SoftwareNinjas.Pivot.Framework (attributes and interfaces)
+### @ItemIdAttribute@
+#### string Format {get; set;} (optional)
+### @ItemHrefAttribute@
+#### string Format {get; set;} (optional)
+### @ItemNameAttribute@
+#### string Format {get; set;} (optional)
+### @ItemDescriptionAttribute@
+#### string Format {get; set;} (optional)
 ### @FacetCategoryAttribute@ (assumes POCO's types are appropriate - what happens if a property is to be rendered in more than one FacetCategory?)
 #### string Name {get; set;} (initialized from property name, but can be overridden)
-#### FacetType Format {get; set;} (initialized from property type, but could be overridden)
+#### FacetType Type {get; set;} (initialized from property type, but could be overridden)
 #### string Format {get; set;} (optional)
 #### bool IsFilterVisible {get; set;}
 #### bool IsMetaDataVisible {get; set;}
