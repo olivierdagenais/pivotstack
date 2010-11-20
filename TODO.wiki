@@ -1,16 +1,22 @@
-# SoftwareNinjas.Pivot
-## @DeepZoomImage@
-## @MortonLayout@
-## @BitmapSourceExtensions@
-## @FrameworkElementExtensions@
-## Investigate @PivotSerializer@ that converts decorated POCO into XML
+# Create SDK in three parts:
+## SoftwareNinjas.Pivot
+### @DeepZoomImage@
+### @MortonLayout@
+### @BitmapSourceExtensions@
+### @FrameworkElementExtensions@
+### Investigate @PivotSerializer@ that converts decorated POCO into XML
+## SoftwareNinjas.Pivot.Framework (attributes and interfaces)
 ### @FacetCategoryAttribute@ (assumes POCO's types are appropriate - what happens if a property is to be rendered in more than one FacetCategory?)
 #### string Name {get; set;} (initialized from property name, but can be overridden)
-#### FaceType Format {get; set;} (initialized from property type, but could be overridden)
+#### FacetType Format {get; set;} (initialized from property type, but could be overridden)
 #### string Format {get; set;} (optional)
 #### bool IsFilterVisible {get; set;}
 #### bool IsMetaDataVisible {get; set;}
 #### bool IsWordWheelVisible {get; set;}
+### Implement interface that:
+#### emits a sequence of collections
+#### emits a sequence of the entity class for each collection
+## Project - settings, template & user assembly
 # MapReduce (Qizmt?)
 ## Can "map" posts to:
 ### @{post_id}_filtered.xml@
@@ -37,13 +43,6 @@
 # Create webserver version (IIS Express?) that can run off of the data dump 7-zip archive (some pre-processing/indexing is expected)
 ## More generally, a _portable version of Pivot_ could be generated such that the EXE is a webserver that launches a web browser to itself, where it will serve up the PivotViewer Silverlight control and the collection files contained inside the assembly's resources. Great for demos on a DVD/memory stick w/o installing or an internet connection.  Would need portable of everything: .NET, Silverlight, browser (Pivot_JIT_Sample ???)
 # Extract classes for tidy O.O. model
-# Create SDK in two parts:
-## Core - attributes & interface
-### Designate an entity class and decorate its properties with our [Attributes] to generate the meta-data portion of the cxml as well as an automatic mapper for the data portion
-### Implement interface that:
-#### emits a sequence of collections
-#### emits a sequence of the entity class for each collection
-## Project - settings, template & user assembly
 # Render posts as HTML inside XAML
 # Extract [external] links from post body to be made available in info panel, converting them back into references
 # Render posts with metadata, such as favorite count, accepted, # views
