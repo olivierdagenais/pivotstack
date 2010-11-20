@@ -4,6 +4,7 @@ using System.Diagnostics;
 
 namespace PivotStack.Repositories
 {
+    // TODO: eventually extract ITagRepository and move this implementation to Repositories.Database
     public class TagRepository : DatabaseRepositoryBase
     {
         internal static readonly string SelectTags = LoadCommandText ("select-tags.sql");

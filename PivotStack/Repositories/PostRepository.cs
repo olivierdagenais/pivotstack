@@ -5,6 +5,7 @@ using SoftwareNinjas.Core;
 
 namespace PivotStack.Repositories
 {
+    // TODO: eventually extract IPostRepository and move this implementation to Repositories.Database
     public class PostRepository : DatabaseRepositoryBase
     {
         internal static readonly string SelectPosts = LoadCommandText ("select-posts.sql");
