@@ -69,6 +69,7 @@
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\ReadOnlyDictionary.cs" />
     <Compile Include="Repositories\DatabaseRepositoryBase.cs" />
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
