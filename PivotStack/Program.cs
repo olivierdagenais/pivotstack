@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -296,31 +295,6 @@ namespace PivotStack
                 facetNode.Add (linkNode);
             }
             facets.Add (facetNode);
-        }
-
-        internal static IEnumerable<object[]> EnumerateRecords 
-            (SqlConnection conn, string commandText, IDictionary<string, object> parameters)
-        {
-            using (var command = conn.CreateCommand ())
-            {
-                command.CommandText = commandText;
-                foreach (var pair in parameters)
-                {
-                    var param = new SqlParameter(pair.Key, pair.Value);
-                    command.Parameters.Add (param);
-                }
-
-                using (var reader = command.ExecuteReader (CommandBehavior.SingleResult))
-                {
-                    Debug.Assert(reader != null);
-                    while (reader.Read ())
-                    {
-                        var destination = new object[reader.FieldCount];
-                        reader.GetValues (destination);
-                        yield return destination;
-                    }
-                }
-            }
         }
     }
 }
