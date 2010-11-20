@@ -10,6 +10,8 @@ namespace PivotStack.Repositories
     public abstract class DatabaseRepositoryBase
     {
         private readonly IDbConnection _connection;
+        public static readonly IDictionary<string, object> EmptyParameterDictionary =
+            new ReadOnlyDictionary<string, object> (new Dictionary<string, object> ());
 
         protected DatabaseRepositoryBase(IDbConnection connection)
         {
@@ -24,10 +26,16 @@ namespace PivotStack.Repositories
             }
         }
 
-        internal static IEnumerable<object[]> EnumerateRecords
-            (IDbConnection conn, string commandText, IDictionary<string, object> parameters)
+        internal IEnumerable<object[]> EnumerateRecords
+            (string commandText)
         {
-            using (var command = conn.CreateCommand ())
+            return EnumerateRecords (commandText, EmptyParameterDictionary);
+        }
+
+        internal IEnumerable<object[]> EnumerateRecords
+            (string commandText, IDictionary<string, object> parameters)
+        {
+            using (var command = _connection.CreateCommand ())
             {
                 command.CommandText = commandText;
                 foreach (var pair in parameters)

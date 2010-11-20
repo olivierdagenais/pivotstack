@@ -17,8 +17,7 @@ namespace PivotStack.Repositories
 
         public IEnumerable<Post> RetrievePosts()
         {
-            var parameters = new Dictionary<string, object> ();
-            var rows = EnumerateRecords (Connection, SelectPosts, parameters);
+            var rows = EnumerateRecords (SelectPosts);
             var posts = rows.Map (row => Post.LoadFromRow (row));
             return posts;
         }
@@ -26,7 +25,7 @@ namespace PivotStack.Repositories
         public IEnumerable<Post> RetrievePosts(string tag)
         {
             var parameters = new Dictionary<string, object> { { "@tag", tag } };
-            var rows = EnumerateRecords (Connection, SelectPostsByTag, parameters);
+            var rows = EnumerateRecords (SelectPostsByTag, parameters);
             var posts = rows.Map (row => Post.LoadFromRow (row));
             return posts;
         }
