@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Data;
 using System.Data.SqlClient;
-using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
@@ -11,6 +10,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using System.Windows.Controls;
+using PivotStack.Repositories;
 
 using SoftwareNinjas.Core;
 
@@ -31,10 +31,6 @@ namespace PivotStack
             = "http://schemas.microsoft.com/collection/metadata/2009";
         internal static readonly XNamespace PivotNamespace 
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
-        internal static readonly string SelectTags = LoadCommandText ("select-tags.sql");
-        internal static readonly string SelectPosts = LoadCommandText ("select-posts.sql");
-        // TODO: selecting by tag is 99% like selecting posts; can we avoid the duplication in the SQL code?
-        internal static readonly string SelectPostsByTag = LoadCommandText ("select-posts-by-tag.sql");
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
 #if DEBUG
@@ -59,13 +55,15 @@ namespace PivotStack
             using (var conn = new SqlConnection(settings.DatabaseConnectionString))
             {
                 conn.Open ();
-                PivotizeTags (conn, settings.SiteDomain);
-                ImagePosts (conn, settings.FileNameIdFormat, settings.PostImageEncoding);
+                var tagRepository = new TagRepository (conn);
+                var postRepository = new PostRepository (conn);
+                PivotizeTags (tagRepository, postRepository, settings.SiteDomain);
+                ImagePosts (postRepository, settings.FileNameIdFormat, settings.PostImageEncoding);
             }
             return 0;
         }
 
-        internal static void ImagePosts (SqlConnection conn, string fileNameIdFormat, ImageFormat imageFormat)
+        internal static void ImagePosts (PostRepository postRepository, string fileNameIdFormat, ImageFormat imageFormat)
         {
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
@@ -73,9 +71,7 @@ namespace PivotStack
                 template = (Page) XamlReader.Load (stream);
             }
 
-            var parameters = new Dictionary<string, object> ();
-            var rows = EnumerateRecords (conn, SelectPosts, parameters);
-            var posts = rows.Map (row => Post.LoadFromRow (row));
+            var posts = postRepository.RetrievePosts ();
             foreach (var post in posts)
             {
                 ImagePost (post, template, fileNameIdFormat, imageFormat);
@@ -96,22 +92,21 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTags (SqlConnection conn, string siteDomain)
+        internal static void PivotizeTags (TagRepository tagRepository, PostRepository postRepository, string siteDomain)
         {
-            var tags = EnumerateTags (conn);
+            var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
             {
-                PivotizeTag (conn, tag, siteDomain);
+                PivotizeTag (postRepository, tag, siteDomain);
             }
         }
 
-        internal static void PivotizeTag (SqlConnection conn, string tag, string siteDomain)
+        internal static void PivotizeTag (PostRepository postRepository, string tag, string siteDomain)
         {
             using (var outputStream 
                 = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                var parameters = new Dictionary<string, object> { {"@tag", tag} };
-                var posts = EnumerateRecords (conn, SelectPostsByTag, parameters);
+                var posts = postRepository.RetrievePosts (tag);
                 PivotizeTag (tag, posts, outputStream, siteDomain);
             }
         }
@@ -125,7 +120,7 @@ namespace PivotStack
             bitmap.Save (destination, imageFormat);
         }
 
-        internal static void PivotizeTag (string tag, IEnumerable<object[]> posts, Stream destination, string siteDomain)
+        internal static void PivotizeTag (string tag, IEnumerable<Post> posts, Stream destination, string siteDomain)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
@@ -145,9 +140,9 @@ namespace PivotStack
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
             itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
-            foreach (var row in posts)
+            foreach (var post in posts)
             {
-                var element = PivotizePost (row);
+                var element = PivotizePost (post);
                 itemsNode.Add (element);
             }
             using (var writer = XmlWriter.Create (destination, WriterSettings))
@@ -155,12 +150,6 @@ namespace PivotStack
                 Debug.Assert(writer != null);
                 doc.Save (writer);
             }
-        }
-
-        internal static XElement PivotizePost (IList row)
-        {
-            var post = Post.LoadFromRow (row);
-            return PivotizePost (post);
         }
 
         internal static XElement PivotizePost (Post post)
@@ -331,32 +320,6 @@ namespace PivotStack
                         yield return destination;
                     }
                 }
-            }
-        }
-
-        internal static IEnumerable<string> EnumerateTags (SqlConnection conn)
-        {
-            using (var command = conn.CreateCommand ())
-            {
-                command.CommandText = SelectTags;
-                using (var reader = command.ExecuteReader (CommandBehavior.SingleResult))
-                {
-                    Debug.Assert(reader != null);
-                    while (reader.Read ())
-                    {
-                        yield return reader.GetString(0);
-                    }
-                }
-            }
-        }
-
-        internal static string LoadCommandText (string commandName)
-        {
-            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> (commandName))
-            using (var reader = new StreamReader(stream))
-            {
-                var result = reader.ReadToEnd ();
-                return result;
             }
         }
     }
