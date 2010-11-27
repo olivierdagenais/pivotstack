@@ -67,40 +67,8 @@ namespace PivotStack
                 var tagRepository = new TagRepository (conn);
                 var postRepository = new PostRepository (conn);
 
-                #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
-                var workingPath = Path.GetFullPath (WorkingFolderName);
-                if (Directory.Exists (workingPath))
-                {
-                    Directory.Delete (workingPath, true);
-                }
-                Directory.CreateDirectory (workingPath);
-                Page template;
-                using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
-                {
-                    template = (Page) XamlReader.Load (stream);
-                }
-                var imageFormat = settings.PostImageEncoding;
-                var imageExtension = imageFormat.ToString ().ToLower ();
-
-                var posts = postRepository.RetrievePosts ();
-                foreach (var post in posts)
-                {
-                    var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", settings.FileNameIdFormat);
-                    var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
-                    Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
-                    var element = PivotizePost (post);
-                    element.Save (absoluteBinnedXmlPath);
-
-                    var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
-                    var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
-                    Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImagePath));
-                    using (var outputStream
-                        = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
-                    {
-                        ImagePost (post, template, imageFormat, outputStream);
-                    }
-                }
-                #endregion
+                // Phase 1: Convert Posts (collection items) into temporary raw artifacts
+                //CreateRawItems (settings, postRepository);
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
                 // TODO: foreach post in posts slice corresponding image into tiles for all zoom levels
@@ -116,6 +84,42 @@ namespace PivotStack
                 #endregion
             }
             return 0;
+        }
+
+        internal static void CreateRawItems (Settings settings, PostRepository postRepository)
+        {
+            var workingPath = Path.GetFullPath (WorkingFolderName);
+            if (Directory.Exists (workingPath))
+            {
+                Directory.Delete (workingPath, true);
+            }
+            Directory.CreateDirectory (workingPath);
+            Page template;
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
+            {
+                template = (Page) XamlReader.Load (stream);
+            }
+            var imageFormat = settings.PostImageEncoding;
+            var imageExtension = imageFormat.ToString ().ToLower ();
+
+            var posts = postRepository.RetrievePosts ();
+            foreach (var post in posts)
+            {
+                var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", settings.FileNameIdFormat);
+                var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
+                Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
+                var element = PivotizePost (post);
+                element.Save (absoluteBinnedXmlPath);
+
+                var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
+                var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
+                Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImagePath));
+                using (var outputStream
+                    = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                {
+                    ImagePost (post, template, imageFormat, outputStream);
+                }
+            }
         }
 
         internal static void PivotizeTag (PostRepository postRepository, string tag, string siteDomain)
