@@ -26,6 +26,8 @@ namespace PivotStack
 
     public class Program
     {
+        private const string WorkingFolderName = "rawItems";
+
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
         internal static readonly XNamespace PivotNamespace 
@@ -56,45 +58,54 @@ namespace PivotStack
                 conn.Open ();
                 var tagRepository = new TagRepository (conn);
                 var postRepository = new PostRepository (conn);
-                PivotizeTags (tagRepository, postRepository, settings.SiteDomain);
-                ImagePosts (postRepository, settings.FileNameIdFormat, settings.PostImageEncoding);
+
+                #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
+                var workingPath = Path.GetFullPath (WorkingFolderName);
+                if (Directory.Exists (workingPath))
+                {
+                    Directory.Delete (workingPath, true);
+                }
+                Directory.CreateDirectory (workingPath);
+                Page template;
+                using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
+                {
+                    template = (Page) XamlReader.Load (stream);
+                }
+                var imageFormat = settings.PostImageEncoding;
+                var imageExtension = imageFormat.ToString ().ToLower ();
+
+                var posts = postRepository.RetrievePosts ();
+                foreach (var post in posts)
+                {
+                    var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", settings.FileNameIdFormat);
+                    var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
+                    var element = PivotizePost (post);
+                    element.Save (absoluteBinnedXmlPath);
+
+                    var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
+                    var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
+                    using (var outputStream
+                        = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                    {
+                        ImagePost (post, template, imageFormat, outputStream);
+                    }
+                }
+                #endregion
+
+                #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
+                // TODO: foreach post in posts slice corresponding image into tiles for all zoom levels
+                #endregion
+
+                #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
+                var tags = tagRepository.RetrieveTags ();
+                foreach (var tag in tags)
+                {
+                    PivotizeTag (postRepository, tag, settings.SiteDomain);
+                    // TODO: Generate .dzc file for tag
+                }
+                #endregion
             }
             return 0;
-        }
-
-        internal static void ImagePosts (PostRepository postRepository, string fileNameIdFormat, ImageFormat imageFormat)
-        {
-            Page template;
-            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
-            {
-                template = (Page) XamlReader.Load (stream);
-            }
-
-            var posts = postRepository.RetrievePosts ();
-            foreach (var post in posts)
-            {
-                ImagePost (post, template, fileNameIdFormat, imageFormat);
-            }
-        }
-
-        internal static void ImagePost (Post post, Page template, string fileNameIdFormat, ImageFormat imageFormat)
-        {
-            var extension = imageFormat.ToString ().ToLower ();
-            var binnedPath = post.ComputeBinnedPath (extension, fileNameIdFormat);
-            using (var outputStream
-                = new FileStream (binnedPath, FileMode.Create, FileAccess.Write, FileShare.Read))
-            {
-                ImagePost (post, template, imageFormat, outputStream);
-            }
-        }
-
-        internal static void PivotizeTags (TagRepository tagRepository, PostRepository postRepository, string siteDomain)
-        {
-            var tags = tagRepository.RetrieveTags ();
-            foreach (var tag in tags)
-            {
-                PivotizeTag (postRepository, tag, siteDomain);
-            }
         }
 
         internal static void PivotizeTag (PostRepository postRepository, string tag, string siteDomain)
@@ -102,6 +113,7 @@ namespace PivotStack
             using (var outputStream 
                 = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
             {
+                // TODO: instead of re-processing posts, only load post IDs for the tag and then concatenate their XML
                 var posts = postRepository.RetrievePosts (tag);
                 PivotizeTag (tag, posts, outputStream, siteDomain);
             }
@@ -256,6 +268,7 @@ namespace PivotStack
             #endregion
         }
 
+        // TODO: turn these 4 methods into extension methods on XElement or instance methods on something else (Item?)
         internal static void AddFacet (XElement facets, FacetType facetType, string name, object value)
         {
             AddFacet (facets, facetType, name, new[] { value });
