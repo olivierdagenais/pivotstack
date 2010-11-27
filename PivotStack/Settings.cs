@@ -7,6 +7,7 @@ namespace PivotStack
     {
         public string SiteDomain { get; set; }
         public int MaximumNumberOfItems { get; set; }
+        public int HighestId { get; set; }
         public ImageFormat PostImageEncoding { get; set; }
         // TODO: path to XAML template?
         public string PathToFavIcon { get; set; }
@@ -20,7 +21,7 @@ namespace PivotStack
         {
             get
             {
-                return 1 + (int) Math.Log10 (MaximumNumberOfItems);
+                return 1 + (int) Math.Log10 (HighestId);
             }
         }
 

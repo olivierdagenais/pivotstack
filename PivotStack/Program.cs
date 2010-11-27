@@ -47,9 +47,17 @@ namespace PivotStack
             // TODO: initialize Settings instance from app.config and/or command-line
             var settings = new Settings
             {
-                DatabaseConnectionString = "Data Source=SECHOIR;Initial Catalog=SuperUser;Integrated Security=True",
+                /*
+                DatabaseConnectionString = "Data Source=Blackberry;Initial Catalog=SuperUser;Integrated Security=True",
                 SiteDomain = "superuser.com",
-                MaximumNumberOfItems = 1000000,
+                MaximumNumberOfItems = 185520,
+                HighestId = 207698,
+                 */
+                DatabaseConnectionString = "Data Source=Blackberry;Initial Catalog=Photography;Integrated Security=True",
+                SiteDomain = "photo.stackexchange.com",
+                MaximumNumberOfItems = 936,
+                HighestId = 4479,
+
                 PostImageEncoding = ImageFormat.Png,
             };
 
