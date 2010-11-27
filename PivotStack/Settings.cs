@@ -16,11 +16,11 @@ namespace PivotStack
         // TODO: DeepZoom collection parameters?
         // TODO: Number of threads to use?
 
-        public int MaximumNumberOfDecimalPlaces
+        public int MaximumNumberOfDigits
         {
             get
             {
-                return (int) Math.Log10 (MaximumNumberOfItems);
+                return 1 + (int) Math.Log10 (MaximumNumberOfItems);
             }
         }
 
@@ -28,7 +28,7 @@ namespace PivotStack
         {
             get
             {
-                return new String ('0', MaximumNumberOfDecimalPlaces);
+                return new String ('0', MaximumNumberOfDigits);
             }
         }
     }
