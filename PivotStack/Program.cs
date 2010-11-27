@@ -87,11 +87,13 @@ namespace PivotStack
                 {
                     var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", settings.FileNameIdFormat);
                     var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
+                    Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
                     var element = PivotizePost (post);
                     element.Save (absoluteBinnedXmlPath);
 
                     var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
                     var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
+                    Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImagePath));
                     using (var outputStream
                         = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
                     {

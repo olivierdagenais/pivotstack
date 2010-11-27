@@ -51,8 +51,6 @@ namespace PivotStack
         {
             var fileName = Path.ChangeExtension (Id.ToString (fileNameIdFormat), extension);
             var binnedPath = fileName.ToBinnedPath (3);
-            var folders = Path.GetDirectoryName (binnedPath);
-            Directory.CreateDirectory (folders);
             return binnedPath;
         }
     }
