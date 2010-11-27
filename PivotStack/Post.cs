@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.IO;
 
 namespace PivotStack
 {
@@ -44,6 +45,15 @@ namespace PivotStack
                 Favorites = (int)row[15],
             };
             return result;
+        }
+
+        public string ComputeBinnedPath (string extension, string fileNameIdFormat)
+        {
+            var fileName = Path.ChangeExtension (Id.ToString (fileNameIdFormat), extension);
+            var binnedPath = fileName.ToBinnedPath (3);
+            var folders = Path.GetDirectoryName (binnedPath);
+            Directory.CreateDirectory (folders);
+            return binnedPath;
         }
     }
 }

@@ -80,10 +80,7 @@ namespace PivotStack
         internal static void ImagePost (Post post, Page template, string fileNameIdFormat, ImageFormat imageFormat)
         {
             var extension = imageFormat.ToString ().ToLower ();
-            var fileName = Path.ChangeExtension (post.Id.ToString (fileNameIdFormat), extension);
-            var binnedPath = fileName.ToBinnedPath (3);
-            var folders = Path.GetDirectoryName (binnedPath);
-            Directory.CreateDirectory (folders);
+            var binnedPath = post.ComputeBinnedPath (extension, fileNameIdFormat);
             using (var outputStream
                 = new FileStream (binnedPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
