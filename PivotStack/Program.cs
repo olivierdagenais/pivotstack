@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
@@ -40,6 +41,13 @@ namespace PivotStack
             NewLineChars = "\n",
 #endif
         };
+        internal const SaveOptions PostSaveOptions =
+#if DEBUG
+            SaveOptions.None
+#else
+            SaveOptions.DisableFormatting
+#endif
+        ;
 
         [STAThread]
         public static int Main (string[] args)
@@ -109,7 +117,11 @@ namespace PivotStack
                 var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
                 var element = PivotizePost (post);
-                element.Save (absoluteBinnedXmlPath);
+                using (var sw = new StreamWriter (absoluteBinnedXmlPath, false, Encoding.UTF8))
+                {
+                    var str = element.ToString (PostSaveOptions);
+                    sw.Write (str);
+                }
 
                 var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
                 var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
