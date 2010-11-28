@@ -93,8 +93,7 @@ namespace PivotStack.Tests
         public void PivotizePost_AnsweredAndAccepted ()
         {
             const string expectedXml = @"
-    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?""
-        xmlns=""http://schemas.microsoft.com/collection/metadata/2009"">
+    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?"">
       <Description>What are your best tips/not so known features of excel?</Description>
       <Facets>
         <Facet Name=""Score""><Number Value=""7"" /></Facet>
@@ -143,8 +142,7 @@ namespace PivotStack.Tests
                 {"Favorites", 10},
             };
             const string expectedXml = @"
-    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?""
-        xmlns=""http://schemas.microsoft.com/collection/metadata/2009"">
+    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?"">
       <Description>What are your best tips/not so known features of excel?</Description>
       <Facets>
         <Facet Name=""Score""><Number Value=""7"" /></Facet>
@@ -192,8 +190,7 @@ namespace PivotStack.Tests
                 {"Favorites", 10},
             };
             const string expectedXml = @"
-    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?""
-        xmlns=""http://schemas.microsoft.com/collection/metadata/2009"">
+    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?"">
       <Description>What are your best tips/not so known features of excel?</Description>
       <Facets>
         <Facet Name=""Score""><Number Value=""7"" /></Facet>

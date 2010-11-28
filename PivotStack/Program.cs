@@ -189,7 +189,7 @@ namespace PivotStack
         internal static XElement PivotizePost (Post post)
         {
             #region <Item Id="3232" Href="3232" Name="What are the best Excel tips?">
-            var itemNode = new XElement (CollectionNamespace + "Item");
+            var itemNode = new XElement ("Item");
 
             itemNode.SetAttributeValue ("Id", post.Id);
             itemNode.SetAttributeValue ("Href", post.Id);
@@ -197,12 +197,12 @@ namespace PivotStack
             itemNode.SetAttributeValue ("Name", post.Name);
 
             #region <Description>What are your best tips/not so known features of excel?</Description>
-            var descriptionNode = new XElement (CollectionNamespace + "Description", post.Description.CleanHtml ());
+            var descriptionNode = new XElement ("Description", post.Description.CleanHtml ());
             itemNode.Add (descriptionNode);
             #endregion
 
             #region <Facets>
-            var facetsNode = new XElement(CollectionNamespace + "Facets");
+            var facetsNode = new XElement("Facets");
 
             #region <Facet Name="Score"><Number Value="7" /></Facet>
             AddFacet (facetsNode, FacetType.Number, "Score", post.Score);
@@ -302,8 +302,8 @@ namespace PivotStack
 
         internal static void AddFacet (XElement facets, FacetType facetType, string name, IEnumerable<object> values)
         {
-            var facetNode = new XElement(CollectionNamespace + "Facet", new XAttribute("Name", name));
-            var elementName = CollectionNamespace + facetType.ToString();
+            var facetNode = new XElement("Facet", new XAttribute("Name", name));
+            var elementName = facetType.ToString();
             foreach (var value in values)
             {
                 var valueNode = new XElement(elementName, new XAttribute("Value", value));
@@ -321,8 +321,8 @@ namespace PivotStack
         internal static void AddFacetLink
             (XElement facets, string facetName, IEnumerable<Pair<string, string>> hrefNamePairs)
         {
-            var facetNode = new XElement (CollectionNamespace + "Facet", new XAttribute ("Name", facetName));
-            var elementName = CollectionNamespace + FacetType.Link.ToString ();
+            var facetNode = new XElement ("Facet", new XAttribute ("Name", facetName));
+            var elementName = FacetType.Link.ToString ();
             foreach (var pair in hrefNamePairs)
             {
                 var href = pair.First;
