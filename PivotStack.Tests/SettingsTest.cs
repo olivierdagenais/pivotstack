@@ -10,7 +10,7 @@ namespace PivotStack.Tests
         {
             var settings = new Settings
             {
-                MaximumNumberOfItems = 9,
+                HighestId = 9,
             };
             Assert.AreEqual (1, settings.MaximumNumberOfDigits);
         }
@@ -20,7 +20,7 @@ namespace PivotStack.Tests
         {
             var settings = new Settings
             {
-                MaximumNumberOfItems = 10,
+                HighestId = 10,
             };
             Assert.AreEqual (2, settings.MaximumNumberOfDigits);
         }
@@ -30,7 +30,7 @@ namespace PivotStack.Tests
         {
             var settings = new Settings
             {
-                MaximumNumberOfItems = 936,
+                HighestId = 936,
             };
             Assert.AreEqual (3, settings.MaximumNumberOfDigits);
         }
@@ -40,7 +40,7 @@ namespace PivotStack.Tests
         {
             var settings = new Settings
             {
-                MaximumNumberOfItems = 1000,
+                HighestId = 1000,
             };
             Assert.AreEqual (4, settings.MaximumNumberOfDigits);
         }
