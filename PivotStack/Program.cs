@@ -86,7 +86,7 @@ namespace PivotStack
                 var tags = tagRepository.RetrieveTags ();
                 foreach (var tag in tags)
                 {
-                    PivotizeTag (postRepository, tag, settings.SiteDomain);
+                    // TODO: Generate .cxml file for tag
                     // TODO: Generate .dzc file for tag
                 }
                 #endregion

@@ -1,4 +1,5 @@
-SELECT DISTINCT
-    PostsTags.Tag
+SELECT
+    Tags.Id,
+    Tags.TagName
 FROM
-    PostsTags
+    Tags

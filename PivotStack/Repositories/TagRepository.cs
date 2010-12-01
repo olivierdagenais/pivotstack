@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Data;
-using System.Diagnostics;
+using SoftwareNinjas.Core;
 
 namespace PivotStack.Repositories
 {
@@ -13,20 +13,11 @@ namespace PivotStack.Repositories
         {
         }
 
-        public IEnumerable<string> RetrieveTags()
+        public IEnumerable<Tag> RetrieveTags()
         {
-            using (var command = Connection.CreateCommand ())
-            {
-                command.CommandText = SelectTags;
-                using (var reader = command.ExecuteReader (CommandBehavior.SingleResult))
-                {
-                    Debug.Assert (reader != null);
-                    while (reader.Read ())
-                    {
-                        yield return reader.GetString (0);
-                    }
-                }
-            }
+            var rows = EnumerateRecords (SelectTags);
+            var tags = rows.Map (row => Tag.LoadFromRow (row));
+            return tags;
         }
     }
 }
