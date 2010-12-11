@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitmapSourceExtensionsTest.cs" />
+    <Compile Include="CollectionWriterTest.cs" />
     <Compile Include="DeepZoomImageTest.cs" />
     <Compile Include="MortonLayoutTest.cs" />
     <Compile Include="PostTest.cs" />
@@ -88,6 +89,9 @@
       <Project>{D21B323B-68CA-4DE5-A9B2-EFD997590F77}</Project>
       <Name>PivotStack</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="CollectionWithInjectedItems.cxml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>

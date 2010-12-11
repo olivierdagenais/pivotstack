@@ -62,8 +62,10 @@
   <ItemGroup>
     <Compile Include="BitmapSourceExtensions.cs" />
     <Compile Include="BoolExtensions.cs" />
+    <Compile Include="CollectionWriter.cs" />
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
+    <Compile Include="InterceptingXmlWriter.cs" />
     <Compile Include="MortonLayout.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Post.cs" />

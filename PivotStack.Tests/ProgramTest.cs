@@ -16,6 +16,30 @@ namespace PivotStack.Tests
     [TestFixture]
     public class ProgramTest
     {
+        internal const string ExpectedAnsweredAndAccepted = @"
+    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?"">
+      <Description>What are your best tips/not so known features of excel?</Description>
+      <Facets>
+        <Facet Name=""Score""><Number Value=""7"" /></Facet>
+        <Facet Name=""Views""><Number Value=""761"" /></Facet>
+        <Facet Name=""Answers""><Number Value=""27"" /></Facet>
+        <Facet Name=""Tagged""><String Value=""excel"" /><String Value=""tips-and-tricks"" /></Facet>
+        <Facet Name=""Related Tags"">
+            <Link Href=""excel.cxml"" Name=""excel"" />
+            <Link Href=""tips-and-tricks.cxml"" Name=""tips-and-tricks"" />
+        </Facet>
+        <Facet Name=""Date asked""><DateTime Value=""2009-07-15T18:36:28"" /></Facet>
+        <Facet Name=""Is answered?""><String Value=""yes"" /></Facet>
+        <Facet Name=""Date first answered""><DateTime Value=""2009-07-15T18:41:08"" /></Facet>
+        <Facet Name=""Date last answered""><DateTime Value=""2010-06-16T09:46:07"" /></Facet>
+        <Facet Name=""Asker""><String Value=""Bob"" /></Facet>
+        <Facet Name=""Has accepted answer?""><String Value=""yes"" /></Facet>
+        <Facet Name=""Accepted Answer""><LongString Value=""My best advice for Excel..."" /></Facet>
+        <Facet Name=""Top Answer""><LongString Value=""In-cell graphs, using REPT..."" /></Facet>
+        <Facet Name=""Is favorite?""><String Value=""yes"" /></Facet>
+        <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
+      </Facets>
+    </Item>";
         private readonly Page _testTemplate;
 
         public ProgramTest()
@@ -92,31 +116,7 @@ namespace PivotStack.Tests
         [Test]
         public void PivotizePost_AnsweredAndAccepted ()
         {
-            const string expectedXml = @"
-    <Item Id=""3232"" Href=""3232"" Name=""What are the best Excel tips?"">
-      <Description>What are your best tips/not so known features of excel?</Description>
-      <Facets>
-        <Facet Name=""Score""><Number Value=""7"" /></Facet>
-        <Facet Name=""Views""><Number Value=""761"" /></Facet>
-        <Facet Name=""Answers""><Number Value=""27"" /></Facet>
-        <Facet Name=""Tagged""><String Value=""excel"" /><String Value=""tips-and-tricks"" /></Facet>
-        <Facet Name=""Related Tags"">
-            <Link Href=""excel.cxml"" Name=""excel"" />
-            <Link Href=""tips-and-tricks.cxml"" Name=""tips-and-tricks"" />
-        </Facet>
-        <Facet Name=""Date asked""><DateTime Value=""2009-07-15T18:36:28"" /></Facet>
-        <Facet Name=""Is answered?""><String Value=""yes"" /></Facet>
-        <Facet Name=""Date first answered""><DateTime Value=""2009-07-15T18:41:08"" /></Facet>
-        <Facet Name=""Date last answered""><DateTime Value=""2010-06-16T09:46:07"" /></Facet>
-        <Facet Name=""Asker""><String Value=""Bob"" /></Facet>
-        <Facet Name=""Has accepted answer?""><String Value=""yes"" /></Facet>
-        <Facet Name=""Accepted Answer""><LongString Value=""My best advice for Excel..."" /></Facet>
-        <Facet Name=""Top Answer""><LongString Value=""In-cell graphs, using REPT..."" /></Facet>
-        <Facet Name=""Is favorite?""><String Value=""yes"" /></Facet>
-        <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
-      </Facets>
-    </Item>";
-            TestPivotizePost (expectedXml, PostTest.AnsweredAndAccepted);
+            TestPivotizePost (ExpectedAnsweredAndAccepted, PostTest.AnsweredAndAccepted);
         }
 
         [Test]
