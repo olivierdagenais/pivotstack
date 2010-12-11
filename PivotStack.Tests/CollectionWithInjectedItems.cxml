@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Collection xmlns:p="http://schemas.microsoft.com/livelabs/pivot/collection/2009" SchemaVersion="1.0" p:Icon="favicon.ico" p:BrandImage="BrandImage.png" xmlns="http://schemas.microsoft.com/collection/metadata/2009">
   <FacetCategories>
-    <!-- TODO: Generate class from this section -->
     <FacetCategory Name="Score" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Views" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Answers" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
@@ -18,7 +17,7 @@
     <FacetCategory Name="Is favorite?" Type="String" p:IsFilterVisible="true" p:IsWordWheelVisible="true" p:IsMetaDataVisible="true" />
     <FacetCategory Name="Favorites" Type="Number" p:IsFilterVisible="true" p:IsWordWheelVisible="false" p:IsMetaDataVisible="true" />
   </FacetCategories>
-  <Items ImgBase="images.xml">
+  <Items>
   
     <Item Id="3232" Href="3232" Name="What are the best Excel tips?">
       <Description>What are your best tips/not so known features of excel?</Description>
