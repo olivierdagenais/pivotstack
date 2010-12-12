@@ -31,7 +31,7 @@ namespace PivotStack
         internal static IEnumerable<Pair<string, string>> GenerateReservedCharacters()
         {
             // including % because we use % to escape
-            var characters = Path.GetInvalidPathChars ().Compose ('%');
+            var characters = '%'.Compose (Path.GetInvalidPathChars ());
             var result = characters.Map (c =>
                 {
                     var i = Convert.ToInt32 (c);
