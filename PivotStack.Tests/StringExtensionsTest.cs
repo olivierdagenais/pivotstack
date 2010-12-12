@@ -1,4 +1,6 @@
-﻿using NUnit.Framework;
+﻿using System;
+using System.Text;
+using NUnit.Framework;
 using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
 
 namespace PivotStack.Tests
@@ -69,6 +71,49 @@ For those you out there that don't know what nethack is: please inform your selv
         {
             Assert.AreEqual ("123.png", "123.png".ToBinnedPath (3));
         }
+
+        [Test]
+        public void ToBinnedPath_ReservedWord ()
+        {
+            Assert.AreEqual ("t/ele/_con/ver/teleconverter.cxml", "teleconverter.cxml".ToBinnedPath (3));
+        }
+
+        [Test]
+        public void ToBinnedPath_ReservedCharacters ()
+        {
+            var bytes = new byte[] {0x0, 0x1, 0x2, 0x3, 0x4, 0x5, 0x6, 0x7, 0x8, 0x9, 0xA, 0xB, 0xC,};
+            var sb = new StringBuilder (bytes.Length);
+            foreach (var b in bytes)
+            {
+                var c = Convert.ToChar (b);
+                sb.Append (c);
+            }
+            sb.Append (".cxml");
+            var input = sb.ToString ();
+
+            var actual = input.ToBinnedPath (3);
+
+            Assert.AreEqual ("%0/%1%2%3/%4%5%6/%7%8%9/%0%1%2%3%4%5%6%7%8%9%a%b%c.cxml", actual);
+        }
+
+        [Test]
+        public void SanitizeName_NoChanges ()
+        {
+            Assert.AreEqual ("teleconverter.cxml", StringExtensions.SanitizeName ("teleconverter.cxml"));
+        }
+
+        [Test]
+        public void SanitizeName_ReservedDeviceName ()
+        {
+            Assert.AreEqual ("_con", StringExtensions.SanitizeName ("con"));
+        }
+
+        [Test]
+        public void SanitizeName_Percent ()
+        {
+            Assert.AreEqual ("%25", StringExtensions.SanitizeName ("%"));
+        }
+
 
         [Test]
         public void BinUpReverse_LotsOfBins ()

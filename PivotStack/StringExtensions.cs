@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
+using SoftwareNinjas.Core;
 
 namespace PivotStack
 {
@@ -13,6 +14,33 @@ namespace PivotStack
         // http://stackoverflow.com/questions/286813/how-do-you-convert-html-to-plain-text/286825#286825
         internal static readonly Regex ElementRegex
             = new Regex (@"<[^>]*>", RegexOptions.Compiled);
+
+        private static readonly string[] ReservedDeviceNames = new[]
+        {
+            "CON",
+            "PRN",
+            "AUX",
+            "NUL",
+            "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9",
+            "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9",
+        };
+
+        private static readonly IList<Pair<string, string>> ReservedCharacters =
+            new List<Pair<string, string>> (GenerateReservedCharacters ());
+
+        internal static IEnumerable<Pair<string, string>> GenerateReservedCharacters()
+        {
+            // including % because we use % to escape
+            var characters = Path.GetInvalidPathChars ().Compose ('%');
+            var result = characters.Map (c =>
+                {
+                    var i = Convert.ToInt32 (c);
+                    var pair = new Pair<string, string> (Convert.ToString (c), "%{0:x}".FormatInvariant (i));
+                    return pair;
+                }
+            );
+            return result;
+        }
 
         internal static IEnumerable<string> ParseTags (this string tagsColumn)
         {
@@ -35,9 +63,20 @@ namespace PivotStack
             return plainText;
         }
 
+        /// <remarks>
+        /// This version does not strip the folder names nor check for invalid characters, like
+        /// <see cref="Path.GetFileNameWithoutExtension(string)"/> would do.
+        /// </remarks>
+        internal static string GetFileNameWithoutExtension(string fileName)
+        {
+            var lastDot = fileName.LastIndexOf ('.');
+            var result = -1 == lastDot ? fileName : fileName.Substring (0, lastDot);
+            return result;
+        }
+
         public static string ToBinnedPath (this string fileName, int binSize)
         {
-            var withoutExtension = Path.GetFileNameWithoutExtension (fileName);
+            var withoutExtension = GetFileNameWithoutExtension (fileName);
             var length = withoutExtension.Length;
             var binCount = length / binSize;
             var estimatedCapacity = (binCount - 1) * (binSize + 1) + fileName.Length;
@@ -46,7 +85,7 @@ namespace PivotStack
             e.MoveNext ();
             while (true)
             {
-                var value = e.Current;
+                var value = SanitizeName(e.Current);
                 var hasNext = e.MoveNext ();
                 if (hasNext)
                 {
@@ -58,8 +97,44 @@ namespace PivotStack
                     break;
                 }
             }
-            sb.Append (fileName);
+            sb.Append (SanitizeName(fileName));
             return sb.ToString ();
+        }
+
+        private const char SubstitutionCharacter = '_';
+        /// <remarks>
+        /// <seealso href="http://msdn.microsoft.com/en-us/library/aa365247%28v=vs.85%29.aspx#naming_conventions">
+        /// Naming Files, Paths, and Namespaces > Naming Conventions
+        /// </seealso>
+        /// </remarks>
+        internal static string SanitizeName(string name)
+        {
+            var result = new StringBuilder (name);
+
+            var matchedDeviceName = false;
+            if (3 == name.Length || 4 == name.Length)
+            {
+                foreach (var reservedDeviceName in ReservedDeviceNames)
+                {
+                    if (name.Equals (reservedDeviceName, StringComparison.InvariantCultureIgnoreCase))
+                    {
+                        // TODO: this means "con" and "_con" would both map to "_con", causing confusion if not conflict
+                        result.Insert (0, SubstitutionCharacter);
+                        matchedDeviceName = true;
+                        break;
+                    }
+                }
+            }
+
+            if (!matchedDeviceName)
+            {
+                foreach (var reservedCharacter in ReservedCharacters)
+                {
+                    result.Replace (reservedCharacter.First, reservedCharacter.Second);
+                }
+            }
+
+            return result.ToString ();
         }
 
         public static IEnumerable<string> BinUpReverse (this string input, int binSize)
