@@ -35,10 +35,10 @@ namespace PivotStack
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
+            NewLineChars = "\n",
 #if DEBUG
             Indent = true,
             IndentChars = "  ",
-            NewLineChars = "\n",
 #endif
         };
         internal const SaveOptions PostSaveOptions =
