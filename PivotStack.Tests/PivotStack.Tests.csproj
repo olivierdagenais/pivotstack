@@ -58,6 +58,7 @@
     <Compile Include="BitmapSourceExtensionsTest.cs" />
     <Compile Include="CollectionWriterTest.cs" />
     <Compile Include="DeepZoomImageTest.cs" />
+    <Compile Include="ItemWriterTest.cs" />
     <Compile Include="MortonLayoutTest.cs" />
     <Compile Include="PostTest.cs" />
     <Compile Include="ProgramTest.cs" />
