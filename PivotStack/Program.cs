@@ -69,11 +69,13 @@ namespace PivotStack
                 PostImageEncoding = ImageFormat.Png,
             };
 
-            using (var conn = new SqlConnection(settings.DatabaseConnectionString))
+            using (var tagsConnection = new SqlConnection(settings.DatabaseConnectionString))
+            using (var postsConnection = new SqlConnection (settings.DatabaseConnectionString))
             {
-                conn.Open ();
-                var tagRepository = new TagRepository (conn);
-                var postRepository = new PostRepository (conn);
+                tagsConnection.Open ();
+                postsConnection.Open ();
+                var tagRepository = new TagRepository (tagsConnection);
+                var postRepository = new PostRepository (postsConnection);
 
                 // Phase 1: Convert Posts (collection items) into temporary raw artifacts
                 //CreateRawItems (settings, postRepository);
