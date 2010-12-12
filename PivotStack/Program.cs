@@ -41,13 +41,17 @@ namespace PivotStack
             IndentChars = "  ",
 #endif
         };
-        internal const SaveOptions PostSaveOptions =
+        internal static readonly XmlWriterSettings ItemWriterSettings = new XmlWriterSettings
+        {
+            OmitXmlDeclaration = true,
+            NewLineChars = "\n",
 #if DEBUG
-            SaveOptions.None
+            Indent = true,
+            IndentChars = "  ",
 #else
-            SaveOptions.DisableFormatting
+            NewLineHandling = NewLineHandling.Entitize,
 #endif
-        ;
+        };
 
         [STAThread]
         public static int Main (string[] args)
@@ -119,10 +123,13 @@ namespace PivotStack
                 var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
                 var element = PivotizePost (post);
-                using (var sw = new StreamWriter (absoluteBinnedXmlPath, false, Encoding.UTF8))
+                using (var outputStream =
+                    new FileStream (absoluteBinnedXmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
                 {
-                    var str = element.ToString (PostSaveOptions);
-                    sw.Write (str);
+                    using (var writer = new ItemWriter (outputStream, ItemWriterSettings))
+                    {
+                        element.Save (writer);
+                    }
                 }
 
                 var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
