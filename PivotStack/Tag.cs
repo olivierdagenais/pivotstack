@@ -1,4 +1,5 @@
 ﻿using System.Collections;
+using System.IO;
 
 namespace PivotStack
 {
@@ -15,6 +16,13 @@ namespace PivotStack
                 Name = (string)row[1],
             };
             return result;
+        }
+
+        public string ComputeBinnedPath (string extension)
+        {
+            var fileName = Path.ChangeExtension (Name, extension);
+            var binnedPath = fileName.ToBinnedPath (3);
+            return binnedPath;
         }
     }
 }
