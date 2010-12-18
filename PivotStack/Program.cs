@@ -94,7 +94,7 @@ namespace PivotStack
                 //CreateRawItems (settings, postRepository);
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
-                // TODO: foreach post in posts slice corresponding image into tiles for all zoom levels
+                GenerateImageSlices (settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
@@ -102,6 +102,17 @@ namespace PivotStack
                 #endregion
             }
             return 0;
+        }
+
+        internal static void GenerateImageSlices(Settings settings, PostRepository postRepository)
+        {
+            var imageFormat = settings.PostImageEncoding;
+            var imageExtension = imageFormat.ToString ().ToLower ();
+            var fileNameIdFormat = settings.FileNameIdFormat;
+            foreach (var postId in postRepository.RetrievePostIds ())
+            {
+                // TODO: slice corresponding image into tiles for all zoom levels
+            }
         }
 
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
