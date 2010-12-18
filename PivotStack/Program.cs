@@ -35,6 +35,7 @@ namespace PivotStack
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
+            OmitXmlDeclaration = true,
             NewLineChars = "\n",
 #if DEBUG
             Indent = true,
