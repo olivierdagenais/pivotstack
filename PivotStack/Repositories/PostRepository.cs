@@ -9,7 +9,6 @@ namespace PivotStack.Repositories
     public class PostRepository : DatabaseRepositoryBase
     {
         internal static readonly string SelectPosts = LoadCommandText ("select-posts.sql");
-        // TODO: selecting by tag is 99% like selecting posts; can we avoid the duplication in the SQL code?
         internal static readonly string SelectPostsByTag = LoadCommandText ("select-posts-by-tag.sql");
 
         public PostRepository (IDbConnection connection) : base (connection)
@@ -23,12 +22,12 @@ namespace PivotStack.Repositories
             return posts;
         }
 
-        public IEnumerable<Post> RetrievePosts(string tag)
+        public IEnumerable<int> RetrievePostIds (int tagId)
         {
-            var parameters = new Dictionary<string, object> { { "@tag", tag } };
+            var parameters = new Dictionary<string, object> { { "@tagId", tagId } };
             var rows = EnumerateRecords (SelectPostsByTag, parameters);
-            var posts = rows.Map (row => Post.LoadFromRow (row));
-            return posts;
+            var postIds = rows.Map (row => (int) row[0]);
+            return postIds;
         }
     }
 }

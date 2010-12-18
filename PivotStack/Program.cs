@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Text;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
@@ -28,6 +27,7 @@ namespace PivotStack
     public class Program
     {
         private const string WorkingFolderName = "rawItems";
+        private const string OutputFolderName = "output";
 
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
@@ -50,6 +50,15 @@ namespace PivotStack
             IndentChars = "  ",
 #else
             NewLineHandling = NewLineHandling.Entitize,
+#endif
+        };
+
+        private static readonly XmlReaderSettings ReaderSettings = new XmlReaderSettings
+        {
+#if DEBUG
+            IgnoreWhitespace = false,
+#else
+            IgnoreWhitespace = true,
 #endif
         };
 
@@ -92,7 +101,7 @@ namespace PivotStack
                 var tags = tagRepository.RetrieveTags ();
                 foreach (var tag in tags)
                 {
-                    // TODO: Generate .cxml file for tag
+                    PivotizeTag (postRepository, tag, settings);
                     // TODO: Generate .dzc file for tag
                 }
                 #endregion
@@ -143,14 +152,26 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (PostRepository postRepository, string tag, string siteDomain)
+        internal static void PivotizeTag (PostRepository postRepository, Tag tag, Settings settings)
         {
-            using (var outputStream 
-                = new FileStream (tag + ".cxml", FileMode.Create, FileAccess.Write, FileShare.Read))
+            var workingPath = Path.GetFullPath (WorkingFolderName);
+            var outputPath = Path.GetFullPath (OutputFolderName);
+            var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
+            var absoluteBinnedCxmlPath = Path.Combine (outputPath, relativeBinnedCxmlPath);
+            Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
+            using (var outputStream
+                = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                // TODO: instead of re-processing posts, only load post IDs for the tag and then concatenate their XML
-                var posts = postRepository.RetrievePosts (tag);
-                PivotizeTag (tag, posts, outputStream, siteDomain);
+                var postIds = postRepository.RetrievePostIds (tag.Id);
+                var streamReaders = postIds.Map (postId =>
+                    {
+                        var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
+                        var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
+                        var sr = new StreamReader (absoluteBinnedXmlPath);
+                        return sr;
+                    }
+                );
+                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain);
             }
         }
 
@@ -163,12 +184,12 @@ namespace PivotStack
             bitmap.Save (destination, imageFormat);
         }
 
-        internal static void PivotizeTag (string tag, IEnumerable<Post> posts, Stream destination, string siteDomain)
+        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.cxml"))
-            using (var reader = XmlReader.Create(stream))
+            using (var reader = XmlReader.Create (stream, ReaderSettings))
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
@@ -177,20 +198,33 @@ namespace PivotStack
             }
             var collectionNode = doc.Root;
             Debug.Assert(collectionNode != null);
-            collectionNode.SetAttributeValue ("Name", "Tagged Questions: {0}".FormatInvariant(tag));
+            collectionNode.SetAttributeValue ("Name", "Tagged Questions: {0}".FormatInvariant (tag.Name));
             // TODO: do we want to strip hyphens from tag for AdditionalSearchText?
-            collectionNode.SetAttributeValue (PivotNamespace + "AdditionalSearchText", tag);
+            collectionNode.SetAttributeValue (PivotNamespace + "AdditionalSearchText", tag.Name);
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
             itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
-            foreach (var post in posts)
+            itemsNode.SetAttributeValue ("ImgBase", tag.ComputeBinnedPath (".dzc"));
+            using (var writer = new CollectionWriter (destination, WriterSettings, futureCw =>
+                {
+                    futureCw.Flush ();
+                    var sw = new StreamWriter (destination);
+                    foreach (var sr in streamReaders)
+                    {
+                        foreach (var line in sr.Lines())
+                        {
+#if DEBUG
+                            sw.WriteLine (line);
+#else
+                            sw.Write (line);
+#endif
+                        }
+                        sr.Close ();
+                    }
+                    sw.Flush ();
+                })
+            )
             {
-                var element = PivotizePost (post);
-                itemsNode.Add (element);
-            }
-            using (var writer = XmlWriter.Create (destination, WriterSettings))
-            {
-                Debug.Assert(writer != null);
                 doc.Save (writer);
             }
         }
