@@ -9,6 +9,7 @@ namespace PivotStack.Repositories
     public class PostRepository : DatabaseRepositoryBase
     {
         internal static readonly string SelectPosts = LoadCommandText ("select-posts.sql");
+        internal static readonly string SelectPostIds = LoadCommandText ("select-post-ids.sql");
         internal static readonly string SelectPostsByTag = LoadCommandText ("select-posts-by-tag.sql");
 
         public PostRepository (IDbConnection connection) : base (connection)
@@ -20,6 +21,13 @@ namespace PivotStack.Repositories
             var rows = EnumerateRecords (SelectPosts);
             var posts = rows.Map (row => Post.LoadFromRow (row));
             return posts;
+        }
+
+        public IEnumerable<int> RetrievePostIds ()
+        {
+            var rows = EnumerateRecords (SelectPostIds);
+            var postIds = rows.Map (row => (int) row[0]);
+            return postIds;
         }
 
         public IEnumerable<int> RetrievePostIds (int tagId)
