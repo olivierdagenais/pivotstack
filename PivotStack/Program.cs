@@ -2,6 +2,7 @@
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Windows.Markup;
@@ -93,6 +94,7 @@ namespace PivotStack
 
                 // Phase 1: Convert Posts (collection items) into temporary raw artifacts
                 //CreateRawItems (settings, postRepository);
+                //GeneratePostImageResizes (settings, postRepository);
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
                 GenerateImageSlices (settings, postRepository);
@@ -165,6 +167,52 @@ namespace PivotStack
                     = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
                 {
                     ImagePost (post, template, imageFormat, outputStream);
+                }
+            }
+        }
+
+        internal static void GeneratePostImageResizes (Settings settings, PostRepository postRepository)
+        {
+            var workingPath = Path.GetFullPath (WorkingFolderName);
+            var imageFormat = settings.PostImageEncoding;
+            var extension = imageFormat.ToString ().ToLower ();
+            var fileNameIdFormat = settings.FileNameIdFormat;
+            foreach (var postId in postRepository.RetrievePostIds ())
+            {
+                var relativeBinnedImagePath = Post.ComputeBinnedPath (postId, extension, fileNameIdFormat);
+                var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
+                var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
+                var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
+                Directory.CreateDirectory (absoluteBinnedImageFolder);
+                using (var inputStream =
+                    new FileStream (absoluteBinnedImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var sourceBitmap = new Bitmap (inputStream))
+                {
+                    GeneratePostImageResizes (sourceBitmap, (level, resizedBitmap) =>
+                        {
+                            var levelImageName = "{0}.{1}".FormatInvariant (level, extension);
+                            var levelImagePath = Path.Combine (absoluteBinnedImageFolder, levelImageName);
+                            using (var outputStream =
+                                new FileStream (levelImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                            {
+                                resizedBitmap.Save (outputStream, imageFormat);
+                            }
+                        }
+                    );
+                }
+            }
+        }
+
+        internal static void GeneratePostImageResizes (Bitmap sourceBitmap, Action<int, Bitmap> saveAction)
+        {
+            var size = sourceBitmap.Size;
+            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
+            for (var level = maximumLevel; level >= 0; level--)
+            {
+                var targetSize = DeepZoomImage.ComputeLevelSize (size, level);
+                using (var resizedBitmap = DeepZoomImage.Resize (sourceBitmap, targetSize.Width, targetSize.Height))
+                {
+                    saveAction (level, resizedBitmap);
                 }
             }
         }
