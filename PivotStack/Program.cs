@@ -29,6 +29,7 @@ namespace PivotStack
     {
         private const string WorkingFolderName = "rawItems";
         private const string OutputFolderName = "output";
+        private const int TileSize = 256;
 
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
@@ -98,6 +99,7 @@ namespace PivotStack
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
                 GenerateImageSlices (settings, postRepository);
+                // TODO: GenerateImageManifests (settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
@@ -114,7 +116,7 @@ namespace PivotStack
             var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
-                // TODO: slice corresponding image into tiles for all zoom levels
+                SlicePostImage (postId, imageExtension, fileNameIdFormat, imageFormat);
             }
         }
 
@@ -247,6 +249,50 @@ namespace PivotStack
             var imageSource = pageTemplate.ToBitmapSource ();
             var bitmap = imageSource.ConvertToGdiPlusBitmap ();
             bitmap.Save (destination, imageFormat);
+        }
+
+        internal static void SlicePostImage (int postId, string extension, string fileNameIdFormat, ImageFormat imageFormat)
+        {
+            var workingPath = Path.GetFullPath (WorkingFolderName);
+            var outputPath = Path.GetFullPath (OutputFolderName);
+            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
+            var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
+            var absoluteBinnedOutputImageFolder = Path.Combine (outputPath, relativeBinnedImageFolder);
+
+            // TODO: how do I get this value without loading the image?
+            var size = new Size (800, 400);
+            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
+            for (var level = maximumLevel; level >= 0; level--)
+            {
+                var levelName = Convert.ToString (level, 10);
+                var targetSize = DeepZoomImage.ComputeLevelSize (size, level);
+                var tileFiles = new List<Stream> ();
+                var inputLevelImageFile = Path.ChangeExtension (levelName, extension);
+                var inputLevelImagePath = Path.Combine (absoluteBinnedImageFolder, inputLevelImageFile);
+                var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
+                Directory.CreateDirectory (outputLevelFolder);
+
+                var tiles = DeepZoomImage.ComputeTiles (targetSize, TileSize, 1);
+                using (var inputStream =
+                    new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var levelBitmap = new Bitmap(inputStream))
+                {
+                    DeepZoomImage.Slice (levelBitmap, tiles, imageFormat, tileName =>
+                        {
+                            var tileFileName = Path.ChangeExtension (tileName, extension);
+                            var tilePath = Path.Combine (outputLevelFolder, tileFileName);
+                            var stream =
+                                new FileStream (tilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+                            tileFiles.Add (stream);
+                            return stream;
+                        }
+                    );
+                }
+                foreach (var stream in tileFiles)
+                {
+                    stream.Close ();
+                }
+            }
         }
 
         internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain)
