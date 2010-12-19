@@ -47,6 +47,8 @@ namespace PivotStack.Tests
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<ProgramTest> ("TestTemplate.xaml"))
             {
                 _testTemplate = (Page) XamlReader.Load (stream);
+                _testTemplate.Width = 800;
+                _testTemplate.Height = 400;
             }
         }
 

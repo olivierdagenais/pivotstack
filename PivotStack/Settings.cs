@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Drawing;
 using System.Drawing.Imaging;
 
 namespace PivotStack
@@ -14,6 +15,7 @@ namespace PivotStack
         public string PathToBrandImage { get; set; }
         public string DatabaseConnectionString { get; set; }
         public string PathToOutput { get; set; }
+        public Size ItemImageSize { get; set; }
         // TODO: DeepZoom collection parameters?
         // TODO: Number of threads to use?
 

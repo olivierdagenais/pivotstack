@@ -71,6 +71,7 @@ namespace PivotStack
             // TODO: initialize Settings instance from app.config and/or command-line
             var settings = new Settings
             {
+                ItemImageSize = new Size(800, 400),
                 /*
                 DatabaseConnectionString = "Data Source=Blackberry;Initial Catalog=SuperUser;Integrated Security=True",
                 SiteDomain = "superuser.com",
@@ -111,12 +112,14 @@ namespace PivotStack
 
         internal static void GenerateImageSlices(Settings settings, PostRepository postRepository)
         {
+            var size = settings.ItemImageSize;
+            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
             var imageFormat = settings.PostImageEncoding;
             var imageExtension = imageFormat.ToString ().ToLower ();
             var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
-                SlicePostImage (postId, imageExtension, fileNameIdFormat, imageFormat);
+                SlicePostImage (postId, size, maximumLevel, imageExtension, fileNameIdFormat, imageFormat);
             }
         }
 
@@ -142,6 +145,8 @@ namespace PivotStack
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
             {
                 template = (Page) XamlReader.Load (stream);
+                template.Width = settings.ItemImageSize.Width;
+                template.Height = settings.ItemImageSize.Height;
             }
             var imageFormat = settings.PostImageEncoding;
             var imageExtension = imageFormat.ToString ().ToLower ();
@@ -175,6 +180,9 @@ namespace PivotStack
 
         internal static void GeneratePostImageResizes (Settings settings, PostRepository postRepository)
         {
+            var size = settings.ItemImageSize;
+            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
+
             var workingPath = Path.GetFullPath (WorkingFolderName);
             var imageFormat = settings.PostImageEncoding;
             var extension = imageFormat.ToString ().ToLower ();
@@ -190,7 +198,7 @@ namespace PivotStack
                     new FileStream (absoluteBinnedImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var sourceBitmap = new Bitmap (inputStream))
                 {
-                    GeneratePostImageResizes (sourceBitmap, (level, resizedBitmap) =>
+                    GeneratePostImageResizes (sourceBitmap, size, maximumLevel, (level, resizedBitmap) =>
                         {
                             var levelImageName = "{0}.{1}".FormatInvariant (level, extension);
                             var levelImagePath = Path.Combine (absoluteBinnedImageFolder, levelImageName);
@@ -205,10 +213,8 @@ namespace PivotStack
             }
         }
 
-        internal static void GeneratePostImageResizes (Bitmap sourceBitmap, Action<int, Bitmap> saveAction)
+        internal static void GeneratePostImageResizes (Bitmap sourceBitmap, Size size, int maximumLevel, Action<int, Bitmap> saveAction)
         {
-            var size = sourceBitmap.Size;
-            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
             for (var level = maximumLevel; level >= 0; level--)
             {
                 var targetSize = DeepZoomImage.ComputeLevelSize (size, level);
@@ -251,7 +257,7 @@ namespace PivotStack
             bitmap.Save (destination, imageFormat);
         }
 
-        internal static void SlicePostImage (int postId, string extension, string fileNameIdFormat, ImageFormat imageFormat)
+        internal static void SlicePostImage (int postId, Size size, int maximumLevel, string extension, string fileNameIdFormat, ImageFormat imageFormat)
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
             var outputPath = Path.GetFullPath (OutputFolderName);
@@ -259,9 +265,6 @@ namespace PivotStack
             var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
             var absoluteBinnedOutputImageFolder = Path.Combine (outputPath, relativeBinnedImageFolder);
 
-            // TODO: how do I get this value without loading the image?
-            var size = new Size (800, 400);
-            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
             for (var level = maximumLevel; level >= 0; level--)
             {
                 var levelName = Convert.ToString (level, 10);
