@@ -29,7 +29,6 @@ namespace PivotStack
     {
         private const string WorkingFolderName = "rawItems";
         private const string OutputFolderName = "output";
-        private const int TileSize = 256;
 
         internal static readonly XNamespace CollectionNamespace
             = "http://schemas.microsoft.com/collection/metadata/2009";
@@ -72,6 +71,8 @@ namespace PivotStack
             var settings = new Settings
             {
                 ItemImageSize = new Size(800, 400),
+                TileSize = 254,
+                TileOverlap = 1,
                 /*
                 DatabaseConnectionString = "Data Source=Blackberry;Initial Catalog=SuperUser;Integrated Security=True",
                 SiteDomain = "superuser.com",
@@ -119,7 +120,7 @@ namespace PivotStack
             var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
-                SlicePostImage (postId, size, maximumLevel, imageExtension, fileNameIdFormat, imageFormat);
+                SlicePostImage (postId, size, maximumLevel, imageExtension, fileNameIdFormat, imageFormat, settings.TileSize, settings.TileOverlap);
             }
         }
 
@@ -257,7 +258,7 @@ namespace PivotStack
             bitmap.Save (destination, imageFormat);
         }
 
-        internal static void SlicePostImage (int postId, Size size, int maximumLevel, string extension, string fileNameIdFormat, ImageFormat imageFormat)
+        internal static void SlicePostImage (int postId, Size size, int maximumLevel, string extension, string fileNameIdFormat, ImageFormat imageFormat, int tileSize, int tileOverlap)
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
             var outputPath = Path.GetFullPath (OutputFolderName);
@@ -275,7 +276,7 @@ namespace PivotStack
                 var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
                 Directory.CreateDirectory (outputLevelFolder);
 
-                var tiles = DeepZoomImage.ComputeTiles (targetSize, TileSize, 1);
+                var tiles = DeepZoomImage.ComputeTiles (targetSize, tileSize, tileOverlap);
                 using (var inputStream =
                     new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var levelBitmap = new Bitmap(inputStream))

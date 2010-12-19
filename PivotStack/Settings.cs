@@ -16,6 +16,8 @@ namespace PivotStack
         public string DatabaseConnectionString { get; set; }
         public string PathToOutput { get; set; }
         public Size ItemImageSize { get; set; }
+        public int TileSize { get; set; }
+        public int TileOverlap { get; set; }
         // TODO: DeepZoom collection parameters?
         // TODO: Number of threads to use?
 
