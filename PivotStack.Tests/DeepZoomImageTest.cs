@@ -15,6 +15,7 @@ namespace PivotStack.Tests
     {
         private static readonly Size PortraitImageSize = new Size (1200, 1500);
         private static readonly Size PowerOfTwoSize = new Size (1024, 512);
+        private static readonly Size SquareLogoSize = new Size (700, 700);
 
         private static void AssertAreEqual (System.Windows.Rect expected, Rectangle actual)
         {
@@ -111,6 +112,23 @@ namespace PivotStack.Tests
         }
 
         [Test]
+        public void ComputeLevelSize_SquareLogo ()
+        {
+            Assert.AreEqual (new Size (700, 700), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 11));
+            Assert.AreEqual (new Size (700, 700), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 10));
+            Assert.AreEqual (new Size (350, 350), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 9));
+            Assert.AreEqual (new Size (175, 175), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 8));
+            Assert.AreEqual (new Size (88, 88), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 7));
+            Assert.AreEqual (new Size (44, 44), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 6));
+            Assert.AreEqual (new Size (22, 22), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 5));
+            Assert.AreEqual (new Size (11, 11), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 4));
+            Assert.AreEqual (new Size (6, 6), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 3));
+            Assert.AreEqual (new Size (3, 3), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 2));
+            Assert.AreEqual (new Size (2, 2), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 1));
+            Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 0));
+        }
+
+        [Test]
         public void ComputeLevelSize_PowerOfTwo ()
         {
             Assert.AreEqual (new Size (1024, 512), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 11));
@@ -157,6 +175,28 @@ namespace PivotStack.Tests
 
                 new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(299, 254)), "1_0"),
                 new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(299, 374)), "1_1"),
+            };
+            EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void ComputeTiles_BigWithDoubleOverlap ()
+        {
+            var size = new Size (700, 700);
+            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var expected = new[]
+            {
+                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 508)), "0_1"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 507), new Point(254, 699)), "0_2"),
+
+                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(508, 254)), "1_0"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(508, 508)), "1_1"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 507), new Point(508, 699)), "1_2"),
+
+                new Tile (DeepZoomImage.CreateRectangle (new Point(507,   0), new Point(699, 254)), "2_0"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(507, 253), new Point(699, 508)), "2_1"),
+                new Tile (DeepZoomImage.CreateRectangle (new Point(507, 507), new Point(699, 699)), "2_2"),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
