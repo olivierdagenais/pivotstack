@@ -95,9 +95,11 @@ namespace PivotStack
                 var tagRepository = new TagRepository (tagsConnection);
                 var postRepository = new PostRepository (postsConnection);
 
-                // Phase 1: Convert Posts (collection items) into temporary raw artifacts
+                #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
+                //CleanWorkingFolder ();
                 //CreateRawItems (settings, postRepository);
                 //GeneratePostImageResizes (settings, postRepository);
+                #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
                 GenerateImageSlices (settings, postRepository);
@@ -134,13 +136,18 @@ namespace PivotStack
             }
         }
 
-        internal static void CreateRawItems (Settings settings, PostRepository postRepository)
+        internal static void CleanWorkingFolder()
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
             if (Directory.Exists (workingPath))
             {
                 Directory.Delete (workingPath, true);
             }
+        }
+
+        internal static void CreateRawItems (Settings settings, PostRepository postRepository)
+        {
+            var workingPath = Path.GetFullPath (WorkingFolderName);
             Directory.CreateDirectory (workingPath);
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
