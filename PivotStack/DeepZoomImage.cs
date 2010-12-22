@@ -106,8 +106,8 @@ namespace PivotStack
             }
             else
             {
-                var columns = Math.Ceiling (width / tileSize);
-                var rows = Math.Ceiling (height / tileSize);
+                var columns = (int) Math.Ceiling (width / tileSize);
+                var rows = (int) Math.Ceiling (height / tileSize);
                 var tileOffsetMultiplier = tileSize + tileOverlap - 1;
 
                 for (int column = 0; column < columns; column++)
