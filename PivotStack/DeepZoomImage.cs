@@ -66,8 +66,7 @@ namespace PivotStack
             return TileNameTemplate.FormatInvariant (column, row);
         }
 
-        internal static void Slice
-            (Bitmap source, IEnumerable<Tile> tiles, ImageFormat encoder, Func<string, Stream> streamGenerator)
+        internal static IEnumerable<Pair<Bitmap,string>> Slice (Bitmap source, IEnumerable<Tile> tiles)
         {
             foreach (var tile in tiles)
             {
@@ -88,9 +87,21 @@ namespace PivotStack
                         targetHeight,
                         GraphicsUnit.Pixel
                     );
-                    var stream = streamGenerator (tile.Second);
-                    targetImage.Save (stream, encoder);
+                    yield return new Pair<Bitmap, string> (targetImage, tile.Second);
                 }
+            }
+        }
+
+        internal static void Slice
+            (Bitmap source, IEnumerable<Tile> tiles, ImageFormat encoder, Func<string, Stream> streamGenerator)
+        {
+            var slices = Slice (source, tiles);
+            foreach (var pair in slices)
+            {
+                var targetImage = pair.First;
+                var streamName = pair.Second;
+                var stream = streamGenerator (streamName);
+                targetImage.Save (stream, encoder);
             }
         }
 
