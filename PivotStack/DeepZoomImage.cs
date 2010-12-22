@@ -71,8 +71,8 @@ namespace PivotStack
             foreach (var tile in tiles)
             {
                 var rect = tile.First;
-                var targetWidth = rect.Right - rect.Left + 1;
-                var targetHeight = rect.Bottom - rect.Top + 1;
+                var targetWidth = rect.Width;
+                var targetHeight = rect.Height;
                 var targetImage = new Bitmap (targetWidth, targetHeight);
                 using (var graphics = Graphics.FromImage (targetImage))
                 {
@@ -168,7 +168,7 @@ namespace PivotStack
 
         internal static Rectangle CreateRectangle(Point point1, Point point2)
         {
-            return new Rectangle (point1.X, point1.Y, point2.X - point1.X, point2.Y - point1.Y);
+            return new Rectangle (point1.X, point1.Y, point2.X - point1.X + 1, point2.Y - point1.Y + 1);
         }
     }
 }

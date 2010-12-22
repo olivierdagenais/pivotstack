@@ -49,10 +49,13 @@ namespace PivotStack.Tests
 
         private static void CheckRectangleWithTwoPoints(int x1, int y1, int x2, int y2)
         {
+            // The constructor below is documented as:
+            // "Initializes a new instance of the Rect structure that is
+            // exactly large enough to contain the two specified points."
             var expected = new System.Windows.Rect
             (
                 new System.Windows.Point (x1, y1),
-                new System.Windows.Point (x2, y2)
+                new System.Windows.Point (x2 + 1, y2 + 1)
             );
             var actual = DeepZoomImage.CreateRectangle (new Point (x1, y1), new Point (x2, y2));
             AssertAreEqual (expected, actual);
