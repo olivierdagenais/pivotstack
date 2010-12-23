@@ -58,7 +58,7 @@ namespace PivotStack
 #endif
         };
 
-        private static readonly XmlReaderSettings ReaderSettings = new XmlReaderSettings
+        internal static readonly XmlReaderSettings ReaderSettings = new XmlReaderSettings
         {
 #if DEBUG
             IgnoreWhitespace = false,
