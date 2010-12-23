@@ -67,6 +67,19 @@ namespace PivotStack.Tests
             }
         }
 
+        public void GenerateImageManifest_Typical()
+        {
+            const string expectedXml = @"
+<Image xmlns='http://schemas.microsoft.com/deepzoom/2009' TileSize='254' Overlap='1' Format='png'>
+  <Size Width='800' Height='400' />
+</Image>";
+            var expectedImageNode = XElement.Parse (expectedXml);
+
+            var actualImageNode = Program.GenerateImageManifest (254, 1, "png", 800, 400);
+
+            Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
+        }
+
         // TODO: Move to re-usable class library
         internal static void AssertStreamsAreEqual<T>(string expectedResourceFileName, MemoryStream actualStream)
         {

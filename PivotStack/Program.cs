@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Text;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
@@ -34,6 +35,8 @@ namespace PivotStack
             = "http://schemas.microsoft.com/collection/metadata/2009";
         internal static readonly XNamespace PivotNamespace 
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
+        internal static readonly XNamespace DeepZoomNamespace
+            = "http://schemas.microsoft.com/deepzoom/2009";
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
             OmitXmlDeclaration = true,
@@ -102,8 +105,8 @@ namespace PivotStack
                 #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
-                GenerateImageSlices (settings, postRepository);
-                // TODO: GenerateImageManifests (settings, postRepository);
+                //GenerateImageSlices (settings, postRepository);
+                GenerateImageManifests (settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
@@ -111,6 +114,60 @@ namespace PivotStack
                 #endregion
             }
             return 0;
+        }
+
+        internal static void GenerateImageManifests (Settings settings, PostRepository postRepository)
+        {
+            var outputPath = Path.GetFullPath (OutputFolderName);
+            var fileNameIdFormat = settings.FileNameIdFormat;
+            var imageNode = GenerateImageManifest (settings.TileSize, settings.TileOverlap,
+                                                   settings.PostImageEncoding.ToString ().ToLower (),
+                                                   settings.ItemImageSize.Width, settings.ItemImageSize.Height);
+
+            var sb = new StringBuilder ();
+            using (var writer = XmlWriter.Create (sb, WriterSettings))
+            {
+                Debug.Assert (writer != null);
+                imageNode.WriteTo (writer);
+            }
+            var imageManifest = sb.ToString ();
+
+            foreach (var postId in postRepository.RetrievePostIds ())
+            {
+                var relativeBinnedImageManifestPath = Post.ComputeBinnedPath (postId, "dzi", fileNameIdFormat);
+                var absoluteBinnedImageManifestPath = Path.Combine (outputPath, relativeBinnedImageManifestPath);
+                Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImageManifestPath));
+                File.WriteAllText (absoluteBinnedImageManifestPath, imageManifest, Encoding.UTF8);
+            }
+        }
+
+        internal static XElement GenerateImageManifest
+            (int tileSize, int tileOverlap, string imageFormat, int imageWidth, int imageHeight)
+        {
+            XDocument doc;
+            XmlNamespaceManager namespaceManager;
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.dzi"))
+            using (var reader = XmlReader.Create (stream, ReaderSettings))
+            {
+                doc = XDocument.Load (reader);
+                namespaceManager = new XmlNamespaceManager(reader.NameTable);
+                namespaceManager.AddNamespace("dz", DeepZoomNamespace.NamespaceName);
+            }
+            var imageNode = doc.Root;
+            Debug.Assert (imageNode != null);
+            #region <Image TileSize="254" Overlap="1" Format="png">
+            imageNode.SetAttributeValue ("TileSize", tileSize);
+            imageNode.SetAttributeValue ("Overlap", tileOverlap);
+            imageNode.SetAttributeValue ("Format", imageFormat);
+
+            #region <Size Width="800" Height="400" />
+            var sizeNode = imageNode.XPathSelectElement ("dz:Size", namespaceManager);
+            sizeNode.SetAttributeValue ("Width", imageWidth);
+            sizeNode.SetAttributeValue ("Height", imageHeight);
+            #endregion
+            #endregion
+
+            return imageNode;
         }
 
         internal static void GenerateImageSlices(Settings settings, PostRepository postRepository)
