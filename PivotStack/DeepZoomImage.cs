@@ -73,7 +73,7 @@ namespace PivotStack
                 var rect = tile.First;
                 var targetWidth = rect.Width;
                 var targetHeight = rect.Height;
-                var targetImage = new Bitmap (targetWidth, targetHeight);
+                using (var targetImage = new Bitmap (targetWidth, targetHeight))
                 using (var graphics = Graphics.FromImage (targetImage))
                 {
                     graphics.InterpolationMode = InterpolationMode.Default;

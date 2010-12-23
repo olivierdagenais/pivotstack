@@ -443,39 +443,41 @@ namespace PivotStack.Tests
         public void Slice_SquareLogo()
         {
             Assert.AreEqual (10, DeepZoomImage.DetermineMaximumLevel (SquareLogoSize));
-            var sourceBitmap = new Bitmap (SquareLogoSize.Width, SquareLogoSize.Height);
-            var tester = new Action<int, IEnumerable<Size>> ((level, expectedSliceSizes) =>
-                {
-                    var levelSize = DeepZoomImage.ComputeLevelSize (SquareLogoSize, level);
-                    var tiles = DeepZoomImage.ComputeTiles (levelSize, 254, 1);
-                    var slices = DeepZoomImage.Slice (sourceBitmap, tiles);
-                    var actualSliceSizes = slices.Map (pair => pair.First.Size);
-                    EnumerableExtensions.EnumerateSame (expectedSliceSizes, actualSliceSizes);
-                }
-            );
+            using (var sourceBitmap = new Bitmap (SquareLogoSize.Width, SquareLogoSize.Height))
+            {
+                var tester = new Action<int, IEnumerable<Size>> ((level, expectedSliceSizes) =>
+                    {
+                        var levelSize = DeepZoomImage.ComputeLevelSize (SquareLogoSize, level);
+                        var tiles = DeepZoomImage.ComputeTiles (levelSize, 254, 1);
+                        var slices = DeepZoomImage.Slice (sourceBitmap, tiles);
+                        var actualSliceSizes = slices.Map (pair => pair.First.Size);
+                        EnumerableExtensions.EnumerateSame (expectedSliceSizes, actualSliceSizes);
+                    }
+                );
 
-            tester(10, new[]
-                {
-                    new Size(255, 255), new Size(255, 256), new Size(255, 193),
-                    new Size(256, 255), new Size(256, 256), new Size(256, 193),
-                    new Size(193, 255), new Size(193, 256), new Size(193, 193),  
-                }
-            );
-            tester (9, new[]
-                {
-                    new Size(255, 255), new Size(255, 97),
-                    new Size(97, 255), new Size(97, 97),  
-                }
-            );
-            tester (8, new[] {new Size (175, 175)});
-            tester (7, new[] {new Size (88, 88)});
-            tester (6, new[] {new Size (44, 44)});
-            tester (5, new[] {new Size (22, 22)});
-            tester (4, new[] {new Size (11, 11)});
-            tester (3, new[] {new Size (6, 6)});
-            tester (2, new[] {new Size (3, 3)});
-            tester (1, new[] {new Size (2, 2)});
-            tester (0, new[] {new Size (1, 1)});
+                tester (10, new[]
+                    {
+                        new Size(255, 255), new Size(255, 256), new Size(255, 193),
+                        new Size(256, 255), new Size(256, 256), new Size(256, 193),
+                        new Size(193, 255), new Size(193, 256), new Size(193, 193),  
+                    }
+                );
+                tester (9, new[]
+                    {
+                        new Size(255, 255), new Size(255, 97),
+                        new Size(97, 255), new Size(97, 97),  
+                    }
+                );
+                tester (8, new[] {new Size (175, 175)});
+                tester (7, new[] {new Size (88, 88)});
+                tester (6, new[] {new Size (44, 44)});
+                tester (5, new[] {new Size (22, 22)});
+                tester (4, new[] {new Size (11, 11)});
+                tester (3, new[] {new Size (6, 6)});
+                tester (2, new[] {new Size (3, 3)});
+                tester (1, new[] {new Size (2, 2)});
+                tester (0, new[] {new Size (1, 1)});
+            }
         }
     }
 }
