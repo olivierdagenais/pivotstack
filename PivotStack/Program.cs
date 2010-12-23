@@ -106,11 +106,11 @@ namespace PivotStack
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
                 //GenerateImageSlices (settings, postRepository);
-                GenerateImageManifests (settings, postRepository);
+                //GenerateImageManifests (settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
-                //AssembleCollections (settings, tagRepository, postRepository);
+                AssembleCollections (settings, tagRepository, postRepository);
                 #endregion
             }
             return 0;
@@ -383,7 +383,7 @@ namespace PivotStack
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
             itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
-            itemsNode.SetAttributeValue ("ImgBase", tag.ComputeBinnedPath (".dzc"));
+            itemsNode.SetAttributeValue ("ImgBase", Path.ChangeExtension (tag.Name, ".dzc"));
             using (var writer = new CollectionWriter (destination, WriterSettings, futureCw =>
                 {
                     futureCw.Flush ();
@@ -446,6 +446,7 @@ namespace PivotStack
                 #endregion
 
                 #region <Facet Name="Related Tags"><Link Href="excel.cxml" Name="excel" /></Facet>
+                // TODO: the "related tags" files should be binned!
                 AddFacetLink (facetsNode, "Related Tags", tags.Map (t => new Pair<string, string> (t + ".cxml", t)));
                 #endregion
             }
