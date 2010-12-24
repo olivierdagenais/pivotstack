@@ -1,4 +1,4 @@
-﻿using System.Windows;
+﻿using System.Drawing;
 using NUnit.Framework;
 
 namespace PivotStack.Tests
