@@ -66,6 +66,7 @@
     <Compile Include="BitmapSourceExtensions.cs" />
     <Compile Include="BoolExtensions.cs" />
     <Compile Include="CollectionWriter.cs" />
+    <Compile Include="DeepZoomCollection.cs" />
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="InterceptingXmlWriter.cs" />
