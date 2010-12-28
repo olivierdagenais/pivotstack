@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="BitmapSourceExtensionsTest.cs" />
     <Compile Include="CollectionWriterTest.cs" />
+    <Compile Include="DeepZoomCollectionTest.cs" />
     <Compile Include="DeepZoomImageTest.cs" />
     <Compile Include="ImageCollectionTileTest.cs" />
     <Compile Include="ItemWriterTest.cs" />
