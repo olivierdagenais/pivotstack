@@ -37,6 +37,12 @@ namespace PivotStack
             = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
         internal static readonly XNamespace DeepZoomNamespace
             = "http://schemas.microsoft.com/deepzoom/2009";
+        internal static readonly XNamespace DeepZoom2008Namespace
+            = "http://schemas.microsoft.com/deepzoom/2008";
+
+        private static readonly XName ItemNodeName = DeepZoom2008Namespace + "I";
+        private static readonly XName SizeNodeName = DeepZoom2008Namespace + "Size";
+
         internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
         {
             OmitXmlDeclaration = true,
@@ -406,6 +412,22 @@ namespace PivotStack
             {
                 doc.Save (writer);
             }
+        }
+
+        internal static XElement CreateImageCollectionItemNode
+            (int mortonNumber, int id, string postFileNameFormat, string relativePathToRoot)
+        {
+            #region <I N="0" Id="351" Source="../../../0/0351.dzi" />
+            var itemNode = new XElement (ItemNodeName);
+            // "N" is "The number of the item (Morton Number) where it appears in the tiles."
+            itemNode.SetAttributeValue ("N", mortonNumber);
+            itemNode.SetAttributeValue ("Id", id);
+            var relativeDziSubPath = Post.ComputeBinnedPath (id, "dzi", postFileNameFormat);
+            var relativeDziPath = Path.Combine (relativePathToRoot, relativeDziSubPath);
+            itemNode.SetAttributeValue ("Source", relativeDziPath);
+            #endregion
+
+            return itemNode;
         }
 
         internal static XElement PivotizePost (Post post)

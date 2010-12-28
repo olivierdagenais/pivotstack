@@ -67,6 +67,7 @@ namespace PivotStack.Tests
             }
         }
 
+        [Test]
         public void GenerateImageManifest_Typical()
         {
             const string expectedXml = @"
@@ -78,6 +79,18 @@ namespace PivotStack.Tests
             var actualImageNode = Program.GenerateImageManifest (254, 1, "png", 800, 400);
 
             Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
+        }
+
+        [Test]
+        public void CreateImageCollectionItemNode_Typical ()
+        {
+            const string expectedXml = @"
+<I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";
+            var expectedItemNode = XElement.Parse (expectedXml);
+
+            var actualItemNode = Program.CreateImageCollectionItemNode (0, 351, "0000", "../../..");
+
+            Assert.AreEqual (expectedItemNode.ToString (), actualItemNode.ToString ());
         }
 
         // TODO: Move to re-usable class library
