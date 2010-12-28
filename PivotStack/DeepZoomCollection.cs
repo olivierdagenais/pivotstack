@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using SoftwareNinjas.Core;
 
 namespace PivotStack
 {
@@ -19,27 +18,31 @@ namespace PivotStack
 
             var currentRow = 0;
             var currentColumn = 0;
-            var idsAndMortonNumbers = new List<Pair<int, int>> ();
+            var idsForTile = new List<int> ();
+            var startingMortonNumber = 0;
             foreach (var id in ids)
             {
-                idsAndMortonNumbers.Add (new Pair<int, int> (id, mortonNumber));
+                idsForTile.Add (id);
 
                 mortonNumber++;
                 imagesThisTile++;
                 if (imagesThisTile == imagesPerTile)
                 {
-                    var imageCollectionTile = new ImageCollectionTile (currentRow, currentColumn, idsAndMortonNumbers);
+                    var imageCollectionTile = 
+                        new ImageCollectionTile (currentRow, currentColumn, startingMortonNumber, idsForTile);
                     yield return imageCollectionTile;
+                    startingMortonNumber = mortonNumber;
                     imagesThisTile = 0;
                     var point = MortonLayout.Decode (mortonNumber);
                     currentColumn = point.X / imagesInEachDimension;
                     currentRow = point.Y / imagesInEachDimension;
-                    idsAndMortonNumbers = new List<Pair<int, int>> ();
+                    idsForTile.Clear ();
                 }
             }
             if (imagesThisTile > 0)
             {
-                var imageCollectionTile = new ImageCollectionTile (currentRow, currentColumn, idsAndMortonNumbers);
+                var imageCollectionTile = 
+                    new ImageCollectionTile (currentRow, currentColumn, startingMortonNumber, idsForTile);
                 yield return imageCollectionTile;
             }
         }

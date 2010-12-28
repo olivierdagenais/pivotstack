@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using SoftwareNinjas.Core;
+
 using Test = SoftwareNinjas.Core.Test;
 using NUnit.Framework;
 
@@ -16,77 +15,43 @@ namespace PivotStack.Tests
             200, 210, 220, 230, 240, 250, 260, 270, 280, 290
         };
 
-        private static readonly IList<Pair<int, int>> IdsToMortonNumbers = new List<Pair<int, int>>
-        {
-                new Pair<int, int>(000,  0),
-                new Pair<int, int>(010,  1),
-                new Pair<int, int>(020,  2),
-                new Pair<int, int>(030,  3),
-                new Pair<int, int>(040,  4),
-                new Pair<int, int>(050,  5),
-                new Pair<int, int>(060,  6),
-                new Pair<int, int>(070,  7),
-                new Pair<int, int>(080,  8),
-                new Pair<int, int>(090,  9),
-                new Pair<int, int>(100, 10),
-                new Pair<int, int>(110, 11),
-                new Pair<int, int>(120, 12),
-                new Pair<int, int>(130, 13),
-                new Pair<int, int>(140, 14),
-                new Pair<int, int>(150, 15),
-                new Pair<int, int>(160, 16),
-                new Pair<int, int>(170, 17),
-                new Pair<int, int>(180, 18),
-                new Pair<int, int>(190, 19),
-                new Pair<int, int>(200, 20),
-                new Pair<int, int>(210, 21),
-                new Pair<int, int>(220, 22),
-                new Pair<int, int>(230, 23),
-                new Pair<int, int>(240, 24),
-                new Pair<int, int>(250, 25),
-                new Pair<int, int>(260, 26),
-                new Pair<int, int>(270, 27),
-                new Pair<int, int>(280, 28),
-                new Pair<int, int>(290, 29),
-        };
-
         [Test]
         public void GenerateCollectionTiles_OneToThirtyTwo ()
         {
             var expected = new[]
             {
-                new ImageCollectionTile (0, 0, new[]
+                new ImageCollectionTile (0, 0, 0, new[]
                     {
-                        IdsToMortonNumbers[ 0],
-                        IdsToMortonNumbers[ 1],
-                        IdsToMortonNumbers[ 2],
-                        IdsToMortonNumbers[ 3],
-                        IdsToMortonNumbers[ 4],
-                        IdsToMortonNumbers[ 5],
-                        IdsToMortonNumbers[ 6],
-                        IdsToMortonNumbers[ 7],
-                        IdsToMortonNumbers[ 8],
-                        IdsToMortonNumbers[ 9],
-                        IdsToMortonNumbers[10],
-                        IdsToMortonNumbers[11],
-                        IdsToMortonNumbers[12],
-                        IdsToMortonNumbers[13],
-                        IdsToMortonNumbers[14],
-                        IdsToMortonNumbers[15],
-                        IdsToMortonNumbers[16],
-                        IdsToMortonNumbers[17],
-                        IdsToMortonNumbers[18],
-                        IdsToMortonNumbers[19],
-                        IdsToMortonNumbers[20],
-                        IdsToMortonNumbers[21],
-                        IdsToMortonNumbers[22],
-                        IdsToMortonNumbers[23],
-                        IdsToMortonNumbers[24],
-                        IdsToMortonNumbers[25],
-                        IdsToMortonNumbers[26],
-                        IdsToMortonNumbers[27],
-                        IdsToMortonNumbers[28],
-                        IdsToMortonNumbers[29],
+                        TestIds[ 0],
+                        TestIds[ 1],
+                        TestIds[ 2],
+                        TestIds[ 3],
+                        TestIds[ 4],
+                        TestIds[ 5],
+                        TestIds[ 6],
+                        TestIds[ 7],
+                        TestIds[ 8],
+                        TestIds[ 9],
+                        TestIds[10],
+                        TestIds[11],
+                        TestIds[12],
+                        TestIds[13],
+                        TestIds[14],
+                        TestIds[15],
+                        TestIds[16],
+                        TestIds[17],
+                        TestIds[18],
+                        TestIds[19],
+                        TestIds[20],
+                        TestIds[21],
+                        TestIds[22],
+                        TestIds[23],
+                        TestIds[24],
+                        TestIds[25],
+                        TestIds[26],
+                        TestIds[27],
+                        TestIds[28],
+                        TestIds[29],
                     }
                 ),
             };
@@ -103,42 +68,42 @@ namespace PivotStack.Tests
         {
             var expected = new[]
             {
-                new ImageCollectionTile (0, 0, new[]
+                new ImageCollectionTile (0, 0, 0, new[]
                     {
-                        IdsToMortonNumbers[ 0],
-                        IdsToMortonNumbers[ 1],
-                        IdsToMortonNumbers[ 2],
-                        IdsToMortonNumbers[ 3],
-                        IdsToMortonNumbers[ 4],
-                        IdsToMortonNumbers[ 5],
-                        IdsToMortonNumbers[ 6],
-                        IdsToMortonNumbers[ 7],
-                        IdsToMortonNumbers[ 8],
-                        IdsToMortonNumbers[ 9],
-                        IdsToMortonNumbers[10],
-                        IdsToMortonNumbers[11],
-                        IdsToMortonNumbers[12],
-                        IdsToMortonNumbers[13],
-                        IdsToMortonNumbers[14],
-                        IdsToMortonNumbers[15],
+                        TestIds[ 0],
+                        TestIds[ 1],
+                        TestIds[ 2],
+                        TestIds[ 3],
+                        TestIds[ 4],
+                        TestIds[ 5],
+                        TestIds[ 6],
+                        TestIds[ 7],
+                        TestIds[ 8],
+                        TestIds[ 9],
+                        TestIds[10],
+                        TestIds[11],
+                        TestIds[12],
+                        TestIds[13],
+                        TestIds[14],
+                        TestIds[15],
                     }
                 ),
-                new ImageCollectionTile (0, 1, new[]
+                new ImageCollectionTile (0, 1, 16, new[]
                     {
-                        IdsToMortonNumbers[16],
-                        IdsToMortonNumbers[17],
-                        IdsToMortonNumbers[18],
-                        IdsToMortonNumbers[19],
-                        IdsToMortonNumbers[20],
-                        IdsToMortonNumbers[21],
-                        IdsToMortonNumbers[22],
-                        IdsToMortonNumbers[23],
-                        IdsToMortonNumbers[24],
-                        IdsToMortonNumbers[25],
-                        IdsToMortonNumbers[26],
-                        IdsToMortonNumbers[27],
-                        IdsToMortonNumbers[28],
-                        IdsToMortonNumbers[29],
+                        TestIds[16],
+                        TestIds[17],
+                        TestIds[18],
+                        TestIds[19],
+                        TestIds[20],
+                        TestIds[21],
+                        TestIds[22],
+                        TestIds[23],
+                        TestIds[24],
+                        TestIds[25],
+                        TestIds[26],
+                        TestIds[27],
+                        TestIds[28],
+                        TestIds[29],
                     }
                 ),
             };
@@ -151,66 +116,66 @@ namespace PivotStack.Tests
         {
             var expected = new[]
             {
-                new ImageCollectionTile (0, 0, new[]
+                new ImageCollectionTile (0, 0, 0, new[]
                     {
-                        IdsToMortonNumbers[ 0],
-                        IdsToMortonNumbers[ 1],
-                        IdsToMortonNumbers[ 2],
-                        IdsToMortonNumbers[ 3],
+                        TestIds[ 0],
+                        TestIds[ 1],
+                        TestIds[ 2],
+                        TestIds[ 3],
                     }
                 ),
-                new ImageCollectionTile (0, 1, new[]
+                new ImageCollectionTile (0, 1, 4, new[]
                     {
-                        IdsToMortonNumbers[ 4],
-                        IdsToMortonNumbers[ 5],
-                        IdsToMortonNumbers[ 6],
-                        IdsToMortonNumbers[ 7],
+                        TestIds[ 4],
+                        TestIds[ 5],
+                        TestIds[ 6],
+                        TestIds[ 7],
                     }
                 ),
-                new ImageCollectionTile (1, 0, new[]
+                new ImageCollectionTile (1, 0, 8, new[]
                     {
-                        IdsToMortonNumbers[ 8],
-                        IdsToMortonNumbers[ 9],
-                        IdsToMortonNumbers[10],
-                        IdsToMortonNumbers[11],
+                        TestIds[ 8],
+                        TestIds[ 9],
+                        TestIds[10],
+                        TestIds[11],
                     }
                 ),
-                new ImageCollectionTile (1, 1, new[]
+                new ImageCollectionTile (1, 1, 12, new[]
                     {
-                        IdsToMortonNumbers[12],
-                        IdsToMortonNumbers[13],
-                        IdsToMortonNumbers[14],
-                        IdsToMortonNumbers[15],
+                        TestIds[12],
+                        TestIds[13],
+                        TestIds[14],
+                        TestIds[15],
                     }
                 ),
-                new ImageCollectionTile (0, 2, new[]
+                new ImageCollectionTile (0, 2, 16, new[]
                     {
-                        IdsToMortonNumbers[16],
-                        IdsToMortonNumbers[17],
-                        IdsToMortonNumbers[18],
-                        IdsToMortonNumbers[19],
+                        TestIds[16],
+                        TestIds[17],
+                        TestIds[18],
+                        TestIds[19],
                     }
                 ),
-                new ImageCollectionTile (0, 3, new[]
+                new ImageCollectionTile (0, 3, 20, new[]
                     {
-                        IdsToMortonNumbers[20],
-                        IdsToMortonNumbers[21],
-                        IdsToMortonNumbers[22],
-                        IdsToMortonNumbers[23],
+                        TestIds[20],
+                        TestIds[21],
+                        TestIds[22],
+                        TestIds[23],
                     }
                 ),
-                new ImageCollectionTile (1, 2, new[]
+                new ImageCollectionTile (1, 2, 24, new[]
                     {
-                        IdsToMortonNumbers[24],
-                        IdsToMortonNumbers[25],
-                        IdsToMortonNumbers[26],
-                        IdsToMortonNumbers[27],
+                        TestIds[24],
+                        TestIds[25],
+                        TestIds[26],
+                        TestIds[27],
                     }
                 ),
-                new ImageCollectionTile (1, 3, new[]
+                new ImageCollectionTile (1, 3, 28, new[]
                     {
-                        IdsToMortonNumbers[28],
-                        IdsToMortonNumbers[29],
+                        TestIds[28],
+                        TestIds[29],
                     }
                 ),
             };
@@ -223,154 +188,154 @@ namespace PivotStack.Tests
         {
             var expected = new[]
             {
-                new ImageCollectionTile (0, 0, new[]
+                new ImageCollectionTile (0, 0, 0, new[]
                     {
-                        IdsToMortonNumbers[ 0],
+                        TestIds[ 0],
                     }
                 ),
-                new ImageCollectionTile (0, 1, new[]
+                new ImageCollectionTile (0, 1, 1, new[]
                     {
-                        IdsToMortonNumbers[ 1],
+                        TestIds[ 1],
                     }
                 ),
-                new ImageCollectionTile (1, 0, new[]
+                new ImageCollectionTile (1, 0, 2, new[]
                     {
-                        IdsToMortonNumbers[ 2],
+                        TestIds[ 2],
                     }
                 ),
-                new ImageCollectionTile (1, 1, new[]
+                new ImageCollectionTile (1, 1, 3, new[]
                     {
-                        IdsToMortonNumbers[ 3],
+                        TestIds[ 3],
                     }
                 ),
-                new ImageCollectionTile (0, 2, new[]
+                new ImageCollectionTile (0, 2, 4, new[]
                     {
-                        IdsToMortonNumbers[ 4],
+                        TestIds[ 4],
                     }
                 ),
-                new ImageCollectionTile (0, 3, new[]
+                new ImageCollectionTile (0, 3, 5, new[]
                     {
-                        IdsToMortonNumbers[ 5],
+                        TestIds[ 5],
                     }
                 ),
-                new ImageCollectionTile (1, 2, new[]
+                new ImageCollectionTile (1, 2, 6, new[]
                     {
-                        IdsToMortonNumbers[ 6],
+                        TestIds[ 6],
                     }
                 ),
-                new ImageCollectionTile (1, 3, new[]
+                new ImageCollectionTile (1, 3, 7, new[]
                     {
-                        IdsToMortonNumbers[ 7],
+                        TestIds[ 7],
                     }
                 ),
-                new ImageCollectionTile (2, 0, new[]
+                new ImageCollectionTile (2, 0, 8, new[]
                     {
-                        IdsToMortonNumbers[ 8],
+                        TestIds[ 8],
                     }
                 ),
-                new ImageCollectionTile (2, 1, new[]
+                new ImageCollectionTile (2, 1, 9, new[]
                     {
-                        IdsToMortonNumbers[ 9],
+                        TestIds[ 9],
                     }
                 ),
-                new ImageCollectionTile (3, 0, new[]
+                new ImageCollectionTile (3, 0, 10, new[]
                     {
-                        IdsToMortonNumbers[10],
+                        TestIds[10],
                     }
                 ),
-                new ImageCollectionTile (3, 1, new[]
+                new ImageCollectionTile (3, 1, 11, new[]
                     {
-                        IdsToMortonNumbers[11],
+                        TestIds[11],
                     }
                 ),
-                new ImageCollectionTile (2, 2, new[]
+                new ImageCollectionTile (2, 2, 12, new[]
                     {
-                        IdsToMortonNumbers[12],
+                        TestIds[12],
                     }
                 ),
-                new ImageCollectionTile (2, 3, new[]
+                new ImageCollectionTile (2, 3, 13, new[]
                     {
-                        IdsToMortonNumbers[13],
+                        TestIds[13],
                     }
                 ),
-                new ImageCollectionTile (3, 2, new[]
+                new ImageCollectionTile (3, 2, 14, new[]
                     {
-                        IdsToMortonNumbers[14],
+                        TestIds[14],
                     }
                 ),
-                new ImageCollectionTile (3, 3, new[]
+                new ImageCollectionTile (3, 3, 15, new[]
                     {
-                        IdsToMortonNumbers[15],
+                        TestIds[15],
                     }
                 ),
-                new ImageCollectionTile (0, 4, new[]
+                new ImageCollectionTile (0, 4, 16, new[]
                     {
-                        IdsToMortonNumbers[16],
+                        TestIds[16],
                     }
                 ),
-                new ImageCollectionTile (0, 5, new[]
+                new ImageCollectionTile (0, 5, 17, new[]
                     {
-                        IdsToMortonNumbers[17],
+                        TestIds[17],
                     }
                 ),
-                new ImageCollectionTile (1, 4, new[]
+                new ImageCollectionTile (1, 4, 18, new[]
                     {
-                        IdsToMortonNumbers[18],
+                        TestIds[18],
                     }
                 ),
-                new ImageCollectionTile (1, 5, new[]
+                new ImageCollectionTile (1, 5, 19, new[]
                     {
-                        IdsToMortonNumbers[19],
+                        TestIds[19],
                     }
                 ),
-                new ImageCollectionTile (0, 6, new[]
+                new ImageCollectionTile (0, 6, 20, new[]
                     {
-                        IdsToMortonNumbers[20],
+                        TestIds[20],
                     }
                 ),
-                new ImageCollectionTile (0, 7, new[]
+                new ImageCollectionTile (0, 7, 21, new[]
                     {
-                        IdsToMortonNumbers[21],
+                        TestIds[21],
                     }
                 ),
-                new ImageCollectionTile (1, 6, new[]
+                new ImageCollectionTile (1, 6, 22, new[]
                     {
-                        IdsToMortonNumbers[22],
+                        TestIds[22],
                     }
                 ),
-                new ImageCollectionTile (1, 7, new[]
+                new ImageCollectionTile (1, 7, 23, new[]
                     {
-                        IdsToMortonNumbers[23],
+                        TestIds[23],
                     }
                 ),
-                new ImageCollectionTile (2, 4, new[]
+                new ImageCollectionTile (2, 4, 24, new[]
                     {
-                        IdsToMortonNumbers[24],
+                        TestIds[24],
                     }
                 ),
-                new ImageCollectionTile (2, 5, new[]
+                new ImageCollectionTile (2, 5, 25, new[]
                     {
-                        IdsToMortonNumbers[25],
+                        TestIds[25],
                     }
                 ),
-                new ImageCollectionTile (3, 4, new[]
+                new ImageCollectionTile (3, 4, 26, new[]
                     {
-                        IdsToMortonNumbers[26],
+                        TestIds[26],
                     }
                 ),
-                new ImageCollectionTile (3, 5, new[]
+                new ImageCollectionTile (3, 5, 27, new[]
                     {
-                        IdsToMortonNumbers[27],
+                        TestIds[27],
                     }
                 ),
-                new ImageCollectionTile (2, 6, new[]
+                new ImageCollectionTile (2, 6, 28, new[]
                     {
-                        IdsToMortonNumbers[28],
+                        TestIds[28],
                     }
                 ),
-                new ImageCollectionTile (2, 7, new[]
+                new ImageCollectionTile (2, 7, 29, new[]
                     {
-                        IdsToMortonNumbers[29],
+                        TestIds[29],
                     }
                 ),
             };

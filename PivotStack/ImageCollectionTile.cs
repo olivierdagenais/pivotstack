@@ -10,29 +10,31 @@ namespace PivotStack
 
         private readonly int _row;
         private readonly int _column;
+        private readonly int _startingMortonNumber;
         private readonly string _tileName;
-        private readonly IList<Pair<int, int>> _idsToMortonNumbers;
+        private readonly IList<int> _ids;
         private readonly int _hashCode;
         private readonly string _toString;
 
-        public ImageCollectionTile (int row, int column, IEnumerable<Pair<int, int>> idsToMortonNumbers)
+        public ImageCollectionTile (int row, int column, int startingMortonNumber, IEnumerable<int> ids)
         {
             _row = row;
             _column = column;
+            _startingMortonNumber = startingMortonNumber;
             _tileName = DeepZoomImage.TileName (row, column);
-            _idsToMortonNumbers = new List<Pair<int, int>> (idsToMortonNumbers).AsReadOnly ();
+            _ids = new List<int> (ids).AsReadOnly ();
 
-            var hashCode = _row ^ _column;
-            foreach (var pair in idsToMortonNumbers)
+            var hashCode = _row ^ _column ^ _startingMortonNumber;
+            foreach (var id in ids)
             {
-                hashCode ^= pair.GetHashCode ();
+                hashCode ^= id.GetHashCode ();
             }
             _hashCode = hashCode;
 
-            var count = _idsToMortonNumbers.Count;
+            var count = _ids.Count;
             var countPlural = 1 == count ? "" : "s";
-            var firstMorton = _idsToMortonNumbers[0].Second;
-            var lastMorton = _idsToMortonNumbers[_idsToMortonNumbers.Count - 1].Second;
+            var firstMorton = startingMortonNumber;
+            var lastMorton = firstMorton + count - 1;
             _toString = ToStringTemplate.FormatInvariant (_tileName, count, countPlural, firstMorton, lastMorton);
         }
 
@@ -52,6 +54,14 @@ namespace PivotStack
             }
         }
 
+        public int StartingMortonNumber
+        {
+            get
+            {
+                return _startingMortonNumber;
+            }
+        }
+
         public string TileName
         {
             get
@@ -64,7 +74,12 @@ namespace PivotStack
         {
             get
             {
-                return _idsToMortonNumbers;
+                var result = new List<Pair<int, int>> ();
+                for (int i = 0, morton = _startingMortonNumber; i < _ids.Count; i++, morton++)
+                {
+                    result.Add (new Pair<int, int> (_ids[i], morton));
+                }
+                return result;
             }
         }
 
@@ -83,10 +98,11 @@ namespace PivotStack
 
             var areEqual = this._row == that._row
                          && this._column == that._column
-                         && this._idsToMortonNumbers.Count == that._idsToMortonNumbers.Count;
-            for (var c = 0; areEqual && c < this._idsToMortonNumbers.Count; c++)
+                         && this._startingMortonNumber == that._startingMortonNumber
+                         && this._ids.Count == that._ids.Count;
+            for (var c = 0; areEqual && c < this._ids.Count; c++)
             {
-                areEqual = Equals (this._idsToMortonNumbers[c], that._idsToMortonNumbers[c]);
+                areEqual = this._ids[c] == that._ids[c];
             }
             return areEqual;
         }
