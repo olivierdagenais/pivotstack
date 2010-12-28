@@ -1293,6 +1293,30 @@
             An enumeration of the lines contained in <paramref name="input"/>.
             </returns>
         </member>
+        <member name="M:SoftwareNinjas.Core.StringExtensions.UnformatInvariant(System.String,System.String)">
+            <summary>
+            Performs the reverse of <see cref="M:SoftwareNinjas.Core.StringExtensions.FormatInvariant(System.String,System.Object[])"/> by trying to determine what the
+            string representations of the objects were when they were formatted into <paramref name="format"/> to yield
+            <paramref name="formatted"/>.
+            </summary>
+            
+            <param name="formatted">
+            The result of formatting <paramref name="format"/> with zero or more objects.
+            </param>
+            
+            <param name="format">
+            A composite format string.
+            </param>
+            
+            <returns>
+            An <see cref="T:System.Collections.Generic.IList`1"/> representing the string representations of the objects formatted into
+            <paramref name="format"/>.
+            </returns>
+            
+            <remarks>
+            An extension method version of <see cref="M:SoftwareNinjas.Core.Unformatter.UnformatInvariant(System.String,System.String)"/>.
+            </remarks>
+        </member>
         <member name="M:SoftwareNinjas.Core.StringExtensions.CombinePath(System.String,System.String[])">
             <summary>
             Combines all the path fragments together.
@@ -1923,6 +1947,12 @@
             Runs all tests.
             </summary>
         </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertAssumptions">
+            <summary>
+            Confirms that <c>x</c>, <c>y</c> and <c>z</c> are all equal to each other and that <c>a</c> is different
+            from all of them.
+            </summary>
+        </member>
         <member name="M:SoftwareNinjas.Core.Test.EqualsTester`1.AssertReflexivity">
             <summary>
             Confirms that <c>x.Equals(x)</c> returns <see langword="true"/> for any <c>x</c>.
@@ -1960,6 +1990,23 @@
             <summary>
             Confirms that if two instances of <typeparamref name="T"/> compare as equal, the
             <see cref="M:System.Object.GetHashCode"/> method for each object returns the same value.
+            </summary>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Test.EqualsTesterTest">
+            <summary>
+            A class to test <see cref="T:SoftwareNinjas.Core.Test.EqualsTester`1"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTesterTest.Run_InvalidAssumptions_FirstThreeNotEqual">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Test.EqualsTester`1.Run"/> method with
+            x, y and z that aren't all equal to one another.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.EqualsTesterTest.Run_InvalidAssumptions_LastOneNotDifferent">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Test.EqualsTester`1.Run"/> method with
+            a equal to x, y and z.
             </summary>
         </member>
         <member name="T:SoftwareNinjas.Core.Test.PairTest">
@@ -2094,6 +2141,29 @@
             <summary>
             Tests the <see cref="M:SoftwareNinjas.Core.TreeExtensions.PreOrder``1(``0,System.Func{``0,System.Collections.Generic.IEnumerable{``0}})"/> method with
             what a high-level parse tree of a code file might look like.
+            </summary>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Test.Unformatter">
+            <summary>
+            A class to test <see cref="T:SoftwareNinjas.Core.Unformatter"/>.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.Unformatter.UnformatInvariant_Typical">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Unformatter.UnformatInvariant(System.String,System.String)"/> method with
+            a typical use case.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.Unformatter.UnformatInvariant_ReversedSpecifiers">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Unformatter.UnformatInvariant(System.String,System.String)"/> method with
+            a format string where the format placeholders are not in order.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Test.Unformatter.UnformatInvariant_UnusedFormatPlaceholders">
+            <summary>
+            Tests the <see cref="M:SoftwareNinjas.Core.Unformatter.UnformatInvariant(System.String,System.String)"/> method with
+            a format string where one of the format placeholders was not in the string.
             </summary>
         </member>
         <member name="T:SoftwareNinjas.Core.TextReaderExtensions">
@@ -2337,6 +2407,70 @@
             <returns>
             A sequence of the nodes in the tree.
             </returns>
+        </member>
+        <member name="T:SoftwareNinjas.Core.Unformatter">
+            <summary>
+            A class to parse format strings and decode formatted versions back into component strings.
+            </summary>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Unformatter.#ctor(System.String,System.Boolean)">
+            <summary>
+            Initializes a new instance of the <see cref="T:SoftwareNinjas.Core.Unformatter"/> class with the specified
+            <paramref name="format"/>, indicating whether to compile the resulting <see cref="T:System.Text.RegularExpressions.Regex"/> or not.
+            </summary>
+            
+            <param name="format">
+            A composite format string.
+            </param>
+            
+            <param name="compileRegex">
+            <see langword="true"/> if the resulting <see cref="T:System.Text.RegularExpressions.Regex"/> should include the option
+            <see cref="F:System.Text.RegularExpressions.RegexOptions.Compiled"/>; <see langword="false"/> otherwise. There is a slight performance
+            penalty for compiling a <see cref="T:System.Text.RegularExpressions.Regex"/>, but then subsequent matching is much more performant.
+            In other words, set to <see langword="true"/> if lots of formatted strings will be unformatted with this
+            instance.
+            </param>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Unformatter.Unformat(System.String)">
+            <summary>
+            Performs the reverse of <see cref="M:SoftwareNinjas.Core.StringExtensions.FormatInvariant(System.String,System.Object[])"/> by trying to
+            determine what the string representations of the objects were when they were formatted into
+            <see cref="P:SoftwareNinjas.Core.Unformatter.Format"/> to yield <paramref name="formatted"/>.
+            </summary>
+            
+            <param name="formatted">
+            The result of formatting <see cref="P:SoftwareNinjas.Core.Unformatter.Format"/> with zero or more objects.
+            </param>
+            
+            <returns>
+            An <see cref="T:System.Collections.Generic.IList`1"/> representing the string representations of the objects formatted into
+            <see cref="P:SoftwareNinjas.Core.Unformatter.Format"/>.
+            </returns>
+        </member>
+        <member name="M:SoftwareNinjas.Core.Unformatter.UnformatInvariant(System.String,System.String)">
+            <summary>
+            Performs the reverse of <see cref="M:SoftwareNinjas.Core.StringExtensions.FormatInvariant(System.String,System.Object[])"/> by trying to
+            determine what the string representations of the objects were when they were formatted into
+            <paramref name="format"/> to yield <paramref name="formatted"/>.
+            </summary>
+            
+            <param name="formatted">
+            The result of formatting <paramref name="format"/> with zero or more objects.
+            </param>
+            
+            <param name="format">
+            A composite format string.
+            </param>
+            
+            <returns>
+            An <see cref="T:System.Collections.Generic.IList`1"/> representing the string representations of the objects formatted into
+            <paramref name="format"/>.
+            </returns>
+        </member>
+        <member name="P:SoftwareNinjas.Core.Unformatter.Format">
+            <summary>
+            The composite format string represented by this instance of <see cref="T:SoftwareNinjas.Core.Unformatter"/>.
+            </summary>
         </member>
     </members>
 </doc>
