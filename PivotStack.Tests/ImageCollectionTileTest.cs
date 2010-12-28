@@ -38,5 +38,17 @@ namespace PivotStack.Tests
             tester.Run ();
         }
 
+        [Test]
+        public new void ToString ()
+        {
+            var x = new ImageCollectionTile (2, 3, new[]
+                { 
+                    new Pair<int, int> (0, 0),
+                    new Pair<int, int> (1, 1),
+                }
+            );
+            Assert.AreEqual ("3_2 with 2 tiles, morton 0-1", x.ToString ());
+        }
+
     }
 }
