@@ -189,6 +189,23 @@ namespace PivotStack
             }
         }
 
+        internal static IEnumerable<Bitmap> OpenLevelImages
+            (IEnumerable<int> postIds, string extension, string fileNameIdFormat, string absoluteOutputPath, int level)
+        {
+            var levelName = Convert.ToString (level, 10);
+            var inputFileName = Path.ChangeExtension (DeepZoomImage.TileZeroZero, extension);
+            foreach (var postId in postIds)
+            {
+                var relativeFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
+                var relativeLevelFolder = relativeFolder.CombinePath (levelName, inputFileName);
+                var absoluteSourceImagePath = Path.Combine (absoluteOutputPath, relativeLevelFolder);
+                using (var bitmap = new Bitmap (absoluteSourceImagePath))
+                {
+                    yield return bitmap;
+                }
+            }
+        }
+
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
         {
             var tags = tagRepository.RetrieveTags ();
