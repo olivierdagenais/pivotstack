@@ -70,16 +70,11 @@ namespace PivotStack
             }
         }
 
-        public IList<Pair<int, int>> IdsToMortonNumbers
+        public IEnumerable<int> Ids
         {
             get
             {
-                var result = new List<Pair<int, int>> ();
-                for (int i = 0, morton = _startingMortonNumber; i < _ids.Count; i++, morton++)
-                {
-                    result.Add (new Pair<int, int> (_ids[i], morton));
-                }
-                return result;
+                return _ids;
             }
         }
 
