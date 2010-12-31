@@ -20,7 +20,12 @@ namespace PivotStack
 
         public string ComputeBinnedPath (string extension)
         {
-            var fileName = Path.ChangeExtension (Name, extension);
+            return ComputeBinnedPath (Name, extension);
+        }
+
+        internal static string ComputeBinnedPath (string name, string extension)
+        {
+            var fileName = Path.ChangeExtension (name, extension);
             var binnedPath = fileName.ToBinnedPath (3);
             return binnedPath;
         }
