@@ -1,10 +1,43 @@
 ﻿using System.Collections.Generic;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 
 namespace PivotStack
 {
     public class DeepZoomCollection
     {
         internal const int CollectionTileSize = 256;
+
+        internal static Bitmap CreateCollectionTile(IEnumerable<Bitmap> componentBitmaps, int levelSize)
+        {
+            var result = new Bitmap (CollectionTileSize, CollectionTileSize);
+            using (var graphics = Graphics.FromImage (result))
+            {
+                graphics.InterpolationMode = InterpolationMode.Default;
+                var mortonNumber = 0;
+                foreach (var itemBitmap in componentBitmaps)
+                {
+                    var mortonLocation = MortonLayout.Decode (mortonNumber);
+                    var destRect = new Rectangle (
+                        mortonLocation.X * levelSize,
+                        mortonLocation.Y * levelSize,
+                        levelSize,
+                        levelSize
+                    );
+                    graphics.DrawImage (
+                        itemBitmap,
+                        destRect,
+                        0,
+                        0,
+                        levelSize,
+                        levelSize,
+                        GraphicsUnit.Pixel
+                    );
+                    mortonNumber++;
+                }
+            }
+            return result;
+        }
 
         internal static IEnumerable<ImageCollectionTile> GenerateCollectionTiles (
             IEnumerable<int> ids,

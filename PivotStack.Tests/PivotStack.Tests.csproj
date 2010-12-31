@@ -96,6 +96,13 @@
   <ItemGroup>
     <EmbeddedResource Include="CollectionWithInjectedItems.cxml" />
   </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="1.png" />
+    <EmbeddedResource Include="1234.png" />
+    <EmbeddedResource Include="2.png" />
+    <EmbeddedResource Include="3.png" />
+    <EmbeddedResource Include="4.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSHARP.Targets" />
   <ProjectExtensions>
     <VisualStudio AllowExistingFolder="true" />

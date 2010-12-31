@@ -1,5 +1,8 @@
 ﻿using System;
-
+using System.Drawing;
+using System.Drawing.Imaging;
+using System.IO;
+using SoftwareNinjas.Core;
 using Test = SoftwareNinjas.Core.Test;
 using NUnit.Framework;
 
@@ -341,6 +344,29 @@ namespace PivotStack.Tests
             };
             var actual = DeepZoomCollection.GenerateCollectionTiles (TestIds, 256);
             Test.EnumerableExtensions.EnumerateSame (expected, actual);
+        }
+
+        [Test]
+        public void CreateCollectionTile()
+        {
+            using (var oneStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollectionTest> ("1.png"))
+            using (var one = new Bitmap(oneStream))
+            using (var twoStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollectionTest> ("2.png"))
+            using (var two = new Bitmap (twoStream))
+            using (var threeStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollectionTest> ("3.png"))
+            using (var three = new Bitmap (threeStream))
+            using (var fourStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollectionTest> ("4.png"))
+            using (var four = new Bitmap (fourStream))
+            {
+                var sourceBitmaps = new[] {one, two, three, four};
+                using (var actualBitmap = DeepZoomCollection.CreateCollectionTile (sourceBitmaps, 128))
+                using (var actualStream = new MemoryStream())
+                {
+                    actualBitmap.Save (actualStream, ImageFormat.Png);
+
+                    ProgramTest.AssertStreamsAreEqual<DeepZoomCollectionTest> ("1234.png", actualStream);
+                }
+            }
         }
     }
 }
