@@ -91,6 +91,10 @@ namespace PivotStack
         {
             var withoutExtension = GetFileNameWithoutExtension (fileName);
             var length = withoutExtension.Length;
+            if (length < binSize)
+            {
+                return fileName;
+            }
             var binCount = length / binSize;
             var estimatedCapacity = (binCount - 1) * (binSize + 1) + fileName.Length;
             var sb = new StringBuilder (estimatedCapacity);

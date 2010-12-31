@@ -37,6 +37,17 @@ For those you out there that don't know what nethack is: please inform your selv
             Assert.AreEqual ("../../../", actual);
         }
 
+        [Test]
+        public void ToBinnedPath_TooShortFolderName ()
+        {
+            Assert.AreEqual ("uv", "uv".ToBinnedPath (3));
+        }
+
+        [Test]
+        public void ToBinnedPath_BarelyLongEnough ()
+        {
+            Assert.AreEqual ("abc", "abc".ToBinnedPath (3));
+        }
 
         [Test]
         public void ToBinnedPath_LotsOfBins ()
