@@ -581,6 +581,7 @@ namespace PivotStack
             #region <Item Id="3232" Href="3232" Name="What are the best Excel tips?">
             var itemNode = new XElement ("Item");
 
+            itemNode.SetAttributeValue ("Img", "#{0}".FormatInvariant(post.Id));
             itemNode.SetAttributeValue ("Id", post.Id);
             itemNode.SetAttributeValue ("Href", post.Id);
 
