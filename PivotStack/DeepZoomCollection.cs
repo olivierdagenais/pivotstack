@@ -6,6 +6,7 @@ namespace PivotStack
 {
     public class DeepZoomCollection
     {
+        internal const int CollectionTilePower = 8;
         internal const int CollectionTileSize = 256;
 
         internal static Bitmap CreateCollectionTile(IEnumerable<Bitmap> componentBitmaps, int levelSize)

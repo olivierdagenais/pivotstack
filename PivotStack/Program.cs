@@ -105,14 +105,14 @@ namespace PivotStack
                 var postRepository = new PostRepository (postsConnection);
 
                 #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
-                //CleanWorkingFolder ();
-                //CreateRawItems (settings, postRepository);
-                //GeneratePostImageResizes (settings, postRepository);
+                CleanWorkingFolder ();
+                CreateRawItems (settings, postRepository);
+                GeneratePostImageResizes (settings, postRepository);
                 #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
-                //GenerateImageSlices (settings, postRepository);
-                //GenerateImageManifests (settings, postRepository);
+                GenerateImageSlices (settings, postRepository);
+                GenerateImageManifests (settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
@@ -208,11 +208,87 @@ namespace PivotStack
 
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
         {
+            var outputPath = Path.GetFullPath (OutputFolderName);
+
+            var imageFormat = settings.PostImageEncoding;
+            var imageFormatName = imageFormat.ToString ().ToLower ();
+            var fileNameIdFormat = settings.FileNameIdFormat;
+            var width = settings.ItemImageSize.Width;
+            var height = settings.ItemImageSize.Height;
+
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
             {
+                // TODO: consider using postIds, currently computed below
                 PivotizeTag (postRepository, tag, settings);
-                // TODO: Generate .dzc file for tag
+
+                var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
+
+                var relativePathToCollectionManifest = Tag.ComputeBinnedPath (tag.Name, ".dzc");
+                var absolutePathToCollectionManifest = Path.Combine (outputPath, relativePathToCollectionManifest);
+                var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
+
+                CreateCollectionManifest (postIds, absolutePathToCollectionManifest, imageFormatName, relativePathToRoot,
+                                          fileNameIdFormat, width, height);
+
+                CreateCollectionTiles (tag, outputPath, postIds, imageFormat, fileNameIdFormat, outputPath);
+            }
+        }
+
+        internal static void CreateCollectionManifest(
+            List<int> postIds,
+            string absolutePathToCollectionManifest,
+            string imageFormatName,
+            string relativePathToRoot,
+            string fileNameIdFormat,
+            int width,
+            int height
+        )
+        {
+            Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
+            var element =
+                GenerateImageCollection (postIds, imageFormatName, fileNameIdFormat, relativePathToRoot, width, height);
+            using (var outputStream =
+                new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                using (var writer = XmlWriter.Create (outputStream, WriterSettings))
+                {
+                    Debug.Assert (writer != null);
+                    element.WriteTo (writer);
+                }
+            }
+        }
+
+        internal static void CreateCollectionTiles(
+            Tag tag,
+            string outputPath,
+            List<int> postIds,
+            ImageFormat imageFormat,
+            string fileNameIdFormat,
+            string absoluteOutputPath
+        )
+        {
+            var extension = imageFormat.ToString ().ToLower ();
+            var relativePathToCollectionFolder = Tag.ComputeBinnedPath (tag.Name, null) + "_files";
+            var absolutePathToCollectionFolder = Path.Combine (outputPath, relativePathToCollectionFolder);
+            for (var level = 0; level < DeepZoomCollection.CollectionTilePower; level++)
+            {
+                var levelName = Convert.ToString (level, 10);
+                var absolutePathToCollectionLevelFolder = Path.Combine (absolutePathToCollectionFolder, levelName);
+                Directory.CreateDirectory (absolutePathToCollectionLevelFolder);
+                var levelSize = (int) Math.Pow (2, level);
+                var imageCollectionTiles = DeepZoomCollection.GenerateCollectionTiles (postIds, levelSize);
+                foreach (var imageCollectionTile in imageCollectionTiles)
+                {
+                    var relativePathToTile = Path.ChangeExtension (imageCollectionTile.TileName, extension);
+                    var absolutePathToTile = Path.Combine (absolutePathToCollectionLevelFolder, relativePathToTile);
+                    var levelImages = OpenLevelImages (imageCollectionTile.Ids, extension, fileNameIdFormat,
+                                                           absoluteOutputPath, level);
+                    using (var bitmap = DeepZoomCollection.CreateCollectionTile (levelImages, levelSize))
+                    {
+                        bitmap.Save (absolutePathToTile, imageFormat);
+                    }
+                }
             }
         }
 
