@@ -368,6 +368,59 @@ namespace PivotStack
                 }
             }
         }
+        
+        internal static XElement GenerateImageCollection (
+            IEnumerable<int> postIds,
+            string imageFormat,
+            string postFileNameFormat,
+            string relativePathToRoot,
+            int originalImageWidth,
+            int originalImageHeight
+        )
+        {
+            XDocument doc;
+            var namespaceManager = new XmlNamespaceManager (new NameTable ());
+            namespaceManager.AddNamespace ("dz", DeepZoom2008Namespace.NamespaceName);
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.dzc"))
+            using (var reader = new StreamReader(stream))
+            {
+                doc = XDocument.Parse (reader.ReadToEnd ());
+            }
+            var collectionNode = doc.Root;
+            Debug.Assert (collectionNode != null);
+            collectionNode.SetAttributeValue ("Format", imageFormat);
+
+            // the <Size> element is the same for all <I> elements
+            #region <Size Width="800" Height="400" />
+            var sizeNode = new XElement (SizeNodeName);
+            sizeNode.SetAttributeValue ("Width", originalImageWidth);
+            sizeNode.SetAttributeValue ("Height", originalImageHeight);
+            #endregion
+
+            var itemsNode = collectionNode.XPathSelectElement ("dz:Items", namespaceManager);
+
+            var mortonNumber = 0;
+            var maxPostId = 0;
+            foreach (var postId in postIds)
+            {
+                var itemNode =
+                    CreateImageCollectionItemNode (mortonNumber, postId, postFileNameFormat, relativePathToRoot);
+                itemNode.Add (sizeNode);
+                itemsNode.Add (itemNode);
+
+                mortonNumber++;
+                maxPostId = Math.Max (maxPostId, postId);
+            }
+
+            // @NextItemId is documented as:
+            // "Gets the count of items in the collection; however for Deep Zoom
+            // this does not matter because collections are read-only"
+            // ...BUT Pivot is very finicky about this one and will consider an
+            // entire .dzc invalid if this isn't one more than the highest @Id in the .dzc document.
+            collectionNode.SetAttributeValue ("NextItemId", maxPostId + 1);
+
+            return collectionNode;
+        }
 
         internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain)
         {
