@@ -63,6 +63,19 @@ namespace PivotStack
             return plainText;
         }
 
+        internal static string RelativizePath(this string relativePath)
+        {
+            var result = new StringBuilder ();
+            foreach (var c in relativePath)
+            {
+                if (Path.DirectorySeparatorChar == c || Path.AltDirectorySeparatorChar == c)
+                {
+                    result.Append ("../");
+                }
+            }
+            return result.ToString ();
+        }
+
         /// <remarks>
         /// This version does not strip the folder names nor check for invalid characters, like
         /// <see cref="Path.GetFileNameWithoutExtension(string)"/> would do.

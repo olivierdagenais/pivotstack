@@ -31,6 +31,14 @@ For those you out there that don't know what nethack is: please inform your selv
         }
 
         [Test]
+        public void RelativizePath ()
+        {
+            var actual = StringExtensions.RelativizePath ("3/65p/roj/365project.dzc");
+            Assert.AreEqual ("../../../", actual);
+        }
+
+
+        [Test]
         public void ToBinnedPath_LotsOfBins ()
         {
             Assert.AreEqual ("123/456/789/123456789ABC.png", "123456789ABC.png".ToBinnedPath (3));
