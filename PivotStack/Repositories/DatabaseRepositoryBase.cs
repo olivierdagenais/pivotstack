@@ -38,6 +38,7 @@ namespace PivotStack.Repositories
             using (var command = _connection.CreateCommand ())
             {
                 command.CommandText = commandText;
+                command.CommandTimeout = 0;
                 foreach (var pair in parameters)
                 {
                     var param = command.CreateParameter ();
