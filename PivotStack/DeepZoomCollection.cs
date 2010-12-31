@@ -11,7 +11,7 @@ namespace PivotStack
             int levelSize
         )
         {
-            var imagesInEachDimension = CollectionTileSize / levelSize;
+            var imagesInEachDimension = NumberOfImagesInEachDimension (levelSize);
             var imagesPerTile = imagesInEachDimension * imagesInEachDimension;
             var mortonNumber = 0;
             var imagesThisTile = 0;
@@ -45,6 +45,11 @@ namespace PivotStack
                     new ImageCollectionTile (currentRow, currentColumn, startingMortonNumber, idsForTile);
                 yield return imageCollectionTile;
             }
+        }
+
+        internal static int NumberOfImagesInEachDimension (int levelSize)
+        {
+            return CollectionTileSize / levelSize;
         }
     }
 }
