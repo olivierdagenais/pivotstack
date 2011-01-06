@@ -186,19 +186,19 @@ namespace PivotStack
 
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
         {
-            var outputPath = Path.GetFullPath (OutputFolderName);
+            var absoluteOutputPath = Path.GetFullPath (OutputFolderName);
 
             var imageFormat = settings.PostImageEncoding;
             var fileNameIdFormat = settings.FileNameIdFormat;
             var width = settings.ItemImageSize.Width;
             var height = settings.ItemImageSize.Height;
-            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, WriterSettings, outputPath);
+            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, WriterSettings, absoluteOutputPath);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
             {
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-                PivotizeTag (tag, postIds, settings);
+                PivotizeTag (tag, postIds, settings, absoluteOutputPath);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
@@ -301,12 +301,11 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings)
+        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteOutputPath)
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
-            var outputPath = Path.GetFullPath (OutputFolderName);
             var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
-            var absoluteBinnedCxmlPath = Path.Combine (outputPath, relativeBinnedCxmlPath);
+            var absoluteBinnedCxmlPath = Path.Combine (absoluteOutputPath, relativeBinnedCxmlPath);
             Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
             using (var outputStream
                 = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
