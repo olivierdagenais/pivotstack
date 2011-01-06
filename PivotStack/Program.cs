@@ -186,6 +186,7 @@ namespace PivotStack
 
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
         {
+            var absoluteWorkingPath = Path.GetFullPath (WorkingFolderName);
             var absoluteOutputPath = Path.GetFullPath (OutputFolderName);
 
             var imageFormat = settings.PostImageEncoding;
@@ -198,7 +199,7 @@ namespace PivotStack
             foreach (var tag in tags)
             {
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-                PivotizeTag (tag, postIds, settings, absoluteOutputPath);
+                PivotizeTag (tag, postIds, settings, absoluteWorkingPath, absoluteOutputPath);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
@@ -301,9 +302,8 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteOutputPath)
+        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteWorkingPath, string absoluteOutputPath)
         {
-            var workingPath = Path.GetFullPath (WorkingFolderName);
             var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
             var absoluteBinnedCxmlPath = Path.Combine (absoluteOutputPath, relativeBinnedCxmlPath);
             Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
@@ -313,7 +313,7 @@ namespace PivotStack
                 var streamReaders = postIds.Map (postId =>
                     {
                         var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
-                        var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
+                        var absoluteBinnedXmlPath = Path.Combine (absoluteWorkingPath, relativeBinnedXmlPath);
                         var sr = new StreamReader (absoluteBinnedXmlPath);
                         return sr;
                     }
