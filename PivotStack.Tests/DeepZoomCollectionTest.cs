@@ -400,11 +400,12 @@ namespace PivotStack.Tests
         [Test]
         public void CreateImageCollectionItemNode_Typical ()
         {
+            var dzc = new DeepZoomCollection ("0000", null, 0, 0, null);
             const string expectedXml = @"
 <I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";
             var expectedItemNode = XElement.Parse (expectedXml);
 
-            var actualItemNode = DeepZoomCollection.CreateImageCollectionItemNode (0, 351, "0000", "../../..");
+            var actualItemNode = dzc.CreateImageCollectionItemNode (0, 351, "../../..");
 
             Assert.AreEqual (expectedItemNode.ToString (), actualItemNode.ToString ());
         }

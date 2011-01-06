@@ -36,7 +36,7 @@ namespace PivotStack
             _postFileNameIdFormat = postFileNameIdFormat;
             _imageFormat = imageFormat;
             // TODO: Add a GetName() extension method to ImageFormat?
-            _imageFormatName = _imageFormat.ToString ().ToLower ();
+            _imageFormatName = null == _imageFormat ? null : _imageFormat.ToString ().ToLower ();
             _originalImageWidth = originalImageWidth;
             _originalImageHeight = originalImageHeight;
             _writerSettings = writerSettings;
@@ -147,7 +147,7 @@ namespace PivotStack
             foreach (var postId in postIds)
             {
                 var itemNode =
-                    CreateImageCollectionItemNode (mortonNumber, postId, _postFileNameIdFormat, relativePathToRoot);
+                    CreateImageCollectionItemNode (mortonNumber, postId, relativePathToRoot);
                 itemNode.Add (sizeNode);
                 itemsNode.Add (itemNode);
 
@@ -165,15 +165,14 @@ namespace PivotStack
             return collectionNode;
         }
 
-        internal static XElement CreateImageCollectionItemNode
-            (int mortonNumber, int id, string postFileNameFormat, string relativePathToRoot)
+        internal XElement CreateImageCollectionItemNode(int mortonNumber, int id, string relativePathToRoot)
         {
             #region <I N="0" Id="351" Source="../../../0/0351.dzi" />
             var itemNode = new XElement (ItemNodeName);
             // "N" is "The number of the item (Morton Number) where it appears in the tiles."
             itemNode.SetAttributeValue ("N", mortonNumber);
             itemNode.SetAttributeValue ("Id", id);
-            var relativeDziSubPath = Post.ComputeBinnedPath (id, "dzi", postFileNameFormat);
+            var relativeDziSubPath = Post.ComputeBinnedPath (id, "dzi", _postFileNameIdFormat);
             var relativeDziPath = Path.Combine (relativePathToRoot, relativeDziSubPath);
             itemNode.SetAttributeValue ("Source", relativeDziPath);
             #endregion
