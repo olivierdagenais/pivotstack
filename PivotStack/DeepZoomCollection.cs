@@ -23,6 +23,25 @@ namespace PivotStack
         private static readonly XName ItemNodeName = DeepZoom2008Namespace + "I";
         private static readonly XName SizeNodeName = DeepZoom2008Namespace + "Size";
 
+        private readonly string _postFileNameIdFormat;
+        private readonly ImageFormat _imageFormat;
+        private readonly string _imageFormatName;
+        private readonly int _originalImageWidth;
+        private readonly int _originalImageHeight;
+        private readonly XmlWriterSettings _writerSettings;
+
+        public DeepZoomCollection (string postFileNameIdFormat, ImageFormat imageFormat, int originalImageWidth,
+            int originalImageHeight, XmlWriterSettings writerSettings)
+        {
+            _postFileNameIdFormat = postFileNameIdFormat;
+            _imageFormat = imageFormat;
+            // TODO: Add a GetName() extension method to ImageFormat?
+            _imageFormatName = _imageFormat.ToString ().ToLower ();
+            _originalImageWidth = originalImageWidth;
+            _originalImageHeight = originalImageHeight;
+            _writerSettings = writerSettings;
+        }
+
         internal static Bitmap CreateCollectionTile(IEnumerable<Bitmap> componentBitmaps, int levelSize)
         {
             var result = new Bitmap (CollectionTileSize, CollectionTileSize);
@@ -100,14 +119,7 @@ namespace PivotStack
             return CollectionTileSize / levelSize;
         }
 
-        internal static XElement GenerateImageCollection (
-            IEnumerable<int> postIds,
-            string imageFormat,
-            string postFileNameFormat,
-            string relativePathToRoot,
-            int originalImageWidth,
-            int originalImageHeight
-            )
+        internal XElement GenerateImageCollection(IEnumerable<int> postIds, string relativePathToRoot)
         {
             XDocument doc;
             var namespaceManager = new XmlNamespaceManager (new NameTable ());
@@ -119,13 +131,13 @@ namespace PivotStack
             }
             var collectionNode = doc.Root;
             Debug.Assert (collectionNode != null);
-            collectionNode.SetAttributeValue ("Format", imageFormat);
+            collectionNode.SetAttributeValue ("Format", _imageFormatName);
 
             // the <Size> element is the same for all <I> elements
             #region <Size Width="800" Height="400" />
             var sizeNode = new XElement (SizeNodeName);
-            sizeNode.SetAttributeValue ("Width", originalImageWidth);
-            sizeNode.SetAttributeValue ("Height", originalImageHeight);
+            sizeNode.SetAttributeValue ("Width", _originalImageWidth);
+            sizeNode.SetAttributeValue ("Height", _originalImageHeight);
             #endregion
 
             var itemsNode = collectionNode.XPathSelectElement ("dz:Items", namespaceManager);
@@ -135,7 +147,7 @@ namespace PivotStack
             foreach (var postId in postIds)
             {
                 var itemNode =
-                    CreateImageCollectionItemNode (mortonNumber, postId, postFileNameFormat, relativePathToRoot);
+                    CreateImageCollectionItemNode (mortonNumber, postId, _postFileNameIdFormat, relativePathToRoot);
                 itemNode.Add (sizeNode);
                 itemsNode.Add (itemNode);
 
@@ -169,23 +181,15 @@ namespace PivotStack
             return itemNode;
         }
 
-        internal static void CreateCollectionManifest(
-            List<int> postIds,
-            string absolutePathToCollectionManifest,
-            string imageFormatName,
-            string relativePathToRoot,
-            string fileNameIdFormat,
-            int width,
-            int height,
-            XmlWriterSettings writerSettings)
+        public void CreateCollectionManifest(List<int> postIds, string absolutePathToCollectionManifest,
+            string relativePathToRoot)
         {
             Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
-            var element =
-                GenerateImageCollection (postIds, imageFormatName, fileNameIdFormat, relativePathToRoot, width, height);
+            var element = GenerateImageCollection (postIds, relativePathToRoot);
             using (var outputStream =
                 new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                using (var writer = XmlWriter.Create (outputStream, writerSettings))
+                using (var writer = XmlWriter.Create (outputStream, _writerSettings))
                 {
                     Debug.Assert (writer != null);
                     element.WriteTo (writer);

@@ -373,6 +373,8 @@ namespace PivotStack.Tests
         [Test]
         public void GenerateImageCollection ()
         {
+            var dzc = new DeepZoomCollection ("0000", ImageFormat.Png, 800, 400, Program.WriterSettings);
+
             const string expectedXml = @"
 <Collection xmlns='http://schemas.microsoft.com/deepzoom/2008' MaxLevel='7' TileSize='256' Format='png' NextItemId='111'>
   <Items>
@@ -390,8 +392,7 @@ namespace PivotStack.Tests
             var expectedCollectionElement = XElement.Parse (expectedXml);
 
             var postIds = new[] { 1, 51, 110 };
-            var actualCollectionElement =
-                DeepZoomCollection.GenerateImageCollection (postIds, "png", "0000", "../", 800, 400);
+            var actualCollectionElement = dzc.GenerateImageCollection (postIds, "../");
 
             Assert.AreEqual (expectedCollectionElement.ToString (), actualCollectionElement.ToString ());
         }
