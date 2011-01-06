@@ -318,7 +318,7 @@ namespace PivotStack
                         return sr;
                     }
                 );
-                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain);
+                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain, ReaderSettings, WriterSettings);
             }
         }
 
@@ -372,12 +372,12 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain)
+        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain, XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.cxml"))
-            using (var reader = XmlReader.Create (stream, ReaderSettings))
+            using (var reader = XmlReader.Create (stream, readerSettings))
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
@@ -393,7 +393,7 @@ namespace PivotStack
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
             itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
             itemsNode.SetAttributeValue ("ImgBase", Path.ChangeExtension (tag.Name, ".dzc"));
-            using (var writer = new CollectionWriter (destination, WriterSettings, futureCw =>
+            using (var writer = new CollectionWriter (destination, writerSettings, futureCw =>
                 {
                     futureCw.Flush ();
                     var sw = new StreamWriter (destination);
