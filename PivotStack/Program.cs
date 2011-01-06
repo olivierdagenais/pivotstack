@@ -197,11 +197,8 @@ namespace PivotStack
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
             {
-                // TODO: consider using postIds, currently computed below
-                PivotizeTag (postRepository, tag, settings);
-
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-
+                PivotizeTag (tag, postIds, settings);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
@@ -304,7 +301,7 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (PostRepository postRepository, Tag tag, Settings settings)
+        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings)
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
             var outputPath = Path.GetFullPath (OutputFolderName);
@@ -314,7 +311,6 @@ namespace PivotStack
             using (var outputStream
                 = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                var postIds = postRepository.RetrievePostIds (tag.Id);
                 var streamReaders = postIds.Map (postId =>
                     {
                         var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
