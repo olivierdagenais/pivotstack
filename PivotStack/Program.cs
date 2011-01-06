@@ -202,11 +202,7 @@ namespace PivotStack
 
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
 
-                var relativePathToCollectionManifest = Tag.ComputeBinnedPath (tag.Name, ".dzc");
-                var absolutePathToCollectionManifest = Path.Combine (outputPath, relativePathToCollectionManifest);
-                var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
-
-                dzc.CreateCollectionManifest (postIds, absolutePathToCollectionManifest, relativePathToRoot);
+                dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
         }

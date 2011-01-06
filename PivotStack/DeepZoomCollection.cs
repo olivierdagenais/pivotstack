@@ -182,9 +182,12 @@ namespace PivotStack
             return itemNode;
         }
 
-        public void CreateCollectionManifest(List<int> postIds, string absolutePathToCollectionManifest,
-            string relativePathToRoot)
+        public void CreateCollectionManifest(Tag tag, List<int> postIds)
         {
+            var relativePathToCollectionManifest = tag.ComputeBinnedPath (".dzc");
+            var absolutePathToCollectionManifest = Path.Combine (_absoluteOutputFolder, relativePathToCollectionManifest);
+            var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
+
             Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
             var element = GenerateImageCollection (postIds, relativePathToRoot);
             using (var outputStream =
@@ -216,7 +219,7 @@ namespace PivotStack
 
         public void CreateCollectionTiles(Tag tag, List<int> postIds)
         {
-            var relativePathToCollectionFolder = Tag.ComputeBinnedPath (tag.Name, null) + "_files";
+            var relativePathToCollectionFolder = tag.ComputeBinnedPath (null) + "_files";
             var absolutePathToCollectionFolder = Path.Combine (_absoluteOutputFolder, relativePathToCollectionFolder);
             for (var level = 0; level < CollectionTilePower; level++)
             {
