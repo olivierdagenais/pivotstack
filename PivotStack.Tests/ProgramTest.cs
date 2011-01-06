@@ -81,43 +81,6 @@ namespace PivotStack.Tests
             Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
         }
 
-        [Test]
-        public void GenerateImageCollection()
-        {
-            const string expectedXml = @"
-<Collection xmlns='http://schemas.microsoft.com/deepzoom/2008' MaxLevel='7' TileSize='256' Format='png' NextItemId='111'>
-  <Items>
-    <I N='0' Id='1' Source='../0/0001.dzi'>
-      <Size Width='800' Height='400' />
-    </I>
-    <I N='1' Id='51' Source='../0/0051.dzi'>
-      <Size Width='800' Height='400' />
-    </I>
-    <I N='2' Id='110' Source='../0/0110.dzi'>
-      <Size Width='800' Height='400' />
-    </I>
-  </Items>
-</Collection>";
-            var expectedCollectionElement = XElement.Parse (expectedXml);
-
-            var postIds = new[] {1, 51, 110};
-            var actualCollectionElement = Program.GenerateImageCollection (postIds, "png", "0000", "../", 800, 400);
-
-            Assert.AreEqual (expectedCollectionElement.ToString (), actualCollectionElement.ToString ());
-        }
-
-        [Test]
-        public void CreateImageCollectionItemNode_Typical ()
-        {
-            const string expectedXml = @"
-<I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";
-            var expectedItemNode = XElement.Parse (expectedXml);
-
-            var actualItemNode = Program.CreateImageCollectionItemNode (0, 351, "0000", "../../..");
-
-            Assert.AreEqual (expectedItemNode.ToString (), actualItemNode.ToString ());
-        }
-
         // TODO: Move to re-usable class library
         internal static void AssertStreamsAreEqual<T>(string expectedResourceFileName, MemoryStream actualStream)
         {
