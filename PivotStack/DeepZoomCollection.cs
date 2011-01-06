@@ -12,6 +12,7 @@ using SoftwareNinjas.Core;
 
 namespace PivotStack
 {
+    // TODO: some code is for an individual DZC, other is for a DeepZoomCollectionFactory or something similar
     public class DeepZoomCollection
     {
         internal const int CollectionTilePower = 8;
@@ -26,10 +27,9 @@ namespace PivotStack
         private readonly string _postFileNameIdFormat;
         private readonly ImageFormat _imageFormat;
         private readonly string _imageFormatName;
-        private readonly int _originalImageWidth;
-        private readonly int _originalImageHeight;
         private readonly XmlWriterSettings _writerSettings;
         private readonly string _absoluteOutputFolder;
+        private readonly XElement _sizeNode;
 
         public DeepZoomCollection (string postFileNameIdFormat, ImageFormat imageFormat, int originalImageWidth,
             int originalImageHeight, XmlWriterSettings writerSettings, string absoluteOutputFolder)
@@ -38,10 +38,15 @@ namespace PivotStack
             _imageFormat = imageFormat;
             // TODO: Add a GetName() extension method to ImageFormat?
             _imageFormatName = null == _imageFormat ? null : _imageFormat.ToString ().ToLower ();
-            _originalImageWidth = originalImageWidth;
-            _originalImageHeight = originalImageHeight;
             _writerSettings = writerSettings;
             _absoluteOutputFolder = absoluteOutputFolder;
+
+            // the <Size> element is the same for all <I> elements
+            #region <Size Width="800" Height="400" />
+            _sizeNode = new XElement (SizeNodeName);
+            _sizeNode.SetAttributeValue ("Width", originalImageWidth);
+            _sizeNode.SetAttributeValue ("Height", originalImageHeight);
+            #endregion
         }
 
         internal static Bitmap CreateCollectionTile(IEnumerable<Bitmap> componentBitmaps, int levelSize)
@@ -135,13 +140,6 @@ namespace PivotStack
             Debug.Assert (collectionNode != null);
             collectionNode.SetAttributeValue ("Format", _imageFormatName);
 
-            // the <Size> element is the same for all <I> elements
-            #region <Size Width="800" Height="400" />
-            var sizeNode = new XElement (SizeNodeName);
-            sizeNode.SetAttributeValue ("Width", _originalImageWidth);
-            sizeNode.SetAttributeValue ("Height", _originalImageHeight);
-            #endregion
-
             var itemsNode = collectionNode.XPathSelectElement ("dz:Items", namespaceManager);
 
             var mortonNumber = 0;
@@ -150,7 +148,7 @@ namespace PivotStack
             {
                 var itemNode =
                     CreateImageCollectionItemNode (mortonNumber, postId, relativePathToRoot);
-                itemNode.Add (sizeNode);
+                itemNode.Add (_sizeNode);
                 itemsNode.Add (itemNode);
 
                 mortonNumber++;
