@@ -373,7 +373,7 @@ namespace PivotStack.Tests
         [Test]
         public void GenerateImageCollection ()
         {
-            var dzc = new DeepZoomCollection ("0000", ImageFormat.Png, 800, 400, Program.WriterSettings);
+            var dzc = new DeepZoomCollection ("0000", ImageFormat.Png, 800, 400, Program.WriterSettings, null);
 
             const string expectedXml = @"
 <Collection xmlns='http://schemas.microsoft.com/deepzoom/2008' MaxLevel='7' TileSize='256' Format='png' NextItemId='111'>
@@ -400,7 +400,7 @@ namespace PivotStack.Tests
         [Test]
         public void CreateImageCollectionItemNode_Typical ()
         {
-            var dzc = new DeepZoomCollection ("0000", null, 0, 0, null);
+            var dzc = new DeepZoomCollection ("0000", null, 0, 0, null, null);
             const string expectedXml = @"
 <I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";
             var expectedItemNode = XElement.Parse (expectedXml);

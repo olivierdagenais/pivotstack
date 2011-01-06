@@ -192,7 +192,7 @@ namespace PivotStack
             var fileNameIdFormat = settings.FileNameIdFormat;
             var width = settings.ItemImageSize.Width;
             var height = settings.ItemImageSize.Height;
-            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, WriterSettings);
+            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, WriterSettings, outputPath);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
@@ -207,8 +207,7 @@ namespace PivotStack
                 var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
 
                 dzc.CreateCollectionManifest (postIds, absolutePathToCollectionManifest, relativePathToRoot);
-
-                DeepZoomCollection.CreateCollectionTiles (tag, outputPath, postIds, imageFormat, fileNameIdFormat, outputPath);
+                dzc.CreateCollectionTiles (tag, postIds);
             }
         }
 

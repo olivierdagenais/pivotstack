@@ -29,9 +29,10 @@ namespace PivotStack
         private readonly int _originalImageWidth;
         private readonly int _originalImageHeight;
         private readonly XmlWriterSettings _writerSettings;
+        private readonly string _absoluteOutputFolder;
 
         public DeepZoomCollection (string postFileNameIdFormat, ImageFormat imageFormat, int originalImageWidth,
-            int originalImageHeight, XmlWriterSettings writerSettings)
+            int originalImageHeight, XmlWriterSettings writerSettings, string absoluteOutputFolder)
         {
             _postFileNameIdFormat = postFileNameIdFormat;
             _imageFormat = imageFormat;
@@ -40,6 +41,7 @@ namespace PivotStack
             _originalImageWidth = originalImageWidth;
             _originalImageHeight = originalImageHeight;
             _writerSettings = writerSettings;
+            _absoluteOutputFolder = absoluteOutputFolder;
         }
 
         internal static Bitmap CreateCollectionTile(IEnumerable<Bitmap> componentBitmaps, int levelSize)
@@ -196,16 +198,15 @@ namespace PivotStack
             }
         }
 
-        internal static IEnumerable<Bitmap> OpenLevelImages
-            (IEnumerable<int> postIds, string extension, string fileNameIdFormat, string absoluteOutputPath, int level)
+        internal IEnumerable<Bitmap> OpenLevelImages(IEnumerable<int> postIds, int level)
         {
             var levelName = Convert.ToString (level, 10);
-            var inputFileName = Path.ChangeExtension (DeepZoomImage.TileZeroZero, extension);
+            var inputFileName = Path.ChangeExtension (DeepZoomImage.TileZeroZero, _imageFormatName);
             foreach (var postId in postIds)
             {
-                var relativeFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
+                var relativeFolder = Post.ComputeBinnedPath (postId, null, _postFileNameIdFormat) + "_files";
                 var relativeLevelFolder = relativeFolder.CombinePath (levelName, inputFileName);
-                var absoluteSourceImagePath = Path.Combine (absoluteOutputPath, relativeLevelFolder);
+                var absoluteSourceImagePath = Path.Combine (_absoluteOutputFolder, relativeLevelFolder);
                 using (var bitmap = new Bitmap (absoluteSourceImagePath))
                 {
                     yield return bitmap;
@@ -213,18 +214,10 @@ namespace PivotStack
             }
         }
 
-        internal static void CreateCollectionTiles(
-            Tag tag,
-            string outputPath,
-            List<int> postIds,
-            ImageFormat imageFormat,
-            string fileNameIdFormat,
-            string absoluteOutputPath
-            )
+        public void CreateCollectionTiles(Tag tag, List<int> postIds)
         {
-            var extension = imageFormat.ToString ().ToLower ();
             var relativePathToCollectionFolder = Tag.ComputeBinnedPath (tag.Name, null) + "_files";
-            var absolutePathToCollectionFolder = Path.Combine (outputPath, relativePathToCollectionFolder);
+            var absolutePathToCollectionFolder = Path.Combine (_absoluteOutputFolder, relativePathToCollectionFolder);
             for (var level = 0; level < CollectionTilePower; level++)
             {
                 var levelName = Convert.ToString (level, 10);
@@ -234,13 +227,12 @@ namespace PivotStack
                 var imageCollectionTiles = GenerateCollectionTiles (postIds, levelSize);
                 foreach (var imageCollectionTile in imageCollectionTiles)
                 {
-                    var relativePathToTile = Path.ChangeExtension (imageCollectionTile.TileName, extension);
+                    var relativePathToTile = Path.ChangeExtension (imageCollectionTile.TileName, _imageFormatName);
                     var absolutePathToTile = Path.Combine (absolutePathToCollectionLevelFolder, relativePathToTile);
-                    var levelImages = OpenLevelImages (imageCollectionTile.Ids, extension, fileNameIdFormat,
-                                                       absoluteOutputPath, level);
+                    var levelImages = OpenLevelImages (imageCollectionTile.Ids, level);
                     using (var bitmap = CreateCollectionTile (levelImages, levelSize))
                     {
-                        bitmap.Save (absolutePathToTile, imageFormat);
+                        bitmap.Save (absolutePathToTile, _imageFormat);
                     }
                 }
             }
