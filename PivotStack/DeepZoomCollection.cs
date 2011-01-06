@@ -167,5 +167,29 @@ namespace PivotStack
 
             return itemNode;
         }
+
+        internal static void CreateCollectionManifest(
+            List<int> postIds,
+            string absolutePathToCollectionManifest,
+            string imageFormatName,
+            string relativePathToRoot,
+            string fileNameIdFormat,
+            int width,
+            int height,
+            XmlWriterSettings writerSettings)
+        {
+            Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
+            var element =
+                GenerateImageCollection (postIds, imageFormatName, fileNameIdFormat, relativePathToRoot, width, height);
+            using (var outputStream =
+                new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                using (var writer = XmlWriter.Create (outputStream, writerSettings))
+                {
+                    Debug.Assert (writer != null);
+                    element.WriteTo (writer);
+                }
+            }
+        }
     }
 }

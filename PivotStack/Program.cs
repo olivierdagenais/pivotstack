@@ -223,34 +223,10 @@ namespace PivotStack
                 var absolutePathToCollectionManifest = Path.Combine (outputPath, relativePathToCollectionManifest);
                 var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
 
-                CreateCollectionManifest (postIds, absolutePathToCollectionManifest, imageFormatName, relativePathToRoot,
-                                          fileNameIdFormat, width, height);
+                DeepZoomCollection.CreateCollectionManifest (postIds, absolutePathToCollectionManifest, imageFormatName, relativePathToRoot,
+                                          fileNameIdFormat, width, height, WriterSettings);
 
                 CreateCollectionTiles (tag, outputPath, postIds, imageFormat, fileNameIdFormat, outputPath);
-            }
-        }
-
-        internal static void CreateCollectionManifest(
-            List<int> postIds,
-            string absolutePathToCollectionManifest,
-            string imageFormatName,
-            string relativePathToRoot,
-            string fileNameIdFormat,
-            int width,
-            int height
-        )
-        {
-            Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
-            var element =
-                DeepZoomCollection.GenerateImageCollection (postIds, imageFormatName, fileNameIdFormat, relativePathToRoot, width, height);
-            using (var outputStream =
-                new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
-            {
-                using (var writer = XmlWriter.Create (outputStream, WriterSettings))
-                {
-                    Debug.Assert (writer != null);
-                    element.WriteTo (writer);
-                }
             }
         }
 
