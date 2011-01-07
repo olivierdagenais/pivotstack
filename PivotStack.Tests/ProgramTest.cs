@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -40,6 +41,16 @@ namespace PivotStack.Tests
         <Facet Name=""Favorites""><Number Value=""10"" /></Facet>
       </Facets>
     </Item>";
+
+        private static readonly XmlReaderSettings XmlReaderSettings = new XmlReaderSettings
+        {
+#if DEBUG
+            IgnoreWhitespace = false,
+#else
+            IgnoreWhitespace = true,
+#endif
+        };
+
         private readonly Page _testTemplate;
 
         public ProgramTest()
@@ -76,7 +87,7 @@ namespace PivotStack.Tests
 </Image>";
             var expectedImageNode = XElement.Parse (expectedXml);
 
-            var actualImageNode = Program.GenerateImageManifest (254, 1, "png", 800, 400);
+            var actualImageNode = Program.GenerateImageManifest (254, 1, "png", 800, 400, XmlReaderSettings);
 
             Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Drawing;
 using System.Drawing.Imaging;
+using System.Xml;
 
 namespace PivotStack
 {
@@ -20,6 +21,8 @@ namespace PivotStack
         public int TileOverlap { get; set; }
         // TODO: DeepZoom collection parameters?
         // TODO: Number of threads to use?
+        public XmlReaderSettings XmlReaderSettings { get; set; }
+        public XmlWriterSettings XmlWriterSettings { get; set; }
 
         public int MaximumNumberOfDigits
         {

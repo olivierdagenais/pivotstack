@@ -9,6 +9,18 @@ namespace PivotStack.Tests
     [TestFixture]
     public class CollectionWriterTest
     {
+        private static readonly XmlWriterSettings XmlWriterSettings = new XmlWriterSettings
+        {
+            OmitXmlDeclaration = true,
+            NewLineChars = "\n",
+#if DEBUG
+            Indent = true,
+            IndentChars = "  ",
+#else
+            NewLineHandling = NewLineHandling.Entitize,
+#endif
+        };
+
         [Test]
         public void Typical ()
         {
@@ -25,7 +37,7 @@ namespace PivotStack.Tests
                     namespaceManager.AddNamespace ("c", Program.CollectionNamespace.NamespaceName);
                 }
 
-                using (var cw = new CollectionWriter (ms, Program.WriterSettings, futureCw => 
+                using (var cw = new CollectionWriter (ms, XmlWriterSettings, futureCw => 
                     {
                         futureCw.Flush ();
                         sw.Write (ProgramTest.ExpectedAnsweredAndAccepted);

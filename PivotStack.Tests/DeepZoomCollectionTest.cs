@@ -2,6 +2,7 @@
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
+using System.Xml;
 using System.Xml.Linq;
 using SoftwareNinjas.Core;
 using Test = SoftwareNinjas.Core.Test;
@@ -12,6 +13,18 @@ namespace PivotStack.Tests
     [TestFixture]
     public class DeepZoomCollectionTest
     {
+        private static readonly XmlWriterSettings XmlWriterSettings = new XmlWriterSettings
+        {
+            OmitXmlDeclaration = true,
+            NewLineChars = "\n",
+#if DEBUG
+            Indent = true,
+            IndentChars = "  ",
+#else
+            NewLineHandling = NewLineHandling.Entitize,
+#endif
+        };
+
         private static readonly int[] TestIds = new[]
         {
             000, 010, 020, 030, 040, 050, 060, 070, 080, 090,
@@ -373,7 +386,7 @@ namespace PivotStack.Tests
         [Test]
         public void GenerateImageCollection ()
         {
-            var dzc = new DeepZoomCollection ("0000", ImageFormat.Png, 800, 400, Program.WriterSettings, null);
+            var dzc = new DeepZoomCollection ("0000", ImageFormat.Png, 800, 400, XmlWriterSettings, null);
 
             const string expectedXml = @"
 <Collection xmlns='http://schemas.microsoft.com/deepzoom/2008' MaxLevel='7' TileSize='256' Format='png' NextItemId='111'>

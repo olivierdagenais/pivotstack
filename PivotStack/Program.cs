@@ -38,36 +38,6 @@ namespace PivotStack
         internal static readonly XNamespace DeepZoomNamespace
             = "http://schemas.microsoft.com/deepzoom/2009";
 
-        internal static readonly XmlWriterSettings WriterSettings = new XmlWriterSettings
-        {
-            OmitXmlDeclaration = true,
-            NewLineChars = "\n",
-#if DEBUG
-            Indent = true,
-            IndentChars = "  ",
-#endif
-        };
-        internal static readonly XmlWriterSettings ItemWriterSettings = new XmlWriterSettings
-        {
-            OmitXmlDeclaration = true,
-            NewLineChars = "\n",
-#if DEBUG
-            Indent = true,
-            IndentChars = "  ",
-#else
-            NewLineHandling = NewLineHandling.Entitize,
-#endif
-        };
-
-        internal static readonly XmlReaderSettings ReaderSettings = new XmlReaderSettings
-        {
-#if DEBUG
-            IgnoreWhitespace = false,
-#else
-            IgnoreWhitespace = true,
-#endif
-        };
-
         [STAThread]
         public static int Main (string[] args)
         {
@@ -77,6 +47,25 @@ namespace PivotStack
                 ItemImageSize = new Size(800, 400),
                 TileSize = 254,
                 TileOverlap = 1,
+                XmlReaderSettings = new XmlReaderSettings
+                {
+#if DEBUG
+                    IgnoreWhitespace = false,
+#else
+                    IgnoreWhitespace = true,
+#endif
+                },
+                XmlWriterSettings = new XmlWriterSettings
+                {
+                    OmitXmlDeclaration = true,
+                    NewLineChars = "\n",
+#if DEBUG
+                    Indent = true,
+                    IndentChars = "  ",
+#else
+                    NewLineHandling = NewLineHandling.Entitize,
+#endif
+                },
                 /*
                 DatabaseConnectionString = "Data Source=Blackberry;Initial Catalog=SuperUser;Integrated Security=True",
                 SiteDomain = "superuser.com",
@@ -123,10 +112,11 @@ namespace PivotStack
             var fileNameIdFormat = settings.FileNameIdFormat;
             var imageNode = GenerateImageManifest (settings.TileSize, settings.TileOverlap,
                                                    settings.PostImageEncoding.ToString ().ToLower (),
-                                                   settings.ItemImageSize.Width, settings.ItemImageSize.Height);
+                                                   settings.ItemImageSize.Width, settings.ItemImageSize.Height,
+                                                   settings.XmlReaderSettings);
 
             var sb = new StringBuilder ();
-            using (var writer = XmlWriter.Create (sb, WriterSettings))
+            using (var writer = XmlWriter.Create (sb, settings.XmlWriterSettings))
             {
                 Debug.Assert (writer != null);
                 imageNode.WriteTo (writer);
@@ -143,12 +133,13 @@ namespace PivotStack
         }
 
         internal static XElement GenerateImageManifest
-            (int tileSize, int tileOverlap, string imageFormat, int imageWidth, int imageHeight)
+            (int tileSize, int tileOverlap, string imageFormat, int imageWidth, int imageHeight,
+            XmlReaderSettings xmlReaderSettings)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.dzi"))
-            using (var reader = XmlReader.Create (stream, ReaderSettings))
+            using (var reader = XmlReader.Create (stream, xmlReaderSettings))
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
@@ -193,7 +184,8 @@ namespace PivotStack
             var fileNameIdFormat = settings.FileNameIdFormat;
             var width = settings.ItemImageSize.Width;
             var height = settings.ItemImageSize.Height;
-            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, WriterSettings, absoluteOutputPath);
+            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, settings.XmlWriterSettings,
+                absoluteOutputPath);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
@@ -238,7 +230,7 @@ namespace PivotStack
                 using (var outputStream =
                     new FileStream (absoluteBinnedXmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
                 {
-                    using (var writer = new ItemWriter (outputStream, ItemWriterSettings))
+                    using (var writer = new ItemWriter (outputStream, settings.XmlWriterSettings))
                     {
                         element.Save (writer);
                     }
@@ -318,7 +310,8 @@ namespace PivotStack
                         return sr;
                     }
                 );
-                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain, ReaderSettings, WriterSettings);
+                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain, settings.XmlReaderSettings,
+                    settings.XmlWriterSettings);
             }
         }
 
