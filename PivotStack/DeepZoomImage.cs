@@ -17,6 +17,17 @@ namespace PivotStack
         internal static readonly string TileZeroZero = "0_0";
         internal static readonly Size OneByOne = new Size (1, 1);
 
+        private readonly Settings _settings;
+
+        private readonly int _maximumLevel;
+
+        public DeepZoomImage(Settings settings)
+        {
+            _settings = settings;
+
+            _maximumLevel = DetermineMaximumLevel (settings.ItemImageSize);
+        }
+
         internal static int DetermineMaximumLevel (Size originalSize)
         {
             var maxDimension = Math.Max (originalSize.Height, originalSize.Width);
@@ -105,29 +116,29 @@ namespace PivotStack
             }
         }
 
-        internal static void SlicePostImage (int postId, Settings settings, int maximumLevel)
+        public void SlicePostImage(int postId)
         {
-            var extension = settings.PostImageEncoding.GetName ();
-            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, settings.FileNameIdFormat) + "_files";
-            var absoluteBinnedImageFolder = Path.Combine (settings.AbsoluteWorkingFolder, relativeBinnedImageFolder);
-            var absoluteBinnedOutputImageFolder = Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedImageFolder);
+            var extension = _settings.PostImageEncoding.GetName ();
+            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, _settings.FileNameIdFormat) + "_files";
+            var absoluteBinnedImageFolder = Path.Combine (_settings.AbsoluteWorkingFolder, relativeBinnedImageFolder);
+            var absoluteBinnedOutputImageFolder = Path.Combine (_settings.AbsoluteOutputFolder, relativeBinnedImageFolder);
 
-            for (var level = maximumLevel; level >= 0; level--)
+            for (var level = _maximumLevel; level >= 0; level--)
             {
                 var levelName = Convert.ToString (level, 10);
-                var targetSize = ComputeLevelSize (settings.ItemImageSize, level);
+                var targetSize = ComputeLevelSize (_settings.ItemImageSize, level);
                 var tileFiles = new List<Stream> ();
                 var inputLevelImageFile = Path.ChangeExtension (levelName, extension);
                 var inputLevelImagePath = Path.Combine (absoluteBinnedImageFolder, inputLevelImageFile);
                 var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
                 Directory.CreateDirectory (outputLevelFolder);
 
-                var tiles = ComputeTiles (targetSize, settings.TileSize, settings.TileOverlap);
+                var tiles = ComputeTiles (targetSize, _settings.TileSize, _settings.TileOverlap);
                 using (var inputStream =
                     new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var levelBitmap = new Bitmap (inputStream))
                 {
-                    Slice (levelBitmap, tiles, settings.PostImageEncoding, tileName =>
+                    Slice (levelBitmap, tiles, _settings.PostImageEncoding, tileName =>
                         {
                             var tileFileName = Path.ChangeExtension (tileName, extension);
                             var tilePath = Path.Combine (outputLevelFolder, tileFileName);

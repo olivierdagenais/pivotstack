@@ -159,11 +159,10 @@ namespace PivotStack
 
         internal static void GenerateImageSlices(Settings settings, PostRepository postRepository)
         {
-            var size = settings.ItemImageSize;
-            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
+            var dzi = new DeepZoomImage (settings);
             foreach (var postId in postRepository.RetrievePostIds ())
             {
-                DeepZoomImage.SlicePostImage (postId, settings, maximumLevel);
+                dzi.SlicePostImage (postId);
             }
         }
 
