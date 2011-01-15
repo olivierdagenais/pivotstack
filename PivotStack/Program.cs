@@ -306,67 +306,67 @@ namespace PivotStack
             var facetsNode = new XElement("Facets");
 
             #region <Facet Name="Score"><Number Value="7" /></Facet>
-            AddFacet (facetsNode, FacetType.Number, "Score", post.Score);
+            facetsNode.AddFacet (FacetType.Number, "Score", post.Score);
             #endregion
 
             #region <Facet Name="Views"><Number Value="761" /></Facet>
-            AddFacet (facetsNode, FacetType.Number, "Views", post.Views);
+            facetsNode.AddFacet (FacetType.Number, "Views", post.Views);
             #endregion
 
             #region <Facet Name="Answers"><Number Value="27" /></Facet>
-            AddFacet (facetsNode, FacetType.Number, "Answers", post.Answers);
+            facetsNode.AddFacet (FacetType.Number, "Answers", post.Answers);
             #endregion
 
             if (post.Tags != null)
             {
                 var tags = post.Tags.ParseTags ();
                 #region <Facet Name="Tagged"><String Value="excel" /><String Value="tips-and-tricks" /></Facet>
-                AddFacet (facetsNode, FacetType.String, "Tagged", tags.Map (t => (object) t));
+                facetsNode.AddFacet (FacetType.String, "Tagged", tags.Map (t => (object) t));
                 #endregion
 
                 #region <Facet Name="Related Tags"><Link Href="excel.cxml" Name="excel" /></Facet>
                 // TODO: the "related tags" files should be binned!
-                AddFacetLink (facetsNode, "Related Tags", tags.Map (t => new Pair<string, string> (t + ".cxml", t)));
+                facetsNode.AddFacetLink ("Related Tags", tags.Map (t => new Pair<string, string> (t + ".cxml", t)));
                 #endregion
             }
 
             #region <Facet Name="Date asked"><DateTime Value="2009-07-15T18:41:08" /></Facet>
-            AddFacet (facetsNode, FacetType.DateTime, "Date asked", post.DateAsked.ToString ("s"));
+            facetsNode.AddFacet (FacetType.DateTime, "Date asked", post.DateAsked.ToString ("s"));
             #endregion
 
             #region <Facet Name="Is answered?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is answered?", post.DateFirstAnswered.HasValue.YesNo());
+            facetsNode.AddFacet (FacetType.String, "Is answered?", post.DateFirstAnswered.HasValue.YesNo ());
             #endregion
 
             #region <Facet Name="Date first answered"><DateTime Value="2009-07-15T18:41:08" /></Facet>
             if (post.DateFirstAnswered.HasValue)
             {
-                AddFacet (facetsNode, FacetType.DateTime, "Date first answered", post.DateFirstAnswered.Value.ToString ("s"));
+                facetsNode.AddFacet (FacetType.DateTime, "Date first answered", post.DateFirstAnswered.Value.ToString ("s"));
             }
             #endregion
 
             #region <Facet Name="Date last answered"><DateTime Value="2010-06-16T09:46:07" /></Facet>
             if (post.DateLastAnswered.HasValue)
             {
-                AddFacet (facetsNode, FacetType.DateTime, "Date last answered", post.DateLastAnswered.Value.ToString ("s"));
+                facetsNode.AddFacet (FacetType.DateTime, "Date last answered", post.DateLastAnswered.Value.ToString ("s"));
             }
             #endregion
 
             #region <Facet Name="Asker"><String Value="Bob" /></Facet>
             if (post.Asker != null)
             {
-                AddFacet (facetsNode, FacetType.String, "Asker", post.Asker);
+                facetsNode.AddFacet (FacetType.String, "Asker", post.Asker);
             }
             #endregion
 
             #region <Facet Name="Has accepted answer?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Has accepted answer?", post.AcceptedAnswerId.HasValue.YesNo());
+            facetsNode.AddFacet (FacetType.String, "Has accepted answer?", post.AcceptedAnswerId.HasValue.YesNo ());
             #endregion
 
             #region <Facet Name="Accepted Answer"><LongString Value="My best advice for Excel..." /></Facet>
             if (post.AcceptedAnswer != null)
             {
-                AddFacet (facetsNode, FacetType.LongString, "Accepted Answer", post.AcceptedAnswer.CleanHtml ());
+                facetsNode.AddFacet (FacetType.LongString, "Accepted Answer", post.AcceptedAnswer.CleanHtml ());
                 // TODO: link to accepted answer
                 // Accepted Answer Details: Link, Author(s), Score
             }
@@ -375,18 +375,18 @@ namespace PivotStack
             #region <Facet Name="Top Answer"><LongString Value="In-cell graphs..." /></Facet>
             if (post.TopAnswer != null)
             {
-                AddFacet (facetsNode, FacetType.LongString, "Top Answer", post.TopAnswer.CleanHtml ());
+                facetsNode.AddFacet (FacetType.LongString, "Top Answer", post.TopAnswer.CleanHtml ());
                 // TODO: link to top answer
                 // Top Answer Details: Link, Author(s), Score
             }
             #endregion
 
             #region <Facet Name="Is favorite?"><String Value="yes" /></Facet>
-            AddFacet (facetsNode, FacetType.String, "Is favorite?", ( post.Favorites > 0 ).YesNo());
+            facetsNode.AddFacet (FacetType.String, "Is favorite?", ( post.Favorites > 0 ).YesNo ());
             #endregion
 
             #region <Facet Name="Favorites"><Number Value="10" /></Facet>
-            AddFacet (facetsNode, FacetType.Number, "Favorites", post.Favorites);
+            facetsNode.AddFacet (FacetType.Number, "Favorites", post.Favorites);
             #endregion
 
             itemNode.Add (facetsNode);
@@ -394,45 +394,6 @@ namespace PivotStack
 
             return itemNode;
             #endregion
-        }
-
-        // TODO: turn these 4 methods into extension methods on XElement or instance methods on something else (Item?)
-        internal static void AddFacet (XElement facets, FacetType facetType, string name, object value)
-        {
-            AddFacet (facets, facetType, name, new[] { value });
-        }
-
-        internal static void AddFacet (XElement facets, FacetType facetType, string name, IEnumerable<object> values)
-        {
-            var facetNode = new XElement("Facet", new XAttribute("Name", name));
-            var elementName = facetType.ToString();
-            foreach (var value in values)
-            {
-                var valueNode = new XElement(elementName, new XAttribute("Value", value));
-                facetNode.Add (valueNode);
-            }
-            facets.Add (facetNode);
-        }
-
-        internal static void AddFacetLink
-            (XElement facets, string facetName, Pair<string, string> hrefNamePair)
-        {
-            AddFacetLink (facets, facetName, new[] { hrefNamePair });
-        }
-
-        internal static void AddFacetLink
-            (XElement facets, string facetName, IEnumerable<Pair<string, string>> hrefNamePairs)
-        {
-            var facetNode = new XElement ("Facet", new XAttribute ("Name", facetName));
-            var elementName = FacetType.Link.ToString ();
-            foreach (var pair in hrefNamePairs)
-            {
-                var href = pair.First;
-                var name = pair.Second;
-                var linkNode = new XElement (elementName, new XAttribute ("Href", href), new XAttribute ("Name", name));
-                facetNode.Add (linkNode);
-            }
-            facets.Add (facetNode);
         }
     }
 }
