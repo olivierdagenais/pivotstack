@@ -161,12 +161,9 @@ namespace PivotStack
         {
             var size = settings.ItemImageSize;
             var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
-            var imageFormat = settings.PostImageEncoding;
-            var imageExtension = imageFormat.GetName ();
-            var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
-                SlicePostImage (postId, size, maximumLevel, imageExtension, fileNameIdFormat, imageFormat, settings.TileSize, settings.TileOverlap);
+                SlicePostImage (postId, settings, maximumLevel);
             }
         }
 
@@ -289,30 +286,31 @@ namespace PivotStack
             bitmap.Save (destination, imageFormat);
         }
 
-        internal static void SlicePostImage (int postId, Size size, int maximumLevel, string extension, string fileNameIdFormat, ImageFormat imageFormat, int tileSize, int tileOverlap)
+        internal static void SlicePostImage (int postId, Settings settings, int maximumLevel)
         {
             var workingPath = Path.GetFullPath (WorkingFolderName);
             var outputPath = Path.GetFullPath (OutputFolderName);
-            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
+            var extension = settings.PostImageEncoding.GetName ();
+            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, settings.FileNameIdFormat) + "_files";
             var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
             var absoluteBinnedOutputImageFolder = Path.Combine (outputPath, relativeBinnedImageFolder);
 
             for (var level = maximumLevel; level >= 0; level--)
             {
                 var levelName = Convert.ToString (level, 10);
-                var targetSize = DeepZoomImage.ComputeLevelSize (size, level);
+                var targetSize = DeepZoomImage.ComputeLevelSize (settings.ItemImageSize, level);
                 var tileFiles = new List<Stream> ();
                 var inputLevelImageFile = Path.ChangeExtension (levelName, extension);
                 var inputLevelImagePath = Path.Combine (absoluteBinnedImageFolder, inputLevelImageFile);
                 var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
                 Directory.CreateDirectory (outputLevelFolder);
 
-                var tiles = DeepZoomImage.ComputeTiles (targetSize, tileSize, tileOverlap);
+                var tiles = DeepZoomImage.ComputeTiles (targetSize, settings.TileSize, settings.TileOverlap);
                 using (var inputStream =
                     new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var levelBitmap = new Bitmap(inputStream))
                 {
-                    DeepZoomImage.Slice (levelBitmap, tiles, imageFormat, tileName =>
+                    DeepZoomImage.Slice (levelBitmap, tiles, settings.PostImageEncoding, tileName =>
                         {
                             var tileFileName = Path.ChangeExtension (tileName, extension);
                             var tilePath = Path.Combine (outputLevelFolder, tileFileName);

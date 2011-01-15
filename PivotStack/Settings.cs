@@ -18,6 +18,7 @@ namespace PivotStack
         public string AbsoluteWorkingFolder { get; set; }
         public string AbsoluteOutputFolder { get; set; }
         public Size ItemImageSize { get; set; }
+        // TODO: Do we really need to be able to parameterize TileSize & TileOverlap?
         public int TileSize { get; set; }
         public int TileOverlap { get; set; }
         // TODO: DeepZoom collection parameters?
