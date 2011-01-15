@@ -231,13 +231,12 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination,
-            string siteDomain, XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)
+        public void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.cxml"))
-            using (var reader = XmlReader.Create (stream, readerSettings))
+            using (var reader = XmlReader.Create (stream, _settings.XmlReaderSettings))
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
@@ -251,9 +250,9 @@ namespace PivotStack
             collectionNode.SetAttributeValue (Namespaces.Pivot + "AdditionalSearchText", tag.Name);
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
-            itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
+            itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (_settings.SiteDomain));
             itemsNode.SetAttributeValue ("ImgBase", Path.ChangeExtension (tag.Name, ".dzc"));
-            using (var writer = new CollectionWriter (destination, writerSettings, futureCw =>
+            using (var writer = new CollectionWriter (destination, _settings.XmlWriterSettings, futureCw =>
                 {
                     futureCw.Flush ();
                     var sw = new StreamWriter (destination);
@@ -293,8 +292,7 @@ namespace PivotStack
                         return sr;
                     }
                 );
-                PivotizeTag (tag, streamReaders, outputStream, _settings.SiteDomain,
-                             _settings.XmlReaderSettings, _settings.XmlWriterSettings);
+                PivotizeTag (tag, streamReaders, outputStream);
             }
         }
     }
