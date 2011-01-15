@@ -105,7 +105,7 @@ namespace PivotStack
         {
             var fileNameIdFormat = settings.FileNameIdFormat;
             var imageNode = GenerateImageManifest (settings.TileSize, settings.TileOverlap,
-                                                   settings.PostImageEncoding.ToString ().ToLower (),
+                                                   settings.PostImageEncoding.GetName (),
                                                    settings.ItemImageSize.Width, settings.ItemImageSize.Height,
                                                    settings.XmlReaderSettings);
 
@@ -162,7 +162,7 @@ namespace PivotStack
             var size = settings.ItemImageSize;
             var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
             var imageFormat = settings.PostImageEncoding;
-            var imageExtension = imageFormat.ToString ().ToLower ();
+            var imageExtension = imageFormat.GetName ();
             var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
@@ -204,7 +204,7 @@ namespace PivotStack
                 template.Height = settings.ItemImageSize.Height;
             }
             var imageFormat = settings.PostImageEncoding;
-            var imageExtension = imageFormat.ToString ().ToLower ();
+            var imageExtension = imageFormat.GetName ();
 
             var posts = postRepository.RetrievePosts ();
             foreach (var post in posts)
@@ -240,7 +240,7 @@ namespace PivotStack
 
             var workingPath = settings.AbsoluteWorkingFolder;
             var imageFormat = settings.PostImageEncoding;
-            var extension = imageFormat.ToString ().ToLower ();
+            var extension = imageFormat.GetName ();
             var fileNameIdFormat = settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {

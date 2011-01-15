@@ -29,11 +29,7 @@ namespace PivotStack
         {
             _settings = settings;
 
-            // TODO: Add a GetName() extension method to ImageFormat?
-            _imageFormatName =
-                null == _settings.PostImageEncoding
-                ? null
-                : _settings.PostImageEncoding.ToString ().ToLower ();
+            _imageFormatName = _settings.PostImageEncoding.GetName ();
 
             // the <Size> element is the same for all <I> elements
             #region <Size Width="800" Height="400" />

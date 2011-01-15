@@ -70,6 +70,7 @@
     <Compile Include="DeepZoomImage.cs" />
     <Compile Include="FrameworkElementExtensions.cs" />
     <Compile Include="ImageCollectionTile.cs" />
+    <Compile Include="ImageFormatExtensions.cs" />
     <Compile Include="InterceptingXmlWriter.cs" />
     <Compile Include="ItemWriter.cs" />
     <Compile Include="MortonLayout.cs" />
