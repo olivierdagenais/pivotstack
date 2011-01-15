@@ -235,7 +235,8 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain, XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)
+        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination,
+            string siteDomain, XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
