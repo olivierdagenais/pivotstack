@@ -5,7 +5,7 @@ using System.Xml;
 
 namespace PivotStack
 {
-    public struct Settings
+    public class Settings
     {
         public string SiteDomain { get; set; }
         public int MaximumNumberOfItems { get; set; }
