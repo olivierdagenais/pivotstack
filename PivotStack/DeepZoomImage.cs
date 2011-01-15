@@ -103,8 +103,7 @@ namespace PivotStack
             }
         }
 
-        internal static void Slice
-            (Bitmap source, IEnumerable<Tile> tiles, ImageFormat encoder, Func<string, Stream> streamGenerator)
+        public void Slice(Bitmap source, IEnumerable<Tile> tiles, Func<string, Stream> streamGenerator)
         {
             var slices = Slice (source, tiles);
             foreach (var pair in slices)
@@ -112,7 +111,7 @@ namespace PivotStack
                 var targetImage = pair.First;
                 var streamName = pair.Second;
                 var stream = streamGenerator (streamName);
-                targetImage.Save (stream, encoder);
+                targetImage.Save (stream, _settings.PostImageEncoding);
             }
         }
 
@@ -138,7 +137,7 @@ namespace PivotStack
                     new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var levelBitmap = new Bitmap (inputStream))
                 {
-                    Slice (levelBitmap, tiles, _settings.PostImageEncoding, tileName =>
+                    Slice (levelBitmap, tiles, tileName =>
                         {
                             var tileFileName = Path.ChangeExtension (tileName, extension);
                             var tilePath = Path.Combine (outputLevelFolder, tileFileName);

@@ -412,13 +412,15 @@ namespace PivotStack.Tests
                 {"1_0", new MemoryStream()},
                 {"1_1", new MemoryStream()},
             };
+            var settings = new Settings { PostImageEncoding = ImageFormat.Png, };
+            var dzi = new DeepZoomImage (settings);
 
             try
             {
                 using (var inputStream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomImageTest> ("300x375.png"))
                 using (var sourceBitmap = new Bitmap (inputStream))
                 {
-                    DeepZoomImage.Slice (sourceBitmap, tiles, ImageFormat.Png, tilename => streams[tilename]);
+                    dzi.Slice (sourceBitmap, tiles, tilename => streams[tilename]);
                 }
 
                 foreach (var keyValuePair in streams)
