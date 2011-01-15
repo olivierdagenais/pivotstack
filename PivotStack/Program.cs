@@ -288,12 +288,10 @@ namespace PivotStack
 
         internal static void SlicePostImage (int postId, Settings settings, int maximumLevel)
         {
-            var workingPath = Path.GetFullPath (WorkingFolderName);
-            var outputPath = Path.GetFullPath (OutputFolderName);
             var extension = settings.PostImageEncoding.GetName ();
             var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, settings.FileNameIdFormat) + "_files";
-            var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
-            var absoluteBinnedOutputImageFolder = Path.Combine (outputPath, relativeBinnedImageFolder);
+            var absoluteBinnedImageFolder = Path.Combine (settings.AbsoluteWorkingFolder, relativeBinnedImageFolder);
+            var absoluteBinnedOutputImageFolder = Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedImageFolder);
 
             for (var level = maximumLevel; level >= 0; level--)
             {
