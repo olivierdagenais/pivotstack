@@ -235,5 +235,50 @@ namespace PivotStack
                 }
             }
         }
+
+        internal static void PivotizeTag (Tag tag, IEnumerable<StreamReader> streamReaders, Stream destination, string siteDomain, XmlReaderSettings readerSettings, XmlWriterSettings writerSettings)
+        {
+            XDocument doc;
+            XmlNamespaceManager namespaceManager;
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.cxml"))
+            using (var reader = XmlReader.Create (stream, readerSettings))
+            {
+                doc = XDocument.Load (reader);
+                namespaceManager = new XmlNamespaceManager(reader.NameTable);
+                namespaceManager.AddNamespace("c", Namespaces.Collection.NamespaceName);
+                namespaceManager.AddNamespace("p", Namespaces.Pivot.NamespaceName);
+            }
+            var collectionNode = doc.Root;
+            Debug.Assert(collectionNode != null);
+            collectionNode.SetAttributeValue ("Name", "Tagged Questions: {0}".FormatInvariant (tag.Name));
+            // TODO: do we want to strip hyphens from tag for AdditionalSearchText?
+            collectionNode.SetAttributeValue (Namespaces.Pivot + "AdditionalSearchText", tag.Name);
+
+            var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
+            itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));
+            itemsNode.SetAttributeValue ("ImgBase", Path.ChangeExtension (tag.Name, ".dzc"));
+            using (var writer = new CollectionWriter (destination, writerSettings, futureCw =>
+                {
+                    futureCw.Flush ();
+                    var sw = new StreamWriter (destination);
+                    foreach (var sr in streamReaders)
+                    {
+                        foreach (var line in sr.Lines())
+                        {
+#if DEBUG
+                            sw.WriteLine (line);
+#else
+                            sw.Write (line);
+#endif
+                        }
+                        sr.Close ();
+                    }
+                    sw.Flush ();
+                })
+            )
+            {
+                doc.Save (writer);
+            }
+        }
     }
 }
