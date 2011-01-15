@@ -21,20 +21,19 @@ namespace PivotStack
         private static readonly XName SizeNodeName = Namespaces.DeepZoom2008 + "Size";
 
         private readonly Settings _settings;
-        private readonly string _absoluteOutputFolder;
 
         private readonly string _imageFormatName;
         private readonly XElement _sizeNode;
 
-        public DeepZoomCollection(Settings settings, string absoluteOutputFolder)
+        public DeepZoomCollection(Settings settings)
         {
             _settings = settings;
+
             // TODO: Add a GetName() extension method to ImageFormat?
             _imageFormatName =
                 null == _settings.PostImageEncoding
                 ? null
                 : _settings.PostImageEncoding.ToString ().ToLower ();
-            _absoluteOutputFolder = absoluteOutputFolder;
 
             // the <Size> element is the same for all <I> elements
             #region <Size Width="800" Height="400" />
@@ -178,7 +177,8 @@ namespace PivotStack
         public void CreateCollectionManifest(Tag tag, List<int> postIds)
         {
             var relativePathToCollectionManifest = tag.ComputeBinnedPath (".dzc");
-            var absolutePathToCollectionManifest = Path.Combine (_absoluteOutputFolder, relativePathToCollectionManifest);
+            var absolutePathToCollectionManifest =
+                Path.Combine (_settings.AbsoluteOutputFolder, relativePathToCollectionManifest);
             var relativePathToRoot = relativePathToCollectionManifest.RelativizePath ();
 
             Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
@@ -202,7 +202,7 @@ namespace PivotStack
             {
                 var relativeFolder = Post.ComputeBinnedPath (postId, null, _settings.FileNameIdFormat) + "_files";
                 var relativeLevelFolder = relativeFolder.CombinePath (levelName, inputFileName);
-                var absoluteSourceImagePath = Path.Combine (_absoluteOutputFolder, relativeLevelFolder);
+                var absoluteSourceImagePath = Path.Combine (_settings.AbsoluteOutputFolder, relativeLevelFolder);
                 using (var bitmap = new Bitmap (absoluteSourceImagePath))
                 {
                     yield return bitmap;
@@ -213,7 +213,8 @@ namespace PivotStack
         public void CreateCollectionTiles(Tag tag, List<int> postIds)
         {
             var relativePathToCollectionFolder = tag.ComputeBinnedPath (null) + "_files";
-            var absolutePathToCollectionFolder = Path.Combine (_absoluteOutputFolder, relativePathToCollectionFolder);
+            var absolutePathToCollectionFolder =
+                Path.Combine (_settings.AbsoluteOutputFolder, relativePathToCollectionFolder);
             for (var level = 0; level < CollectionTilePower; level++)
             {
                 var levelName = Convert.ToString (level, 10);
@@ -280,10 +281,10 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteWorkingPath, string absoluteOutputPath)
+        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings)
         {
             var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
-            var absoluteBinnedCxmlPath = Path.Combine (absoluteOutputPath, relativeBinnedCxmlPath);
+            var absoluteBinnedCxmlPath = Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedCxmlPath);
             Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
             using (var outputStream
                 = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
@@ -291,7 +292,7 @@ namespace PivotStack
                 var streamReaders = postIds.Map (postId =>
                     {
                         var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
-                        var absoluteBinnedXmlPath = Path.Combine (absoluteWorkingPath, relativeBinnedXmlPath);
+                        var absoluteBinnedXmlPath = Path.Combine (settings.AbsoluteWorkingFolder, relativeBinnedXmlPath);
                         var sr = new StreamReader (absoluteBinnedXmlPath);
                         return sr;
                     }

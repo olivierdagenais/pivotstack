@@ -15,7 +15,8 @@ namespace PivotStack
         public string PathToFavIcon { get; set; }
         public string PathToBrandImage { get; set; }
         public string DatabaseConnectionString { get; set; }
-        public string PathToOutput { get; set; }
+        public string AbsoluteWorkingFolder { get; set; }
+        public string AbsoluteOutputFolder { get; set; }
         public Size ItemImageSize { get; set; }
         public int TileSize { get; set; }
         public int TileOverlap { get; set; }

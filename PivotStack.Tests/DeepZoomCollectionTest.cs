@@ -393,7 +393,7 @@ namespace PivotStack.Tests
                 ItemImageSize = new Size(800, 400),
                 XmlWriterSettings = XmlWriterSettings,
             };
-            var dzc = new DeepZoomCollection (settings, null);
+            var dzc = new DeepZoomCollection (settings);
 
             const string expectedXml = @"
 <Collection xmlns='http://schemas.microsoft.com/deepzoom/2008' MaxLevel='7' TileSize='256' Format='png' NextItemId='111'>
@@ -424,7 +424,7 @@ namespace PivotStack.Tests
             {
                 HighestId = 4000,
             };
-            var dzc = new DeepZoomCollection (settings, null);
+            var dzc = new DeepZoomCollection (settings);
             const string expectedXml = @"
 <I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";
             var expectedItemNode = XElement.Parse (expectedXml);

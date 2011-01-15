@@ -70,6 +70,8 @@ namespace PivotStack
                 MaximumNumberOfItems = 936,
                 HighestId = 4479,
 
+                AbsoluteWorkingFolder = Path.GetFullPath (WorkingFolderName),
+                AbsoluteOutputFolder = Path.GetFullPath (OutputFolderName),
                 PostImageEncoding = ImageFormat.Png,
             };
 
@@ -82,7 +84,7 @@ namespace PivotStack
                 var postRepository = new PostRepository (postsConnection);
 
                 #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
-                CleanWorkingFolder ();
+                CleanWorkingFolder (settings);
                 CreateRawItems (settings, postRepository);
                 GeneratePostImageResizes (settings, postRepository);
                 #endregion
@@ -101,7 +103,6 @@ namespace PivotStack
 
         internal static void GenerateImageManifests (Settings settings, PostRepository postRepository)
         {
-            var outputPath = Path.GetFullPath (OutputFolderName);
             var fileNameIdFormat = settings.FileNameIdFormat;
             var imageNode = GenerateImageManifest (settings.TileSize, settings.TileOverlap,
                                                    settings.PostImageEncoding.ToString ().ToLower (),
@@ -119,7 +120,8 @@ namespace PivotStack
             foreach (var postId in postRepository.RetrievePostIds ())
             {
                 var relativeBinnedImageManifestPath = Post.ComputeBinnedPath (postId, "dzi", fileNameIdFormat);
-                var absoluteBinnedImageManifestPath = Path.Combine (outputPath, relativeBinnedImageManifestPath);
+                var absoluteBinnedImageManifestPath =
+                    Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedImageManifestPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImageManifestPath));
                 File.WriteAllText (absoluteBinnedImageManifestPath, imageManifest, Encoding.UTF8);
             }
@@ -170,33 +172,29 @@ namespace PivotStack
 
         internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
         {
-            var absoluteWorkingPath = Path.GetFullPath (WorkingFolderName);
-            var absoluteOutputPath = Path.GetFullPath (OutputFolderName);
-
-            var dzc = new DeepZoomCollection (settings, absoluteOutputPath);
+            var dzc = new DeepZoomCollection (settings);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
             {
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-                DeepZoomCollection.PivotizeTag (tag, postIds, settings, absoluteWorkingPath, absoluteOutputPath);
+                DeepZoomCollection.PivotizeTag (tag, postIds, settings);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
         }
 
-        internal static void CleanWorkingFolder()
+        internal static void CleanWorkingFolder(Settings settings)
         {
-            var workingPath = Path.GetFullPath (WorkingFolderName);
-            if (Directory.Exists (workingPath))
+            if (Directory.Exists (settings.AbsoluteWorkingFolder))
             {
-                Directory.Delete (workingPath, true);
+                Directory.Delete (settings.AbsoluteWorkingFolder, true);
             }
         }
 
         internal static void CreateRawItems (Settings settings, PostRepository postRepository)
         {
-            var workingPath = Path.GetFullPath (WorkingFolderName);
+            var workingPath = settings.AbsoluteWorkingFolder;
             Directory.CreateDirectory (workingPath);
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
@@ -240,7 +238,7 @@ namespace PivotStack
             var size = settings.ItemImageSize;
             var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
 
-            var workingPath = Path.GetFullPath (WorkingFolderName);
+            var workingPath = settings.AbsoluteWorkingFolder;
             var imageFormat = settings.PostImageEncoding;
             var extension = imageFormat.ToString ().ToLower ();
             var fileNameIdFormat = settings.FileNameIdFormat;
