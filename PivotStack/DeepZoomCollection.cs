@@ -18,11 +18,8 @@ namespace PivotStack
         internal const int CollectionTilePower = 8;
         internal const int CollectionTileSize = 256;
 
-        internal static readonly XNamespace DeepZoom2008Namespace
-            = "http://schemas.microsoft.com/deepzoom/2008";
-
-        private static readonly XName ItemNodeName = DeepZoom2008Namespace + "I";
-        private static readonly XName SizeNodeName = DeepZoom2008Namespace + "Size";
+        private static readonly XName ItemNodeName = Namespaces.DeepZoom2008 + "I";
+        private static readonly XName SizeNodeName = Namespaces.DeepZoom2008 + "Size";
 
         private readonly string _postFileNameIdFormat;
         private readonly ImageFormat _imageFormat;
@@ -130,7 +127,7 @@ namespace PivotStack
         {
             XDocument doc;
             var namespaceManager = new XmlNamespaceManager (new NameTable ());
-            namespaceManager.AddNamespace ("dz", DeepZoom2008Namespace.NamespaceName);
+            namespaceManager.AddNamespace ("dz", Namespaces.DeepZoom2008.NamespaceName);
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollection> ("Template.dzc"))
             using (var reader = new StreamReader(stream))
             {

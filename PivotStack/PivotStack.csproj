@@ -73,6 +73,7 @@
     <Compile Include="InterceptingXmlWriter.cs" />
     <Compile Include="ItemWriter.cs" />
     <Compile Include="MortonLayout.cs" />
+    <Compile Include="Namespaces.cs" />
     <Compile Include="ObjectExtensions.cs" />
     <Compile Include="Post.cs" />
     <Compile Include="Program.cs" />

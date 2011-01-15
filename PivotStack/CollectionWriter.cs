@@ -19,7 +19,7 @@ namespace PivotStack
         public override void WriteStartElement (string prefix, string localName, string ns)
         {
             base.WriteStartElement (prefix, localName, ns);
-            if (Program.CollectionNamespace.NamespaceName == ns && "Items" == localName)
+            if (Namespaces.Collection.NamespaceName == ns && "Items" == localName)
             {
                 _isIntercepting = true;
             }

@@ -31,13 +31,6 @@ namespace PivotStack
         private const string WorkingFolderName = "rawItems";
         private const string OutputFolderName = "output";
 
-        internal static readonly XNamespace CollectionNamespace
-            = "http://schemas.microsoft.com/collection/metadata/2009";
-        internal static readonly XNamespace PivotNamespace 
-            = "http://schemas.microsoft.com/livelabs/pivot/collection/2009";
-        internal static readonly XNamespace DeepZoomNamespace
-            = "http://schemas.microsoft.com/deepzoom/2009";
-
         [STAThread]
         public static int Main (string[] args)
         {
@@ -143,7 +136,7 @@ namespace PivotStack
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
-                namespaceManager.AddNamespace("dz", DeepZoomNamespace.NamespaceName);
+                namespaceManager.AddNamespace("dz", Namespaces.DeepZoom2009.NamespaceName);
             }
             var imageNode = doc.Root;
             Debug.Assert (imageNode != null);
@@ -374,14 +367,14 @@ namespace PivotStack
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
-                namespaceManager.AddNamespace("c", CollectionNamespace.NamespaceName);
-                namespaceManager.AddNamespace("p", PivotNamespace.NamespaceName);
+                namespaceManager.AddNamespace("c", Namespaces.Collection.NamespaceName);
+                namespaceManager.AddNamespace("p", Namespaces.Pivot.NamespaceName);
             }
             var collectionNode = doc.Root;
             Debug.Assert(collectionNode != null);
             collectionNode.SetAttributeValue ("Name", "Tagged Questions: {0}".FormatInvariant (tag.Name));
             // TODO: do we want to strip hyphens from tag for AdditionalSearchText?
-            collectionNode.SetAttributeValue (PivotNamespace + "AdditionalSearchText", tag.Name);
+            collectionNode.SetAttributeValue (Namespaces.Pivot + "AdditionalSearchText", tag.Name);
 
             var itemsNode = collectionNode.XPathSelectElement ("c:Items", namespaceManager);
             itemsNode.SetAttributeValue ("HrefBase", "http://{0}/questions/".FormatInvariant (siteDomain));

@@ -34,7 +34,7 @@ namespace PivotStack.Tests
                 {
                     doc = XDocument.Load (reader);
                     namespaceManager = new XmlNamespaceManager (reader.NameTable);
-                    namespaceManager.AddNamespace ("c", Program.CollectionNamespace.NamespaceName);
+                    namespaceManager.AddNamespace ("c", Namespaces.Collection.NamespaceName);
                 }
 
                 using (var cw = new CollectionWriter (ms, XmlWriterSettings, futureCw => 
