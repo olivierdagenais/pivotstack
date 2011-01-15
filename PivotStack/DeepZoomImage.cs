@@ -105,6 +105,46 @@ namespace PivotStack
             }
         }
 
+        internal static void SlicePostImage (int postId, Settings settings, int maximumLevel)
+        {
+            var extension = settings.PostImageEncoding.GetName ();
+            var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, settings.FileNameIdFormat) + "_files";
+            var absoluteBinnedImageFolder = Path.Combine (settings.AbsoluteWorkingFolder, relativeBinnedImageFolder);
+            var absoluteBinnedOutputImageFolder = Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedImageFolder);
+
+            for (var level = maximumLevel; level >= 0; level--)
+            {
+                var levelName = Convert.ToString (level, 10);
+                var targetSize = ComputeLevelSize (settings.ItemImageSize, level);
+                var tileFiles = new List<Stream> ();
+                var inputLevelImageFile = Path.ChangeExtension (levelName, extension);
+                var inputLevelImagePath = Path.Combine (absoluteBinnedImageFolder, inputLevelImageFile);
+                var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
+                Directory.CreateDirectory (outputLevelFolder);
+
+                var tiles = ComputeTiles (targetSize, settings.TileSize, settings.TileOverlap);
+                using (var inputStream =
+                    new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var levelBitmap = new Bitmap (inputStream))
+                {
+                    Slice (levelBitmap, tiles, settings.PostImageEncoding, tileName =>
+                        {
+                            var tileFileName = Path.ChangeExtension (tileName, extension);
+                            var tilePath = Path.Combine (outputLevelFolder, tileFileName);
+                            var stream =
+                                new FileStream (tilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+                            tileFiles.Add (stream);
+                            return stream;
+                        }
+                    );
+                }
+                foreach (var stream in tileFiles)
+                {
+                    stream.Close ();
+                }
+            }
+        }
+
         internal static IEnumerable<Tile> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
         {
             double width = levelSize.Width;
