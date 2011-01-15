@@ -173,12 +173,7 @@ namespace PivotStack
             var absoluteWorkingPath = Path.GetFullPath (WorkingFolderName);
             var absoluteOutputPath = Path.GetFullPath (OutputFolderName);
 
-            var imageFormat = settings.PostImageEncoding;
-            var fileNameIdFormat = settings.FileNameIdFormat;
-            var width = settings.ItemImageSize.Width;
-            var height = settings.ItemImageSize.Height;
-            var dzc = new DeepZoomCollection (fileNameIdFormat, imageFormat, width, height, settings.XmlWriterSettings,
-                absoluteOutputPath);
+            var dzc = new DeepZoomCollection (settings, absoluteOutputPath);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)

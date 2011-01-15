@@ -21,28 +21,27 @@ namespace PivotStack
         private static readonly XName ItemNodeName = Namespaces.DeepZoom2008 + "I";
         private static readonly XName SizeNodeName = Namespaces.DeepZoom2008 + "Size";
 
-        private readonly string _postFileNameIdFormat;
-        private readonly ImageFormat _imageFormat;
-        private readonly string _imageFormatName;
-        private readonly XmlWriterSettings _writerSettings;
+        private readonly Settings _settings;
         private readonly string _absoluteOutputFolder;
+
+        private readonly string _imageFormatName;
         private readonly XElement _sizeNode;
 
-        public DeepZoomCollection (string postFileNameIdFormat, ImageFormat imageFormat, int originalImageWidth,
-            int originalImageHeight, XmlWriterSettings writerSettings, string absoluteOutputFolder)
+        public DeepZoomCollection(Settings settings, string absoluteOutputFolder)
         {
-            _postFileNameIdFormat = postFileNameIdFormat;
-            _imageFormat = imageFormat;
+            _settings = settings;
             // TODO: Add a GetName() extension method to ImageFormat?
-            _imageFormatName = null == _imageFormat ? null : _imageFormat.ToString ().ToLower ();
-            _writerSettings = writerSettings;
+            _imageFormatName =
+                null == _settings.PostImageEncoding
+                ? null
+                : _settings.PostImageEncoding.ToString ().ToLower ();
             _absoluteOutputFolder = absoluteOutputFolder;
 
             // the <Size> element is the same for all <I> elements
             #region <Size Width="800" Height="400" />
             _sizeNode = new XElement (SizeNodeName);
-            _sizeNode.SetAttributeValue ("Width", originalImageWidth);
-            _sizeNode.SetAttributeValue ("Height", originalImageHeight);
+            _sizeNode.SetAttributeValue ("Width", settings.ItemImageSize.Width);
+            _sizeNode.SetAttributeValue ("Height", settings.ItemImageSize.Height);
             #endregion
         }
 
@@ -169,7 +168,7 @@ namespace PivotStack
             // "N" is "The number of the item (Morton Number) where it appears in the tiles."
             itemNode.SetAttributeValue ("N", mortonNumber);
             itemNode.SetAttributeValue ("Id", id);
-            var relativeDziSubPath = Post.ComputeBinnedPath (id, "dzi", _postFileNameIdFormat);
+            var relativeDziSubPath = Post.ComputeBinnedPath (id, "dzi", _settings.FileNameIdFormat);
             var relativeDziPath = Path.Combine (relativePathToRoot, relativeDziSubPath);
             itemNode.SetAttributeValue ("Source", relativeDziPath);
             #endregion
@@ -188,7 +187,7 @@ namespace PivotStack
             using (var outputStream =
                 new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
-                using (var writer = XmlWriter.Create (outputStream, _writerSettings))
+                using (var writer = XmlWriter.Create (outputStream, _settings.XmlWriterSettings))
                 {
                     Debug.Assert (writer != null);
                     element.WriteTo (writer);
@@ -202,7 +201,7 @@ namespace PivotStack
             var inputFileName = Path.ChangeExtension (DeepZoomImage.TileZeroZero, _imageFormatName);
             foreach (var postId in postIds)
             {
-                var relativeFolder = Post.ComputeBinnedPath (postId, null, _postFileNameIdFormat) + "_files";
+                var relativeFolder = Post.ComputeBinnedPath (postId, null, _settings.FileNameIdFormat) + "_files";
                 var relativeLevelFolder = relativeFolder.CombinePath (levelName, inputFileName);
                 var absoluteSourceImagePath = Path.Combine (_absoluteOutputFolder, relativeLevelFolder);
                 using (var bitmap = new Bitmap (absoluteSourceImagePath))
@@ -230,7 +229,7 @@ namespace PivotStack
                     var levelImages = OpenLevelImages (imageCollectionTile.Ids, level);
                     using (var bitmap = CreateCollectionTile (levelImages, levelSize))
                     {
-                        bitmap.Save (absolutePathToTile, _imageFormat);
+                        bitmap.Save (absolutePathToTile, _settings.PostImageEncoding);
                     }
                 }
             }
