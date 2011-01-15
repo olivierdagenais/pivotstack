@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 using System.Xml;
 using System.Xml.Linq;
@@ -278,6 +277,27 @@ namespace PivotStack
             )
             {
                 doc.Save (writer);
+            }
+        }
+
+        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteWorkingPath, string absoluteOutputPath)
+        {
+            var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
+            var absoluteBinnedCxmlPath = Path.Combine (absoluteOutputPath, relativeBinnedCxmlPath);
+            Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
+            using (var outputStream
+                = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
+            {
+                var streamReaders = postIds.Map (postId =>
+                    {
+                        var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
+                        var absoluteBinnedXmlPath = Path.Combine (absoluteWorkingPath, relativeBinnedXmlPath);
+                        var sr = new StreamReader (absoluteBinnedXmlPath);
+                        return sr;
+                    }
+                );
+                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain,
+                                                settings.XmlReaderSettings, settings.XmlWriterSettings);
             }
         }
     }

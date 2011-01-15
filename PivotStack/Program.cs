@@ -179,7 +179,7 @@ namespace PivotStack
             foreach (var tag in tags)
             {
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-                PivotizeTag (tag, postIds, settings, absoluteWorkingPath, absoluteOutputPath);
+                DeepZoomCollection.PivotizeTag (tag, postIds, settings, absoluteWorkingPath, absoluteOutputPath);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
@@ -279,27 +279,6 @@ namespace PivotStack
                 {
                     saveAction (level, resizedBitmap);
                 }
-            }
-        }
-
-        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings, string absoluteWorkingPath, string absoluteOutputPath)
-        {
-            var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
-            var absoluteBinnedCxmlPath = Path.Combine (absoluteOutputPath, relativeBinnedCxmlPath);
-            Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
-            using (var outputStream
-                = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
-            {
-                var streamReaders = postIds.Map (postId =>
-                    {
-                        var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
-                        var absoluteBinnedXmlPath = Path.Combine (absoluteWorkingPath, relativeBinnedXmlPath);
-                        var sr = new StreamReader (absoluteBinnedXmlPath);
-                        return sr;
-                    }
-                );
-                DeepZoomCollection.PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain,
-				    settings.XmlReaderSettings, settings.XmlWriterSettings);
             }
         }
 
