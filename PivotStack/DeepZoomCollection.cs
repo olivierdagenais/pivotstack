@@ -277,24 +277,24 @@ namespace PivotStack
             }
         }
 
-        internal static void PivotizeTag (Tag tag, IEnumerable<int> postIds, Settings settings)
+        public void PivotizeTag (Tag tag, IEnumerable<int> postIds)
         {
             var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
-            var absoluteBinnedCxmlPath = Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedCxmlPath);
+            var absoluteBinnedCxmlPath = Path.Combine (_settings.AbsoluteOutputFolder, relativeBinnedCxmlPath);
             Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
             using (var outputStream
                 = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
             {
                 var streamReaders = postIds.Map (postId =>
                     {
-                        var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", settings.FileNameIdFormat);
-                        var absoluteBinnedXmlPath = Path.Combine (settings.AbsoluteWorkingFolder, relativeBinnedXmlPath);
+                        var relativeBinnedXmlPath = Post.ComputeBinnedPath (postId, ".xml", _settings.FileNameIdFormat);
+                        var absoluteBinnedXmlPath = Path.Combine (_settings.AbsoluteWorkingFolder, relativeBinnedXmlPath);
                         var sr = new StreamReader (absoluteBinnedXmlPath);
                         return sr;
                     }
                 );
-                PivotizeTag (tag, streamReaders, outputStream, settings.SiteDomain,
-                                                settings.XmlReaderSettings, settings.XmlWriterSettings);
+                PivotizeTag (tag, streamReaders, outputStream, _settings.SiteDomain,
+                             _settings.XmlReaderSettings, _settings.XmlWriterSettings);
             }
         }
     }

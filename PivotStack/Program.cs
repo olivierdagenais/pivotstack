@@ -175,7 +175,7 @@ namespace PivotStack
             foreach (var tag in tags)
             {
                 var postIds = new List<int> (postRepository.RetrievePostIds (tag.Id));
-                DeepZoomCollection.PivotizeTag (tag, postIds, settings);
+                dzc.PivotizeTag (tag, postIds);
                 dzc.CreateCollectionManifest (tag, postIds);
                 dzc.CreateCollectionTiles (tag, postIds);
             }
