@@ -91,62 +91,72 @@ namespace PivotStack.Tests
             Assert.AreEqual (0, DeepZoomImage.DetermineMaximumLevel (new Size (1, 1)));
         }
 
+        private static Size TestComputeLevelSize(Size itemImageSize, int levelNumber)
+        {
+            var settings = new Settings
+            {
+                ItemImageSize = itemImageSize,
+            };
+            var dzi = new DeepZoomImage (settings);
+            return dzi.ComputeLevelSize (levelNumber);
+        }
+
         [Test]
         public void ComputeLevelSize_Base ()
         {
-            Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 0));
+            Assert.AreEqual (new Size (1, 1), TestComputeLevelSize (PortraitImageSize, 0));
         }
 
         [Test]
         public void ComputeLevelSize_Typical ()
         {
-            Assert.AreEqual (new Size (1200, 1500), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 12));
-            Assert.AreEqual (new Size (1200, 1500), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 11));
-            Assert.AreEqual (new Size (600, 750), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 10));
-            Assert.AreEqual (new Size (300, 375), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 9));
-            Assert.AreEqual (new Size (150, 188), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 8));
-            Assert.AreEqual (new Size (75, 94), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 7));
-            Assert.AreEqual (new Size (38, 47), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 6));
-            Assert.AreEqual (new Size (19, 24), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 5));
-            Assert.AreEqual (new Size (10, 12), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 4));
-            Assert.AreEqual (new Size (5, 6), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 3));
-            Assert.AreEqual (new Size (3, 3), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 2));
-            Assert.AreEqual (new Size (2, 2), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 1));
-            Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PortraitImageSize, 0));
+            Assert.AreEqual (new Size (1200, 1500), TestComputeLevelSize (PortraitImageSize, 12));
+            Assert.AreEqual (new Size (1200, 1500), TestComputeLevelSize (PortraitImageSize, 11));
+            Assert.AreEqual (new Size (600, 750), TestComputeLevelSize (PortraitImageSize, 10));
+            Assert.AreEqual (new Size (300, 375), TestComputeLevelSize (PortraitImageSize, 9));
+            Assert.AreEqual (new Size (150, 188), TestComputeLevelSize (PortraitImageSize, 8));
+            Assert.AreEqual (new Size (75, 94), TestComputeLevelSize (PortraitImageSize, 7));
+            Assert.AreEqual (new Size (38, 47), TestComputeLevelSize (PortraitImageSize, 6));
+            Assert.AreEqual (new Size (19, 24), TestComputeLevelSize (PortraitImageSize, 5));
+            Assert.AreEqual (new Size (10, 12), TestComputeLevelSize (PortraitImageSize, 4));
+            Assert.AreEqual (new Size (5, 6), TestComputeLevelSize (PortraitImageSize, 3));
+            Assert.AreEqual (new Size (3, 3), TestComputeLevelSize (PortraitImageSize, 2));
+            Assert.AreEqual (new Size (2, 2), TestComputeLevelSize (PortraitImageSize, 1));
+            Assert.AreEqual (new Size (1, 1), TestComputeLevelSize (PortraitImageSize, 0));
         }
 
         [Test]
         public void ComputeLevelSize_SquareLogo ()
         {
-            Assert.AreEqual (new Size (700, 700), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 11));
-            Assert.AreEqual (new Size (700, 700), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 10));
-            Assert.AreEqual (new Size (350, 350), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 9));
-            Assert.AreEqual (new Size (175, 175), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 8));
-            Assert.AreEqual (new Size (88, 88), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 7));
-            Assert.AreEqual (new Size (44, 44), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 6));
-            Assert.AreEqual (new Size (22, 22), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 5));
-            Assert.AreEqual (new Size (11, 11), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 4));
-            Assert.AreEqual (new Size (6, 6), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 3));
-            Assert.AreEqual (new Size (3, 3), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 2));
-            Assert.AreEqual (new Size (2, 2), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 1));
-            Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (SquareLogoSize, 0));
+            Assert.AreEqual (new Size (700, 700), TestComputeLevelSize (SquareLogoSize, 11));
+            Assert.AreEqual (new Size (700, 700), TestComputeLevelSize (SquareLogoSize, 10));
+            Assert.AreEqual (new Size (350, 350), TestComputeLevelSize (SquareLogoSize, 9));
+            Assert.AreEqual (new Size (175, 175), TestComputeLevelSize (SquareLogoSize, 8));
+            Assert.AreEqual (new Size (88, 88), TestComputeLevelSize (SquareLogoSize, 7));
+            Assert.AreEqual (new Size (44, 44), TestComputeLevelSize (SquareLogoSize, 6));
+            Assert.AreEqual (new Size (22, 22), TestComputeLevelSize (SquareLogoSize, 5));
+            Assert.AreEqual (new Size (11, 11), TestComputeLevelSize (SquareLogoSize, 4));
+            Assert.AreEqual (new Size (6, 6), TestComputeLevelSize (SquareLogoSize, 3));
+            Assert.AreEqual (new Size (3, 3), TestComputeLevelSize (SquareLogoSize, 2));
+            Assert.AreEqual (new Size (2, 2), TestComputeLevelSize (SquareLogoSize, 1));
+            Assert.AreEqual (new Size (1, 1), TestComputeLevelSize (SquareLogoSize, 0));
         }
 
         [Test]
         public void ComputeLevelSize_PowerOfTwo ()
         {
-            Assert.AreEqual (new Size (1024, 512), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 11));
-            Assert.AreEqual (new Size (1024, 512), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 10));
-            Assert.AreEqual (new Size (512, 256), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 9));
-            Assert.AreEqual (new Size (256, 128), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 8));
-            Assert.AreEqual (new Size (128, 64), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 7));
-            Assert.AreEqual (new Size (64, 32), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 6));
-            Assert.AreEqual (new Size (32, 16), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 5));
-            Assert.AreEqual (new Size (16, 8), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 4));
-            Assert.AreEqual (new Size (8, 4), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 3));
-            Assert.AreEqual (new Size (4, 2), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 2));
-            Assert.AreEqual (new Size (2, 1), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 1));
-            Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 0));
+            Assert.AreEqual (new Size (1024, 512), TestComputeLevelSize (PowerOfTwoSize, 11));
+            Assert.AreEqual (new Size (1024, 512), TestComputeLevelSize (PowerOfTwoSize, 10));
+            Assert.AreEqual (new Size (512, 256), TestComputeLevelSize (PowerOfTwoSize, 9));
+            Assert.AreEqual (new Size (256, 128), TestComputeLevelSize (PowerOfTwoSize, 8));
+            Assert.AreEqual (new Size (128, 64), TestComputeLevelSize (PowerOfTwoSize, 7));
+            Assert.AreEqual (new Size (64, 32), TestComputeLevelSize (PowerOfTwoSize, 6));
+            Assert.AreEqual (new Size (32, 16), TestComputeLevelSize (PowerOfTwoSize, 5));
+            Assert.AreEqual (new Size (16, 8), TestComputeLevelSize (PowerOfTwoSize, 4));
+            Assert.AreEqual (new Size (8, 4), TestComputeLevelSize (PowerOfTwoSize, 3));
+            Assert.AreEqual (new Size (4, 2), TestComputeLevelSize (PowerOfTwoSize, 2));
+            Assert.AreEqual (new Size (2, 1), TestComputeLevelSize (PowerOfTwoSize, 1));
+            Assert.AreEqual (new Size (1, 1), TestComputeLevelSize (PowerOfTwoSize, 0));
         }
 
         private static IEnumerable<Tile> TestComputeTiles (Size levelSize, int tileSize, int tileOverlap)
@@ -460,7 +470,7 @@ namespace PivotStack.Tests
             {
                 var tester = new Action<int, IEnumerable<Size>> ((level, expectedSliceSizes) =>
                     {
-                        var levelSize = DeepZoomImage.ComputeLevelSize (SquareLogoSize, level);
+                        var levelSize = TestComputeLevelSize (SquareLogoSize, level);
                         var tiles = TestComputeTiles (levelSize, 254, 1);
                         var slices = DeepZoomImage.Slice (sourceBitmap, tiles);
                         var actualSliceSizes = slices.Map (pair => pair.First.Size);

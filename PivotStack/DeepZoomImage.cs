@@ -33,9 +33,9 @@ namespace PivotStack
             return (int) Math.Ceiling (Math.Log (maxDimension, 2));
         }
 
-        // TODO: Consider accepting a maximumLevel parameter, obtained by calling DetermineMaximumLevel()
-        internal static Size ComputeLevelSize(Size originalSize, int levelNumber)
+        public Size ComputeLevelSize(int levelNumber)
         {
+            Size originalSize = _settings.ItemImageSize;
             if (levelNumber < 0)
             {
                 throw new ArgumentOutOfRangeException("levelNumber", levelNumber, "levelNumber must be >= 0");
@@ -48,15 +48,14 @@ namespace PivotStack
             }
             else
             {
-                int maxLevel = DetermineMaximumLevel (originalSize);
-                if (levelNumber >= maxLevel)
+                if (levelNumber >= _maximumLevel)
                 {
                     result = originalSize;
                 }
                 else
                 {
                     // shifting does not account for rounding, so we divide and round up (ceiling)
-                    var levelDifference = maxLevel - levelNumber;
+                    var levelDifference = _maximumLevel - levelNumber;
                     var divisor = Math.Pow (2, levelDifference);
                     var width = (int) Math.Ceiling (originalSize.Width / divisor);
                     var height = (int) Math.Ceiling (originalSize.Height / divisor);
@@ -124,7 +123,7 @@ namespace PivotStack
             for (var level = _maximumLevel; level >= 0; level--)
             {
                 var levelName = Convert.ToString (level, 10);
-                var targetSize = ComputeLevelSize (_settings.ItemImageSize, level);
+                var targetSize = ComputeLevelSize (level);
                 var tileFiles = new List<Stream> ();
                 var inputLevelImageFile = Path.ChangeExtension (levelName, extension);
                 var inputLevelImagePath = Path.Combine (absoluteBinnedImageFolder, inputLevelImageFile);
@@ -224,7 +223,7 @@ namespace PivotStack
         {
             for (var level = _maximumLevel; level >= 0; level--)
             {
-                var targetSize = ComputeLevelSize (_settings.ItemImageSize, level);
+                var targetSize = ComputeLevelSize (level);
                 using (var resizedBitmap = Resize (sourceBitmap, targetSize.Width, targetSize.Height))
                 {
                     saveAction (level, resizedBitmap);
