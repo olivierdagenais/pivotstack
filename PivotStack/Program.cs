@@ -231,8 +231,7 @@ namespace PivotStack
 
         internal static void GeneratePostImageResizes (Settings settings, PostRepository postRepository)
         {
-            var size = settings.ItemImageSize;
-            var maximumLevel = DeepZoomImage.DetermineMaximumLevel (size);
+            var dzi = new DeepZoomImage (settings);
 
             var workingPath = settings.AbsoluteWorkingFolder;
             var imageFormat = settings.PostImageEncoding;
@@ -249,7 +248,7 @@ namespace PivotStack
                     new FileStream (absoluteBinnedImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var sourceBitmap = new Bitmap (inputStream))
                 {
-                    DeepZoomImage.GeneratePostImageResizes (sourceBitmap, size, maximumLevel, (level, resizedBitmap) =>
+                    dzi.GeneratePostImageResizes (sourceBitmap, (level, resizedBitmap) =>
                         {
                             var levelImageName = "{0}.{1}".FormatInvariant (level, extension);
                             var levelImagePath = Path.Combine (absoluteBinnedImageFolder, levelImageName);
