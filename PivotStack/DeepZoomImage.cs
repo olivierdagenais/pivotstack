@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Drawing.Imaging;
 using System.IO;
 
 using SoftwareNinjas.Core;
@@ -132,7 +131,7 @@ namespace PivotStack
                 var outputLevelFolder = Path.Combine (absoluteBinnedOutputImageFolder, levelName);
                 Directory.CreateDirectory (outputLevelFolder);
 
-                var tiles = ComputeTiles (targetSize, _settings.TileSize, _settings.TileOverlap);
+                var tiles = ComputeTiles (targetSize);
                 using (var inputStream =
                     new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var levelBitmap = new Bitmap (inputStream))
@@ -155,30 +154,30 @@ namespace PivotStack
             }
         }
 
-        internal static IEnumerable<Tile> ComputeTiles(Size levelSize, int tileSize, int tileOverlap)
+        public IEnumerable<Tile> ComputeTiles(Size levelSize)
         {
             double width = levelSize.Width;
             double height = levelSize.Height;
             var maxDimension = Math.Max (width, height);
-            if (maxDimension <= tileSize)
+            if (maxDimension <= _settings.TileSize)
             {
                 var pair = new Tile (CreateRectangle (levelSize), TileZeroZero);
                 yield return pair;
             }
             else
             {
-                var columns = (int) Math.Ceiling (width / tileSize);
-                var rows = (int) Math.Ceiling (height / tileSize);
-                var tileOffsetMultiplier = tileSize + tileOverlap - 1;
+                var columns = (int) Math.Ceiling (width / _settings.TileSize);
+                var rows = (int) Math.Ceiling (height / _settings.TileSize);
+                var tileOffsetMultiplier = _settings.TileSize + _settings.TileOverlap - 1;
 
                 for (int column = 0; column < columns; column++)
                 {
-                    var left = 0 == column ? 0 : column * tileSize - tileOverlap;
+                    var left = 0 == column ? 0 : column * _settings.TileSize - _settings.TileOverlap;
                     var right = Math.Min ((int) width - 1, (column + 1) * tileOffsetMultiplier);
 
                     for (int row = 0; row < rows; row++)
                     {
-                        var top = 0 == row ? 0 : row * tileSize - tileOverlap;
+                        var top = 0 == row ? 0 : row * _settings.TileSize - _settings.TileOverlap;
                         var bottom = Math.Min ((int) height - 1, (row + 1) * tileOffsetMultiplier);
 
                         var rect = CreateRectangle (new Point (left, top), new Point (right, bottom));

@@ -149,11 +149,22 @@ namespace PivotStack.Tests
             Assert.AreEqual (new Size (1, 1), DeepZoomImage.ComputeLevelSize (PowerOfTwoSize, 0));
         }
 
+        private static IEnumerable<Tile> TestComputeTiles (Size levelSize, int tileSize, int tileOverlap)
+        {
+            var settings = new Settings
+            {
+                TileSize = tileSize,
+                TileOverlap = tileOverlap,
+            };
+            var dzi = new DeepZoomImage (settings);
+            return dzi.ComputeTiles (levelSize);
+        }
+
         [Test]
         public void ComputeTiles_SmallerThanTile ()
         {
             var size = new Size(150, 188);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[] {new Tile (DeepZoomImage.CreateRectangle (size), "0_0")};
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -162,7 +173,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_SizeOfTile ()
         {
             var size = new Size (254, 254);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[] {new Tile (DeepZoomImage.CreateRectangle (size), "0_0")};
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -171,7 +182,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_BiggerThanTile ()
         {
             var size = new Size (300, 375);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
@@ -187,7 +198,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_BigWithDoubleOverlap ()
         {
             var size = new Size (700, 700);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
@@ -209,7 +220,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_BiggerThanTileWithOverlapOfTwo ()
         {
             var size = new Size (300, 375);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(255, 255)), "0_0"),
@@ -225,7 +236,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_BiggerThanTileWithOverlapOfThree ()
         {
             var size = new Size (300, 375);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 3);
+            var actual = TestComputeTiles (size, 254, 3);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(256, 256)), "0_0"),
@@ -241,7 +252,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_OnePixelBiggerThanTile ()
         {
             var size = new Size (255, 255);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
@@ -257,7 +268,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_OnePixelBiggerThanTileWithOverlapOfTwo ()
         {
             var size = new Size (255, 255);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
@@ -273,7 +284,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_TwoPixelsBiggerThanTile ()
         {
             var size = new Size (256, 256);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
@@ -289,7 +300,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_TwoPixelsBiggerThanTileWithOverlapOfTwo ()
         {
             var size = new Size (256, 256);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 2);
+            var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(255, 255)), "0_0"),
@@ -305,7 +316,7 @@ namespace PivotStack.Tests
         public void ComputeTiles_OriginalSize ()
         {
             var size = new Size (1200, 1500);
-            var actual = DeepZoomImage.ComputeTiles (size, 254, 1);
+            var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
                 new Tile (DeepZoomImage.CreateRectangle (new Point(   0,    0), new Point( 254,  254)), "0_0"),
@@ -351,7 +362,7 @@ namespace PivotStack.Tests
         {
             var tester = new Action<int, int, int> ((inputSide, expectedTileCount, expectedFirstTileSize) =>
                 {
-                    var tiles = DeepZoomImage.ComputeTiles (new Size (inputSide, inputSide), 254, 1);
+                    var tiles = TestComputeTiles (new Size (inputSide, inputSide), 254, 1);
                     var e = tiles.GetEnumerator ();
                     e.MoveNext ();
                     var firstTile = e.Current;
@@ -450,7 +461,7 @@ namespace PivotStack.Tests
                 var tester = new Action<int, IEnumerable<Size>> ((level, expectedSliceSizes) =>
                     {
                         var levelSize = DeepZoomImage.ComputeLevelSize (SquareLogoSize, level);
-                        var tiles = DeepZoomImage.ComputeTiles (levelSize, 254, 1);
+                        var tiles = TestComputeTiles (levelSize, 254, 1);
                         var slices = DeepZoomImage.Slice (sourceBitmap, tiles);
                         var actualSliceSizes = slices.Map (pair => pair.First.Size);
                         EnumerableExtensions.EnumerateSame (expectedSliceSizes, actualSliceSizes);
