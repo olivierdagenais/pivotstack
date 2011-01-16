@@ -219,5 +219,17 @@ namespace PivotStack
         {
             return new Rectangle (point1.X, point1.Y, point2.X - point1.X + 1, point2.Y - point1.Y + 1);
         }
+
+        internal static void GeneratePostImageResizes (Bitmap sourceBitmap, Size size, int maximumLevel, Action<int, Bitmap> saveAction)
+        {
+            for (var level = maximumLevel; level >= 0; level--)
+            {
+                var targetSize = ComputeLevelSize (size, level);
+                using (var resizedBitmap = Resize (sourceBitmap, targetSize.Width, targetSize.Height))
+                {
+                    saveAction (level, resizedBitmap);
+                }
+            }
+        }
     }
 }

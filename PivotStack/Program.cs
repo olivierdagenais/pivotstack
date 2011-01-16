@@ -249,7 +249,7 @@ namespace PivotStack
                     new FileStream (absoluteBinnedImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
                 using (var sourceBitmap = new Bitmap (inputStream))
                 {
-                    GeneratePostImageResizes (sourceBitmap, size, maximumLevel, (level, resizedBitmap) =>
+                    DeepZoomImage.GeneratePostImageResizes (sourceBitmap, size, maximumLevel, (level, resizedBitmap) =>
                         {
                             var levelImageName = "{0}.{1}".FormatInvariant (level, extension);
                             var levelImagePath = Path.Combine (absoluteBinnedImageFolder, levelImageName);
@@ -260,18 +260,6 @@ namespace PivotStack
                             }
                         }
                     );
-                }
-            }
-        }
-
-        internal static void GeneratePostImageResizes (Bitmap sourceBitmap, Size size, int maximumLevel, Action<int, Bitmap> saveAction)
-        {
-            for (var level = maximumLevel; level >= 0; level--)
-            {
-                var targetSize = DeepZoomImage.ComputeLevelSize (size, level);
-                using (var resizedBitmap = DeepZoomImage.Resize (sourceBitmap, targetSize.Width, targetSize.Height))
-                {
-                    saveAction (level, resizedBitmap);
                 }
             }
         }
