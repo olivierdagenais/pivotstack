@@ -35,7 +35,6 @@ namespace PivotStack
 
         public Size ComputeLevelSize(int levelNumber)
         {
-            Size originalSize = _settings.ItemImageSize;
             if (levelNumber < 0)
             {
                 throw new ArgumentOutOfRangeException("levelNumber", levelNumber, "levelNumber must be >= 0");
@@ -50,15 +49,15 @@ namespace PivotStack
             {
                 if (levelNumber >= _maximumLevel)
                 {
-                    result = originalSize;
+                    result = _settings.ItemImageSize;
                 }
                 else
                 {
                     // shifting does not account for rounding, so we divide and round up (ceiling)
                     var levelDifference = _maximumLevel - levelNumber;
                     var divisor = Math.Pow (2, levelDifference);
-                    var width = (int) Math.Ceiling (originalSize.Width / divisor);
-                    var height = (int) Math.Ceiling (originalSize.Height / divisor);
+                    var width = (int) Math.Ceiling (_settings.ItemImageSize.Width / divisor);
+                    var height = (int) Math.Ceiling (_settings.ItemImageSize.Height / divisor);
                     result = new Size(width, height);
                 }
             }
