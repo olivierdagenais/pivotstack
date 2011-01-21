@@ -31,6 +31,8 @@ namespace PivotStack
         private const string WorkingFolderName = "rawItems";
         private const string OutputFolderName = "output";
 
+        private readonly Settings _settings;
+
         [STAThread]
         public static int Main (string[] args)
         {
@@ -75,8 +77,16 @@ namespace PivotStack
                 PostImageEncoding = ImageFormat.Png,
             };
 
-            using (var tagsConnection = new SqlConnection(settings.DatabaseConnectionString))
-            using (var postsConnection = new SqlConnection (settings.DatabaseConnectionString))
+            var program = new Program (settings);
+            program.Generate ();
+
+            return 0;
+        }
+
+        internal void Generate ()
+        {
+            using (var tagsConnection = new SqlConnection(_settings.DatabaseConnectionString))
+            using (var postsConnection = new SqlConnection (_settings.DatabaseConnectionString))
             {
                 tagsConnection.Open ();
                 postsConnection.Open ();
@@ -84,21 +94,25 @@ namespace PivotStack
                 var postRepository = new PostRepository (postsConnection);
 
                 #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
-                CleanWorkingFolder (settings);
-                CreateRawItems (settings, postRepository);
-                GeneratePostImageResizes (settings, postRepository);
+                CleanWorkingFolder (_settings);
+                CreateRawItems (_settings, postRepository);
+                GeneratePostImageResizes (_settings, postRepository);
                 #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
-                GenerateImageSlices (settings, postRepository);
-                GenerateImageManifests (settings, postRepository);
+                GenerateImageSlices (_settings, postRepository);
+                GenerateImageManifests (_settings, postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
-                AssembleCollections (settings, tagRepository, postRepository);
+                AssembleCollections (_settings, tagRepository, postRepository);
                 #endregion
             }
-            return 0;
+        }
+
+        public Program(Settings settings)
+        {
+            _settings = settings;
         }
 
         internal static void GenerateImageManifests (Settings settings, PostRepository postRepository)
