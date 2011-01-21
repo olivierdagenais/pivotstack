@@ -105,7 +105,7 @@ namespace PivotStack
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
-                AssembleCollections (_settings, tagRepository, postRepository);
+                AssembleCollections (tagRepository, postRepository);
                 #endregion
             }
         }
@@ -180,9 +180,9 @@ namespace PivotStack
             }
         }
 
-        internal static void AssembleCollections (Settings settings, TagRepository tagRepository, PostRepository postRepository)
+        internal void AssembleCollections (TagRepository tagRepository, PostRepository postRepository)
         {
-            var dzc = new DeepZoomCollection (settings);
+            var dzc = new DeepZoomCollection (_settings);
 
             var tags = tagRepository.RetrieveTags ();
             foreach (var tag in tags)
