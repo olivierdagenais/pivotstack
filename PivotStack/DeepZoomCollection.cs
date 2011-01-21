@@ -234,7 +234,7 @@ namespace PivotStack
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
-            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.cxml"))
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<DeepZoomCollection> ("Template.cxml"))
             using (var reader = XmlReader.Create (stream, _settings.XmlReaderSettings))
             {
                 doc = XDocument.Load (reader);
