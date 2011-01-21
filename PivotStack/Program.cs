@@ -94,9 +94,9 @@ namespace PivotStack
                 var postRepository = new PostRepository (postsConnection);
 
                 #region Phase 1: Convert Posts (collection items) into temporary raw artifacts
-                CleanWorkingFolder (_settings);
-                CreateRawItems (_settings, postRepository);
-                GeneratePostImageResizes (_settings, postRepository);
+                CleanWorkingFolder ();
+                CreateRawItems (postRepository);
+                GeneratePostImageResizes (postRepository);
                 #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
@@ -194,45 +194,45 @@ namespace PivotStack
             }
         }
 
-        internal static void CleanWorkingFolder(Settings settings)
+        internal void CleanWorkingFolder()
         {
-            if (Directory.Exists (settings.AbsoluteWorkingFolder))
+            if (Directory.Exists (_settings.AbsoluteWorkingFolder))
             {
-                Directory.Delete (settings.AbsoluteWorkingFolder, true);
+                Directory.Delete (_settings.AbsoluteWorkingFolder, true);
             }
         }
 
-        internal static void CreateRawItems (Settings settings, PostRepository postRepository)
+        internal void CreateRawItems (PostRepository postRepository)
         {
-            var workingPath = settings.AbsoluteWorkingFolder;
+            var workingPath = _settings.AbsoluteWorkingFolder;
             Directory.CreateDirectory (workingPath);
             Page template;
             using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.xaml"))
             {
                 template = (Page) XamlReader.Load (stream);
-                template.Width = settings.ItemImageSize.Width;
-                template.Height = settings.ItemImageSize.Height;
+                template.Width = _settings.ItemImageSize.Width;
+                template.Height = _settings.ItemImageSize.Height;
             }
-            var imageFormat = settings.PostImageEncoding;
+            var imageFormat = _settings.PostImageEncoding;
             var imageExtension = imageFormat.GetName ();
 
             var posts = postRepository.RetrievePosts ();
             foreach (var post in posts)
             {
-                var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", settings.FileNameIdFormat);
+                var relativeBinnedXmlPath = post.ComputeBinnedPath (".xml", _settings.FileNameIdFormat);
                 var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
                 var element = PivotizePost (post);
                 using (var outputStream =
                     new FileStream (absoluteBinnedXmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
                 {
-                    using (var writer = new ItemWriter (outputStream, settings.XmlWriterSettings))
+                    using (var writer = new ItemWriter (outputStream, _settings.XmlWriterSettings))
                     {
                         element.Save (writer);
                     }
                 }
 
-                var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, settings.FileNameIdFormat);
+                var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, _settings.FileNameIdFormat);
                 var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImagePath));
                 using (var outputStream
@@ -243,14 +243,14 @@ namespace PivotStack
             }
         }
 
-        internal static void GeneratePostImageResizes (Settings settings, PostRepository postRepository)
+        internal void GeneratePostImageResizes (PostRepository postRepository)
         {
-            var dzi = new DeepZoomImage (settings);
+            var dzi = new DeepZoomImage (_settings);
 
-            var workingPath = settings.AbsoluteWorkingFolder;
-            var imageFormat = settings.PostImageEncoding;
+            var workingPath = _settings.AbsoluteWorkingFolder;
+            var imageFormat = _settings.PostImageEncoding;
             var extension = imageFormat.GetName ();
-            var fileNameIdFormat = settings.FileNameIdFormat;
+            var fileNameIdFormat = _settings.FileNameIdFormat;
             foreach (var postId in postRepository.RetrievePostIds ())
             {
                 var relativeBinnedImagePath = Post.ComputeBinnedPath (postId, extension, fileNameIdFormat);
