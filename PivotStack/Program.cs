@@ -100,8 +100,8 @@ namespace PivotStack
                 #endregion
 
                 #region Phase 2: Slice Post (collection item) images to create final .dzi files and sub-folders
-                GenerateImageSlices (_settings, postRepository);
-                GenerateImageManifests (_settings, postRepository);
+                GenerateImageSlices (postRepository);
+                GenerateImageManifests (postRepository);
                 #endregion
 
                 #region Phase 3: Convert Tags (collections) into final .cxml and .dzc files
@@ -115,16 +115,16 @@ namespace PivotStack
             _settings = settings;
         }
 
-        internal static void GenerateImageManifests (Settings settings, PostRepository postRepository)
+        internal void GenerateImageManifests (PostRepository postRepository)
         {
-            var fileNameIdFormat = settings.FileNameIdFormat;
-            var imageNode = GenerateImageManifest (settings.TileSize, settings.TileOverlap,
-                                                   settings.PostImageEncoding.GetName (),
-                                                   settings.ItemImageSize.Width, settings.ItemImageSize.Height,
-                                                   settings.XmlReaderSettings);
+            var fileNameIdFormat = _settings.FileNameIdFormat;
+            var imageNode = GenerateImageManifest (_settings.TileSize, _settings.TileOverlap,
+                                                   _settings.PostImageEncoding.GetName (),
+                                                   _settings.ItemImageSize.Width, _settings.ItemImageSize.Height,
+                                                   _settings.XmlReaderSettings);
 
             var sb = new StringBuilder ();
-            using (var writer = XmlWriter.Create (sb, settings.XmlWriterSettings))
+            using (var writer = XmlWriter.Create (sb, _settings.XmlWriterSettings))
             {
                 Debug.Assert (writer != null);
                 imageNode.WriteTo (writer);
@@ -135,7 +135,7 @@ namespace PivotStack
             {
                 var relativeBinnedImageManifestPath = Post.ComputeBinnedPath (postId, "dzi", fileNameIdFormat);
                 var absoluteBinnedImageManifestPath =
-                    Path.Combine (settings.AbsoluteOutputFolder, relativeBinnedImageManifestPath);
+                    Path.Combine (_settings.AbsoluteOutputFolder, relativeBinnedImageManifestPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImageManifestPath));
                 File.WriteAllText (absoluteBinnedImageManifestPath, imageManifest, Encoding.UTF8);
             }
@@ -171,9 +171,9 @@ namespace PivotStack
             return imageNode;
         }
 
-        internal static void GenerateImageSlices(Settings settings, PostRepository postRepository)
+        internal void GenerateImageSlices(PostRepository postRepository)
         {
-            var dzi = new DeepZoomImage (settings);
+            var dzi = new DeepZoomImage (_settings);
             foreach (var postId in postRepository.RetrievePostIds ())
             {
                 dzi.SlicePostImage (postId);
