@@ -9,7 +9,6 @@ using System.Text;
 using System.Windows.Markup;
 using System.Xml;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using System.Windows.Controls;
 using PivotStack.Repositories;
 
@@ -118,10 +117,7 @@ namespace PivotStack
         internal void GenerateImageManifests (PostRepository postRepository)
         {
             var fileNameIdFormat = _settings.FileNameIdFormat;
-            var imageNode = Settings.GenerateImageManifest (_settings.TileSize, _settings.TileOverlap,
-                                                   _settings.PostImageEncoding.GetName (),
-                                                   _settings.ItemImageSize.Width, _settings.ItemImageSize.Height,
-                                                   _settings.XmlReaderSettings);
+            var imageNode = _settings.GenerateImageManifest ();
 
             var sb = new StringBuilder ();
             using (var writer = XmlWriter.Create (sb, _settings.XmlWriterSettings))

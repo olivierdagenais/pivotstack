@@ -46,14 +46,12 @@ namespace PivotStack
             }
         }
 
-        internal static XElement GenerateImageManifest
-            (int tileSize, int tileOverlap, string imageFormat, int imageWidth, int imageHeight,
-             XmlReaderSettings xmlReaderSettings)
+        internal XElement GenerateImageManifest()
         {
             XDocument doc;
             XmlNamespaceManager namespaceManager;
-            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.dzi"))
-            using (var reader = XmlReader.Create (stream, xmlReaderSettings))
+            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Settings> ("Template.dzi"))
+            using (var reader = XmlReader.Create (stream, XmlReaderSettings))
             {
                 doc = XDocument.Load (reader);
                 namespaceManager = new XmlNamespaceManager(reader.NameTable);
@@ -62,14 +60,14 @@ namespace PivotStack
             var imageNode = doc.Root;
             Debug.Assert (imageNode != null);
             #region <Image TileSize="254" Overlap="1" Format="png">
-            imageNode.SetAttributeValue ("TileSize", tileSize);
-            imageNode.SetAttributeValue ("Overlap", tileOverlap);
-            imageNode.SetAttributeValue ("Format", imageFormat);
+            imageNode.SetAttributeValue ("TileSize", TileSize);
+            imageNode.SetAttributeValue ("Overlap", TileOverlap);
+            imageNode.SetAttributeValue ("Format", PostImageEncoding.GetName ());
 
             #region <Size Width="800" Height="400" />
             var sizeNode = imageNode.XPathSelectElement ("dz:Size", namespaceManager);
-            sizeNode.SetAttributeValue ("Width", imageWidth);
-            sizeNode.SetAttributeValue ("Height", imageHeight);
+            sizeNode.SetAttributeValue ("Width", ItemImageSize.Width);
+            sizeNode.SetAttributeValue ("Height", ItemImageSize.Height);
             #endregion
             #endregion
 

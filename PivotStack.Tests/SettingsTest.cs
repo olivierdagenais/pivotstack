@@ -1,4 +1,6 @@
-﻿using System.Xml;
+﻿using System.Drawing;
+using System.Drawing.Imaging;
+using System.Xml;
 using System.Xml.Linq;
 using NUnit.Framework;
 
@@ -65,7 +67,15 @@ namespace PivotStack.Tests
 </Image>";
             var expectedImageNode = XElement.Parse (expectedXml);
 
-            var actualImageNode = Settings.GenerateImageManifest (254, 1, "png", 800, 400, XmlReaderSettings);
+            var settings = new Settings
+            {
+                TileSize = 254,
+                TileOverlap = 1,
+                PostImageEncoding = ImageFormat.Png,
+                ItemImageSize = new Size(800, 400),
+                XmlReaderSettings = XmlReaderSettings,
+            };
+            var actualImageNode = settings.GenerateImageManifest ();
 
             Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
         }
