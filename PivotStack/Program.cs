@@ -118,7 +118,7 @@ namespace PivotStack
         internal void GenerateImageManifests (PostRepository postRepository)
         {
             var fileNameIdFormat = _settings.FileNameIdFormat;
-            var imageNode = GenerateImageManifest (_settings.TileSize, _settings.TileOverlap,
+            var imageNode = Settings.GenerateImageManifest (_settings.TileSize, _settings.TileOverlap,
                                                    _settings.PostImageEncoding.GetName (),
                                                    _settings.ItemImageSize.Width, _settings.ItemImageSize.Height,
                                                    _settings.XmlReaderSettings);
@@ -139,36 +139,6 @@ namespace PivotStack
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImageManifestPath));
                 File.WriteAllText (absoluteBinnedImageManifestPath, imageManifest, Encoding.UTF8);
             }
-        }
-
-        internal static XElement GenerateImageManifest
-            (int tileSize, int tileOverlap, string imageFormat, int imageWidth, int imageHeight,
-            XmlReaderSettings xmlReaderSettings)
-        {
-            XDocument doc;
-            XmlNamespaceManager namespaceManager;
-            using (var stream = AssemblyExtensions.OpenScopedResourceStream<Program> ("Template.dzi"))
-            using (var reader = XmlReader.Create (stream, xmlReaderSettings))
-            {
-                doc = XDocument.Load (reader);
-                namespaceManager = new XmlNamespaceManager(reader.NameTable);
-                namespaceManager.AddNamespace("dz", Namespaces.DeepZoom2009.NamespaceName);
-            }
-            var imageNode = doc.Root;
-            Debug.Assert (imageNode != null);
-            #region <Image TileSize="254" Overlap="1" Format="png">
-            imageNode.SetAttributeValue ("TileSize", tileSize);
-            imageNode.SetAttributeValue ("Overlap", tileOverlap);
-            imageNode.SetAttributeValue ("Format", imageFormat);
-
-            #region <Size Width="800" Height="400" />
-            var sizeNode = imageNode.XPathSelectElement ("dz:Size", namespaceManager);
-            sizeNode.SetAttributeValue ("Width", imageWidth);
-            sizeNode.SetAttributeValue ("Height", imageHeight);
-            #endregion
-            #endregion
-
-            return imageNode;
         }
 
         internal void GenerateImageSlices(PostRepository postRepository)

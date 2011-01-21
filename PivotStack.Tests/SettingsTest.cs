@@ -1,10 +1,21 @@
-﻿using NUnit.Framework;
+﻿using System.Xml;
+using System.Xml.Linq;
+using NUnit.Framework;
 
 namespace PivotStack.Tests
 {
     [TestFixture]
     public class SettingsTest
     {
+        private static readonly XmlReaderSettings XmlReaderSettings = new XmlReaderSettings
+        {
+#if DEBUG
+            IgnoreWhitespace = false,
+#else
+            IgnoreWhitespace = true,
+#endif
+        };
+
         [Test]
         public void MaximumNumberOfDigits_9 ()
         {
@@ -43,6 +54,20 @@ namespace PivotStack.Tests
                 HighestId = 1000,
             };
             Assert.AreEqual (4, settings.MaximumNumberOfDigits);
+        }
+
+        [Test]
+        public void GenerateImageManifest_Typical ()
+        {
+            const string expectedXml = @"
+<Image xmlns='http://schemas.microsoft.com/deepzoom/2009' TileSize='254' Overlap='1' Format='png'>
+  <Size Width='800' Height='400' />
+</Image>";
+            var expectedImageNode = XElement.Parse (expectedXml);
+
+            var actualImageNode = Settings.GenerateImageManifest (254, 1, "png", 800, 400, XmlReaderSettings);
+
+            Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
         }
     }
 }

@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Specialized;
 using System.Drawing.Imaging;
 using System.IO;
-using System.Xml;
 using System.Xml.Linq;
 using System.Windows.Controls;
 using System.Windows.Markup;
@@ -42,15 +41,6 @@ namespace PivotStack.Tests
       </Facets>
     </Item>";
 
-        private static readonly XmlReaderSettings XmlReaderSettings = new XmlReaderSettings
-        {
-#if DEBUG
-            IgnoreWhitespace = false,
-#else
-            IgnoreWhitespace = true,
-#endif
-        };
-
         private readonly Page _testTemplate;
 
         public ProgramTest()
@@ -76,20 +66,6 @@ namespace PivotStack.Tests
                 Program.ImagePost (inputPost, _testTemplate, ImageFormat.Png, outputStream);
                 AssertStreamsAreEqual<ProgramTest> (expectedFileName, outputStream);
             }
-        }
-
-        [Test]
-        public void GenerateImageManifest_Typical()
-        {
-            const string expectedXml = @"
-<Image xmlns='http://schemas.microsoft.com/deepzoom/2009' TileSize='254' Overlap='1' Format='png'>
-  <Size Width='800' Height='400' />
-</Image>";
-            var expectedImageNode = XElement.Parse (expectedXml);
-
-            var actualImageNode = Program.GenerateImageManifest (254, 1, "png", 800, 400, XmlReaderSettings);
-
-            Assert.AreEqual (expectedImageNode.ToString (), actualImageNode.ToString ());
         }
 
         // TODO: Move to re-usable class library
