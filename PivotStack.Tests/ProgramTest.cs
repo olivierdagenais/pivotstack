@@ -85,7 +85,7 @@ namespace PivotStack.Tests
                 catch (AssertionException)
                 {
                     actualStream.Seek (0, SeekOrigin.Begin);
-                    using (var fileStream = new FileStream (expectedResourceFileName, FileMode.Create, FileAccess.Write))
+                    using (var fileStream = expectedResourceFileName.CreateWriteStream ())
                     {
                         actualStream.WriteTo (fileStream);
                     }

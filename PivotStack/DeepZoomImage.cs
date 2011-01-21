@@ -130,16 +130,14 @@ namespace PivotStack
                 Directory.CreateDirectory (outputLevelFolder);
 
                 var tiles = ComputeTiles (targetSize);
-                using (var inputStream =
-                    new FileStream (inputLevelImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var inputStream = inputLevelImagePath.CreateReadStream ())
                 using (var levelBitmap = new Bitmap (inputStream))
                 {
                     Slice (levelBitmap, tiles, tileName =>
                         {
                             var tileFileName = Path.ChangeExtension (tileName, extension);
                             var tilePath = Path.Combine (outputLevelFolder, tileFileName);
-                            var stream =
-                                new FileStream (tilePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+                            var stream = tilePath.CreateWriteStream ();
                             tileFiles.Add (stream);
                             return stream;
                         }

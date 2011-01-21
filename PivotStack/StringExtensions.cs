@@ -154,6 +154,16 @@ namespace PivotStack
             return result.ToString ();
         }
 
+        internal static FileStream CreateReadStream(this string filePath)
+        {
+            return new FileStream (filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        }
+
+        internal static FileStream CreateWriteStream(this string filePath)
+        {
+            return new FileStream (filePath, FileMode.Create, FileAccess.Write, FileShare.Read);
+        }
+
         public static IEnumerable<string> BinUpReverse (this string input, int binSize)
         {
             int c;

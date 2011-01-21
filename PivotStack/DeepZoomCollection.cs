@@ -179,8 +179,7 @@ namespace PivotStack
 
             Directory.CreateDirectory (Path.GetDirectoryName (absolutePathToCollectionManifest));
             var element = GenerateImageCollection (postIds, relativePathToRoot);
-            using (var outputStream =
-                new FileStream (absolutePathToCollectionManifest, FileMode.Create, FileAccess.Write, FileShare.Read))
+            using (var outputStream = absolutePathToCollectionManifest.CreateWriteStream ())
             {
                 using (var writer = XmlWriter.Create (outputStream, _settings.XmlWriterSettings))
                 {
@@ -281,8 +280,7 @@ namespace PivotStack
             var relativeBinnedCxmlPath = tag.ComputeBinnedPath (".cxml");
             var absoluteBinnedCxmlPath = Path.Combine (_settings.AbsoluteOutputFolder, relativeBinnedCxmlPath);
             Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedCxmlPath));
-            using (var outputStream
-                = new FileStream (absoluteBinnedCxmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
+            using (var outputStream = absoluteBinnedCxmlPath.CreateWriteStream ())
             {
                 var streamReaders = postIds.Map (postId =>
                     {

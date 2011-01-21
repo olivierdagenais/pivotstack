@@ -189,8 +189,7 @@ namespace PivotStack
                 var absoluteBinnedXmlPath = Path.Combine (workingPath, relativeBinnedXmlPath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedXmlPath));
                 var element = PivotizePost (post);
-                using (var outputStream =
-                    new FileStream (absoluteBinnedXmlPath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                using (var outputStream = absoluteBinnedXmlPath.CreateWriteStream ())
                 {
                     using (var writer = new ItemWriter (outputStream, _settings.XmlWriterSettings))
                     {
@@ -201,8 +200,7 @@ namespace PivotStack
                 var relativeBinnedImagePath = post.ComputeBinnedPath (imageExtension, _settings.FileNameIdFormat);
                 var absoluteBinnedImagePath = Path.Combine (workingPath, relativeBinnedImagePath);
                 Directory.CreateDirectory (Path.GetDirectoryName (absoluteBinnedImagePath));
-                using (var outputStream
-                    = new FileStream (absoluteBinnedImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                using (var outputStream = absoluteBinnedImagePath.CreateWriteStream ())
                 {
                     ImagePost (post, template, imageFormat, outputStream);
                 }
@@ -224,16 +222,14 @@ namespace PivotStack
                 var relativeBinnedImageFolder = Post.ComputeBinnedPath (postId, null, fileNameIdFormat) + "_files";
                 var absoluteBinnedImageFolder = Path.Combine (workingPath, relativeBinnedImageFolder);
                 Directory.CreateDirectory (absoluteBinnedImageFolder);
-                using (var inputStream =
-                    new FileStream (absoluteBinnedImagePath, FileMode.Open, FileAccess.Read, FileShare.Read))
+                using (var inputStream = absoluteBinnedImagePath.CreateReadStream ())
                 using (var sourceBitmap = new Bitmap (inputStream))
                 {
                     dzi.GeneratePostImageResizes (sourceBitmap, (level, resizedBitmap) =>
                         {
                             var levelImageName = "{0}.{1}".FormatInvariant (level, extension);
                             var levelImagePath = Path.Combine (absoluteBinnedImageFolder, levelImageName);
-                            using (var outputStream =
-                                new FileStream (levelImagePath, FileMode.Create, FileAccess.Write, FileShare.Read))
+                            using (var outputStream = levelImagePath.CreateReadStream ())
                             {
                                 resizedBitmap.Save (outputStream, imageFormat);
                             }
