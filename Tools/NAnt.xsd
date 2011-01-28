@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
-<xs:schema xmlns:nant="http://testoriented.googlecode.com/schemas/nant.xsd" elementFormDefault="qualified" targetNamespace="http://testoriented.googlecode.com/schemas/nant.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+<xs:schema xmlns:nant="http://pivotstack.googlecode.com/schemas/nant.xsd" elementFormDefault="qualified" targetNamespace="http://pivotstack.googlecode.com/schemas/nant.xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema">
   <xs:annotation>
-    <xs:documentation>NAnt schema generated at 04/17/2010 23:57:32</xs:documentation>
+    <xs:documentation>NAnt schema generated at 01/28/2011 14:31:45</xs:documentation>
   </xs:annotation>
   <xs:complexType name="NAnt.Core.TaskContainer">
     <xs:sequence minOccurs="0" maxOccurs="unbounded">
