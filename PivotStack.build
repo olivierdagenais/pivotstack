@@ -7,11 +7,24 @@
     <loadtasks assembly="Tools/nantcontrib/bin/NAnt.Contrib.Tasks.dll" />
     <loadtasks assembly="Tools/SoftwareNinjas.NAnt.dll" />
 
-    <property name="configuration" value="Release" overwrite="false" />
+    <property name="configuration" value="Coverage" overwrite="false" />
     <property name="projects" value="PivotStack,PivotStack.Tests" />
+    
+    <property name="coverageFile" value="coverage.xml" />
+    <property name="ncoverFolder" value="Tools/NCover-1.5.8" />
+    <property name="nunitFolder" value="Tools/NUnit-2.4.8" />
 
     <target name="schema">
         <nantschema output="Tools/NAnt.xsd" target-ns="http://pivotstack.googlecode.com/schemas/nant.xsd"/>
+    </target>
+
+    <target name="prepare">
+        <!-- Administrator rights are required to register the code coverage COM DLL; it only needs to be done once. -->
+        <comregister>
+            <fileset>
+                <include name="${ncoverFolder}/CoverLib.dll" />
+            </fileset>
+        </comregister>
     </target>
 
     <target name="clean">
@@ -26,7 +39,22 @@
     </target>
 
     <target name="test" depends="compile">
-        <test projects="PivotStack.Tests" configuration="${configuration}" />
+        <delete file="${coverageFile}" failonerror="false" />
+        <exec program="${ncoverFolder}/NCover.Console.exe" failonerror="false">
+            <arg value="//w" />
+            <arg value="PivotStack.Tests\bin\${configuration}" />
+            <arg value="//a" />
+            <arg value="PivotStack" />
+            <arg value="//x" />
+            <arg value="${coverageFile}" />
+            <arg value="//l" />
+            <arg value="coverage.log" />
+            <arg value="${nunitFolder}/nunit-console-x86.exe" />
+            <arg value="/nologo" />
+            <arg value="/nodots" />
+            <arg value="/noshadow" />
+            <arg value="PivotStack.Tests.dll" />
+        </exec>
     </target>
 
 </project>

@@ -5,3 +5,5 @@ glob:PivotStack.4.5.resharper.user
 glob:PivotStack/PivotStack.csproj.user
 glob:PivotStack.Tests/PivotStack.Tests.csproj.user
 glob:PivotStack.sln.cache
+glob:coverage.log
+glob:coverage.xml
