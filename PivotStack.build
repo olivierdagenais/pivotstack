@@ -11,6 +11,7 @@
     <property name="projects" value="PivotStack,PivotStack.Tests" />
     
     <property name="coverageFile" value="coverage.xml" />
+    <property name="fixedCoverageFile" value="fixed-${coverageFile}" />
     <property name="ncoverFolder" value="Tools/NCover-1.5.8" />
     <property name="nunitFolder" value="Tools/NUnit-2.4.8" />
 
@@ -55,6 +56,12 @@
             <arg value="/noshadow" />
             <arg value="PivotStack.Tests.dll" />
         </exec>
+        <delete file="${fixedCoverageFile}" failonerror="false" />
+        <style style="Tools/CodeCoverageReportFixup.xsl" in="${coverageFile}" out="${fixedCoverageFile}">
+            <parameters>
+                <parameter name="reference" value="reference.xml" />
+            </parameters>
+        </style>
     </target>
 
 </project>

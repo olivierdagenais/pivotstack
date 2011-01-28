@@ -7,3 +7,4 @@ glob:PivotStack.Tests/PivotStack.Tests.csproj.user
 glob:PivotStack.sln.cache
 glob:coverage.log
 glob:coverage.xml
+glob:fixed-coverage.xml

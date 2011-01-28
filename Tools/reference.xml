@@ -1,0 +1,1157 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml-stylesheet href="coverage.xsl" type="text/xsl"?>
+<!-- saved from url=(0022)http://www.ncover.org/ -->
+<coverage profilerVersion="1.5.8 Beta" driverVersion="1.5.8.0" startTime="2011-01-21T16:23:12.7247665-05:00" measureTime="2011-01-21T16:23:16.4557665-05:00">
+  <module moduleId="21" name="PivotStack.Tests\bin\Release\PivotStack.dll" assembly="PivotStack" assemblyIdentity="PivotStack, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null, processorArchitecture=MSIL">
+    <method name="ConvertToGdiPlusBitmap" excluded="false" instrumented="true" class="PivotStack.BitmapSourceExtensions">
+      <seqpnt visitcount="1" line="16" column="13" endline="19" endcolumn="63" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="21" column="13" endline="21" endcolumn="83" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="22" column="13" endline="26" endcolumn="19" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="27" column="13" endline="31" endcolumn="30" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="32" column="13" endline="32" endcolumn="35" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="33" column="13" endline="33" endcolumn="24" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+      <seqpnt visitcount="0" line="34" column="9" endline="34" endcolumn="10" excluded="false" document="PivotStack\BitmapSourceExtensions.cs" />
+    </method>
+    <method name="YesNo" excluded="false" instrumented="true" class="PivotStack.BoolExtensions">
+      <seqpnt visitcount="2" line="7" column="13" endline="7" endcolumn="41" excluded="false" document="PivotStack\BoolExtensions.cs" />
+      <seqpnt visitcount="2" line="8" column="9" endline="8" endcolumn="10" excluded="false" document="PivotStack\BoolExtensions.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.CollectionWriter">
+      <seqpnt visitcount="4" line="12" column="9" endline="13" endcolumn="38" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="15" column="13" endline="15" endcolumn="37" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="16" column="13" endline="16" endcolumn="34" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="17" column="9" endline="17" endcolumn="10" excluded="false" document="PivotStack\CollectionWriter.cs" />
+    </method>
+    <method name="WriteStartElement" excluded="false" instrumented="true" class="PivotStack.CollectionWriter">
+      <seqpnt visitcount="0" line="21" column="13" endline="21" endcolumn="60" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="22" column="13" endline="22" endcolumn="83" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="24" column="17" endline="24" endcolumn="40" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="26" column="9" endline="26" endcolumn="10" excluded="false" document="PivotStack\CollectionWriter.cs" />
+    </method>
+    <method name="WriteFullEndElement" excluded="false" instrumented="true" class="PivotStack.CollectionWriter">
+      <seqpnt visitcount="0" line="30" column="13" endline="30" endcolumn="33" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="32" column="17" endline="32" endcolumn="34" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="33" column="17" endline="33" endcolumn="41" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="35" column="13" endline="35" endcolumn="41" excluded="false" document="PivotStack\CollectionWriter.cs" />
+      <seqpnt visitcount="0" line="36" column="9" endline="36" endcolumn="10" excluded="false" document="PivotStack\CollectionWriter.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="1" line="20" column="9" endline="20" endcolumn="84" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="21" column="9" endline="21" endcolumn="87" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="36" line="28" column="9" endline="28" endcolumn="53" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="36" line="30" column="13" endline="30" endcolumn="34" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="36" line="32" column="13" endline="32" endcolumn="71" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="34" line="36" column="13" endline="36" endcolumn="53" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="34" line="37" column="13" endline="37" endcolumn="81" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="34" line="38" column="13" endline="38" endcolumn="83" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="34" line="40" column="9" endline="40" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="CreateCollectionTile" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="3" line="44" column="13" endline="44" endcolumn="78" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="45" column="20" endline="45" endcolumn="62" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="47" column="17" endline="47" endcolumn="72" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="48" column="17" endline="48" endcolumn="38" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="49" column="44" endline="49" endcolumn="60" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="49" column="26" endline="49" endcolumn="40" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="51" column="21" endline="51" endcolumn="77" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="52" column="21" endline="57" endcolumn="23" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="58" column="21" endline="66" endcolumn="23" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="67" column="21" endline="67" endcolumn="36" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="2" line="49" column="41" endline="49" endcolumn="43" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="70" column="13" endline="70" endcolumn="27" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="71" column="9" endline="71" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="NumberOfImagesInEachDimension" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="2" line="116" column="13" endline="116" endcolumn="51" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="1" line="117" column="9" endline="117" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="GenerateImageCollection" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="8" line="122" column="13" endline="122" endcolumn="79" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="123" column="13" endline="123" endcolumn="89" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="124" column="20" endline="124" endcolumn="113" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="125" column="20" endline="125" endcolumn="57" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="127" column="17" endline="127" endcolumn="61" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="129" column="13" endline="129" endcolumn="43" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="131" column="13" endline="131" endcolumn="75" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="133" column="13" endline="133" endcolumn="94" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="135" column="13" endline="135" endcolumn="34" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="136" column="13" endline="136" endcolumn="31" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="8" line="137" column="36" endline="137" endcolumn="43" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="4" line="137" column="22" endline="137" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="4" line="139" column="17" endline="140" endcolumn="94" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="141" column="17" endline="141" endcolumn="42" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="142" column="17" endline="142" endcolumn="42" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="144" column="17" endline="144" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="145" column="17" endline="145" endcolumn="58" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="6" line="137" column="33" endline="137" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="2" line="153" column="13" endline="153" endcolumn="76" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="2" line="155" column="13" endline="155" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="2" line="156" column="9" endline="156" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="CreateImageCollectionItemNode" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="7" line="161" column="13" endline="161" endcolumn="56" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="7" line="163" column="13" endline="163" endcolumn="60" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="7" line="164" column="13" endline="164" endcolumn="51" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="7" line="165" column="13" endline="165" endcolumn="101" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="166" column="13" endline="166" endcolumn="89" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="167" column="13" endline="167" endcolumn="68" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="170" column="13" endline="170" endcolumn="29" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="171" column="9" endline="171" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="CreateCollectionManifest" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="3" line="175" column="13" endline="175" endcolumn="83" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="176" column="13" endline="177" endcolumn="97" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="178" column="13" endline="178" endcolumn="89" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="180" column="13" endline="180" endcolumn="98" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="181" column="13" endline="181" endcolumn="81" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="182" column="20" endline="182" endcolumn="92" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="184" column="24" endline="184" endcolumn="97" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="187" column="21" endline="187" endcolumn="46" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="190" column="9" endline="190" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="CreateCollectionTiles" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="2" line="210" column="13" endline="210" endcolumn="90" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="211" column="13" endline="212" endcolumn="95" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="213" column="18" endline="213" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="215" column="17" endline="215" endcolumn="62" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="216" column="17" endline="216" endcolumn="116" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="217" column="17" endline="217" endcolumn="81" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="218" column="17" endline="218" endcolumn="59" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="219" column="17" endline="219" endcolumn="89" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="220" column="53" endline="220" endcolumn="73" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="220" column="26" endline="220" endcolumn="49" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="222" column="21" endline="222" endcolumn="116" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="223" column="21" endline="223" endcolumn="117" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="224" column="21" endline="224" endcolumn="88" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="225" column="28" endline="225" endcolumn="86" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="227" column="25" endline="227" endcolumn="87" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="220" column="50" endline="220" endcolumn="52" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="213" column="62" endline="213" endcolumn="69" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="213" column="33" endline="213" endcolumn="60" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="231" column="9" endline="231" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="PivotizeTag" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="3" line="237" column="20" endline="237" endcolumn="114" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="238" column="20" endline="238" endcolumn="87" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="240" column="17" endline="240" endcolumn="47" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="241" column="17" endline="241" endcolumn="78" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="242" column="17" endline="242" endcolumn="89" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="243" column="17" endline="243" endcolumn="84" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="245" column="13" endline="245" endcolumn="43" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="247" column="13" endline="247" endcolumn="107" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="249" column="13" endline="249" endcolumn="100" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="251" column="13" endline="251" endcolumn="93" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="252" column="13" endline="252" endcolumn="118" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="253" column="13" endline="253" endcolumn="94" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="3" line="254" column="20" endline="271" endcolumn="19" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="274" column="17" endline="274" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="276" column="9" endline="276" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="PivotizeTag" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="3" line="280" column="13" endline="280" endcolumn="74" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="281" column="13" endline="281" endcolumn="112" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="282" column="13" endline="282" endcolumn="88" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="283" column="20" endline="283" endcolumn="82" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="285" column="17" endline="292" endcolumn="19" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="293" column="17" endline="293" endcolumn="64" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="295" column="9" endline="295" endcolumn="10" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="&lt;PivotizeTag&gt;b__22" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection">
+      <seqpnt visitcount="0" line="287" column="25" endline="287" endcolumn="121" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="288" column="25" endline="288" endcolumn="123" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="289" column="25" endline="289" endcolumn="75" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="290" column="25" endline="290" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="&lt;PivotizeTag&gt;b__1e" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection+&lt;&gt;c__DisplayClass20">
+      <seqpnt visitcount="0" line="256" column="21" endline="256" endcolumn="39" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="257" column="21" endline="257" endcolumn="61" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="258" column="40" endline="258" endcolumn="53" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="258" column="30" endline="258" endcolumn="36" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="260" column="46" endline="260" endcolumn="56" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="260" column="34" endline="260" endcolumn="42" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="265" column="29" endline="265" endcolumn="45" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="260" column="43" endline="260" endcolumn="45" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="268" column="25" endline="268" endcolumn="37" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="258" column="37" endline="258" endcolumn="39" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="270" column="21" endline="270" endcolumn="33" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection+&lt;GenerateCollectionTiles&gt;d__0">
+      <seqpnt visitcount="0" line="78" column="13" endline="78" endcolumn="83" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="79" column="13" endline="79" endcolumn="79" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="80" column="13" endline="80" endcolumn="34" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="81" column="13" endline="81" endcolumn="36" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="83" column="13" endline="83" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="84" column="13" endline="84" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="85" column="13" endline="85" endcolumn="47" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="86" column="13" endline="86" endcolumn="42" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="87" column="32" endline="87" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="87" column="22" endline="87" endcolumn="28" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="89" column="17" endline="89" endcolumn="37" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="91" column="17" endline="91" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="92" column="17" endline="92" endcolumn="34" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="93" column="17" endline="93" endcolumn="53" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="95" column="21" endline="96" endcolumn="111" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="97" column="21" endline="97" endcolumn="54" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="98" column="21" endline="98" endcolumn="57" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="99" column="21" endline="99" endcolumn="40" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="100" column="21" endline="100" endcolumn="68" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="101" column="21" endline="101" endcolumn="69" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="102" column="21" endline="102" endcolumn="66" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="103" column="21" endline="103" endcolumn="41" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="87" column="29" endline="87" endcolumn="31" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="106" column="13" endline="106" endcolumn="36" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="108" column="17" endline="109" endcolumn="107" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="110" column="17" endline="110" endcolumn="50" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.DeepZoomCollection+&lt;OpenLevelImages&gt;d__11">
+      <seqpnt visitcount="0" line="194" column="13" endline="194" endcolumn="58" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="195" column="13" endline="195" endcolumn="101" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="196" column="36" endline="196" endcolumn="43" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="196" column="22" endline="196" endcolumn="32" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="198" column="17" endline="198" endcolumn="115" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="199" column="17" endline="199" endcolumn="97" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="200" column="17" endline="200" endcolumn="114" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="201" column="24" endline="201" endcolumn="73" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="203" column="21" endline="203" endcolumn="41" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+      <seqpnt visitcount="0" line="196" column="33" endline="196" endcolumn="35" excluded="false" document="PivotStack\DeepZoomCollection.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="1" line="16" column="9" endline="16" endcolumn="62" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="17" column="9" endline="17" endcolumn="66" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="35" line="23" column="9" endline="23" endcolumn="48" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="35" line="25" column="13" endline="25" endcolumn="34" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="35" line="27" column="13" endline="27" endcolumn="76" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="32" line="28" column="9" endline="28" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="DetermineMaximumLevel" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="33" line="32" column="13" endline="32" endcolumn="83" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="33" line="33" column="13" endline="33" endcolumn="68" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="33" line="34" column="9" endline="34" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="ComputeLevelSize" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="6" line="38" column="13" endline="38" endcolumn="33" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="40" column="17" endline="40" endcolumn="111" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="5" line="44" column="13" endline="44" endcolumn="34" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="46" column="17" endline="46" endcolumn="35" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="3" line="50" column="17" endline="50" endcolumn="50" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="52" column="21" endline="52" endcolumn="54" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="57" column="21" endline="57" endcolumn="71" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="58" column="21" endline="58" endcolumn="65" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="59" column="21" endline="59" endcolumn="94" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="60" column="21" endline="60" endcolumn="96" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="61" column="21" endline="61" endcolumn="54" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="5" line="65" column="13" endline="65" endcolumn="27" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="5" line="66" column="9" endline="66" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="TileName" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="9" line="70" column="13" endline="70" endcolumn="41" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="4" line="72" column="17" endline="72" endcolumn="37" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="5" line="74" column="13" endline="74" endcolumn="67" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="9" line="75" column="9" endline="75" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="Slice" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="4" line="105" column="13" endline="105" endcolumn="48" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="4" line="106" column="34" endline="106" endcolumn="40" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="106" column="22" endline="106" endcolumn="30" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="108" column="17" endline="108" endcolumn="46" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="109" column="17" endline="109" endcolumn="46" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="110" column="17" endline="110" endcolumn="59" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="111" column="17" endline="111" endcolumn="72" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="4" line="106" column="31" endline="106" endcolumn="33" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="113" column="9" endline="113" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="SlicePostImage" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="5" line="117" column="13" endline="117" endcolumn="68" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="5" line="118" column="13" endline="118" endcolumn="122" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="119" column="13" endline="119" endcolumn="119" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="120" column="13" endline="120" endcolumn="124" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="122" column="18" endline="122" endcolumn="44" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="124" column="17" endline="124" endcolumn="62" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="125" column="17" endline="125" endcolumn="59" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="126" column="17" endline="126" endcolumn="53" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="127" column="17" endline="127" endcolumn="87" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="128" column="17" endline="128" endcolumn="105" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="129" column="17" endline="129" endcolumn="99" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="130" column="17" endline="130" endcolumn="63" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="132" column="17" endline="132" endcolumn="55" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="133" column="24" endline="133" endcolumn="81" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="134" column="24" endline="134" endcolumn="66" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="136" column="21" endline="144" endcolumn="23" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="146" column="40" endline="146" endcolumn="49" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="146" column="26" endline="146" endcolumn="36" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="148" column="21" endline="148" endcolumn="37" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="146" column="37" endline="146" endcolumn="39" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="122" column="57" endline="122" endcolumn="64" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="122" column="45" endline="122" endcolumn="55" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="151" column="9" endline="151" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="Resize" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="3" line="190" column="13" endline="190" endcolumn="70" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="192" column="20" endline="192" endcolumn="67" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="194" column="17" endline="194" endcolumn="72" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="195" column="17" endline="203" endcolumn="19" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="206" column="13" endline="206" endcolumn="32" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="207" column="9" endline="207" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="CreateRectangle" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="1" line="211" column="13" endline="211" endcolumn="66" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="212" column="9" endline="212" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="CreateRectangle" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="1" line="216" column="13" endline="216" endcolumn="105" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="217" column="9" endline="217" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="GeneratePostImageResizes" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage">
+      <seqpnt visitcount="3" line="221" column="18" endline="221" endcolumn="44" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="223" column="17" endline="223" endcolumn="59" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="224" column="24" endline="224" endcolumn="102" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="226" column="21" endline="226" endcolumn="55" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="221" column="57" endline="221" endcolumn="64" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="3" line="221" column="45" endline="221" endcolumn="55" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="229" column="9" endline="229" endcolumn="10" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="&lt;SlicePostImage&gt;b__e" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage+&lt;&gt;c__DisplayClass12">
+      <seqpnt visitcount="0" line="138" column="29" endline="138" endcolumn="91" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="139" column="29" endline="139" endcolumn="91" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="140" column="29" endline="140" endcolumn="72" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="141" column="29" endline="141" endcolumn="52" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="142" column="29" endline="142" endcolumn="43" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage+&lt;ComputeTiles&gt;d__14">
+      <seqpnt visitcount="0" line="155" column="13" endline="155" endcolumn="44" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="156" column="13" endline="156" endcolumn="46" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="157" column="13" endline="157" endcolumn="57" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="158" column="13" endline="158" endcolumn="52" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="160" column="17" endline="160" endcolumn="81" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="161" column="17" endline="161" endcolumn="35" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="165" column="17" endline="165" endcolumn="79" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="166" column="17" endline="166" endcolumn="77" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="167" column="17" endline="167" endcolumn="91" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="169" column="22" endline="169" endcolumn="37" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="171" column="21" endline="171" endcolumn="102" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="172" column="21" endline="172" endcolumn="97" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="174" column="26" endline="174" endcolumn="38" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="176" column="25" endline="176" endcolumn="99" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="177" column="25" endline="177" endcolumn="100" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="179" column="25" endline="179" endcolumn="103" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="180" column="25" endline="180" endcolumn="63" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="181" column="25" endline="181" endcolumn="64" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="174" column="51" endline="174" endcolumn="56" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="174" column="39" endline="174" endcolumn="49" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="169" column="56" endline="169" endcolumn="64" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="169" column="38" endline="169" endcolumn="54" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.DeepZoomImage+&lt;Slice&gt;d__0">
+      <seqpnt visitcount="4" line="79" column="34" endline="79" endcolumn="39" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="79" column="22" endline="79" endcolumn="30" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="2" line="81" column="17" endline="81" endcolumn="39" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="82" column="17" endline="82" endcolumn="46" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="83" column="17" endline="83" endcolumn="48" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="1" line="84" column="24" endline="84" endcolumn="80" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="85" column="24" endline="85" endcolumn="71" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="87" column="21" endline="87" endcolumn="76" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="88" column="21" endline="88" endcolumn="83" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="89" column="21" endline="97" endcolumn="23" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="0" line="98" column="21" endline="98" endcolumn="86" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+      <seqpnt visitcount="3" line="79" column="31" endline="79" endcolumn="33" excluded="false" document="PivotStack\DeepZoomImage.cs" />
+    </method>
+    <method name="ToBitmapSource" excluded="false" instrumented="true" class="PivotStack.FrameworkElementExtensions">
+      <seqpnt visitcount="1" line="19" column="13" endline="19" endcolumn="47" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="21" column="17" endline="21" endcolumn="96" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="24" column="13" endline="24" endcolumn="48" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="26" column="17" endline="26" endcolumn="98" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="30" column="13" endline="30" endcolumn="49" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="31" column="13" endline="31" endcolumn="40" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="34" column="13" endline="34" endcolumn="37" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="35" column="13" endline="35" endcolumn="102" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="38" column="13" endline="38" endcolumn="56" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="41" column="13" endline="41" endcolumn="31" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="42" column="13" endline="42" endcolumn="41" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="44" column="13" endline="44" endcolumn="111" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="46" column="13" endline="46" endcolumn="29" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="49" column="13" endline="49" endcolumn="45" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="50" column="13" endline="50" endcolumn="33" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="51" column="13" endline="51" endcolumn="24" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="52" column="9" endline="52" endcolumn="10" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.FrameworkElementExtensions">
+      <seqpnt visitcount="1" line="57" column="9" endline="60" endcolumn="11" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+    </method>
+    <method name="&lt;.cctor&gt;b__0" excluded="false" instrumented="true" class="PivotStack.FrameworkElementExtensions">
+      <seqpnt visitcount="1" line="59" column="13" endline="59" endcolumn="25" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+    </method>
+    <method name="WaitForDataBinding" excluded="false" instrumented="true" class="PivotStack.FrameworkElementExtensions">
+      <seqpnt visitcount="1" line="72" column="13" endline="72" endcolumn="101" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="1" line="73" column="9" endline="73" endcolumn="10" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+    </method>
+    <method name="DataBindAndWait" excluded="false" instrumented="true" class="PivotStack.FrameworkElementExtensions">
+      <seqpnt visitcount="2" line="77" column="13" endline="77" endcolumn="43" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="78" column="13" endline="78" endcolumn="35" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+      <seqpnt visitcount="0" line="79" column="9" endline="79" endcolumn="10" excluded="false" document="PivotStack\FrameworkElementExtensions.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="6" line="19" column="9" endline="19" endcolumn="105" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="6" line="21" column="13" endline="21" endcolumn="24" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="6" line="22" column="13" endline="22" endcolumn="30" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="6" line="23" column="13" endline="23" endcolumn="58" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="6" line="24" column="13" endline="24" endcolumn="62" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="6" line="25" column="13" endline="25" endcolumn="54" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="27" column="13" endline="27" endcolumn="67" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="28" column="32" endline="28" endcolumn="35" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="3" line="28" column="22" endline="28" endcolumn="28" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="3" line="30" column="17" endline="30" endcolumn="47" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="7" line="28" column="29" endline="28" endcolumn="31" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="32" column="13" endline="32" endcolumn="34" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="34" column="13" endline="34" endcolumn="36" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="35" column="13" endline="35" endcolumn="53" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="36" column="13" endline="36" endcolumn="52" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="37" column="13" endline="37" endcolumn="54" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="38" column="13" endline="38" endcolumn="115" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="39" column="9" endline="39" endcolumn="10" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="get_Row" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="4" line="45" column="17" endline="45" endcolumn="29" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="46" column="13" endline="46" endcolumn="14" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="get_Column" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="4" line="53" column="17" endline="53" endcolumn="32" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="54" column="13" endline="54" endcolumn="14" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="get_StartingMortonNumber" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="4" line="61" column="17" endline="61" endcolumn="46" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="62" column="13" endline="62" endcolumn="14" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="get_TileName" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="4" line="69" column="17" endline="69" endcolumn="34" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="70" column="13" endline="70" endcolumn="14" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="get_Ids" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="4" line="77" column="17" endline="77" endcolumn="29" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="4" line="78" column="13" endline="78" endcolumn="14" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="ToString" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="0" line="83" column="13" endline="83" endcolumn="30" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="84" column="9" endline="84" endcolumn="10" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="Equals" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="0" line="88" column="13" endline="88" endcolumn="51" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="89" column="13" endline="89" endcolumn="30" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="91" column="17" endline="91" endcolumn="30" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="94" column="13" endline="97" endcolumn="64" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="98" column="18" endline="98" endcolumn="28" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="100" column="17" endline="100" endcolumn="57" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="98" column="62" endline="98" endcolumn="65" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="98" column="29" endline="98" endcolumn="60" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="102" column="13" endline="102" endcolumn="29" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="103" column="9" endline="103" endcolumn="10" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="GetHashCode" excluded="false" instrumented="true" class="PivotStack.ImageCollectionTile">
+      <seqpnt visitcount="0" line="107" column="13" endline="107" endcolumn="30" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+      <seqpnt visitcount="0" line="108" column="9" endline="108" endcolumn="10" excluded="false" document="PivotStack\ImageCollectionTile.cs" />
+    </method>
+    <method name="GetName" excluded="false" instrumented="true" class="PivotStack.ImageFormatExtensions">
+      <seqpnt visitcount="52" line="9" column="13" endline="11" endcolumn="54" excluded="false" document="PivotStack\ImageFormatExtensions.cs" />
+      <seqpnt visitcount="52" line="12" column="9" endline="12" endcolumn="10" excluded="false" document="PivotStack\ImageFormatExtensions.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="6" line="11" column="9" endline="11" endcolumn="80" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="6" line="13" column="13" endline="13" endcolumn="54" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="14" column="9" endline="14" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="Close" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="18" column="13" endline="18" endcolumn="35" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="19" column="9" endline="19" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="Flush" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="23" column="13" endline="23" endcolumn="35" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="24" column="9" endline="24" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="LookupPrefix" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="28" column="13" endline="28" endcolumn="51" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="29" column="9" endline="29" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteBase64" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="33" column="13" endline="33" endcolumn="61" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="34" column="9" endline="34" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteCData" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="38" column="13" endline="38" endcolumn="44" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="39" column="9" endline="39" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteCharEntity" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="43" column="13" endline="43" endcolumn="47" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="44" column="9" endline="44" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteChars" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="48" column="13" endline="48" endcolumn="60" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="49" column="9" endline="49" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteComment" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="53" column="13" endline="53" endcolumn="46" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="54" column="9" endline="54" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteDocType" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="58" column="13" endline="58" endcolumn="68" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="59" column="9" endline="59" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteEndAttribute" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="63" column="13" endline="63" endcolumn="47" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="64" column="9" endline="64" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteEndDocument" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="68" column="13" endline="68" endcolumn="46" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="69" column="9" endline="69" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteEndElement" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="73" column="13" endline="73" endcolumn="45" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="74" column="9" endline="74" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteEntityRef" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="78" column="13" endline="78" endcolumn="48" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="79" column="9" endline="79" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteFullEndElement" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="83" column="13" endline="83" endcolumn="49" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="84" column="9" endline="84" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteProcessingInstruction" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="88" column="13" endline="88" endcolumn="66" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="89" column="9" endline="89" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteRaw" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="93" column="13" endline="93" endcolumn="42" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="94" column="9" endline="94" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteRaw" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="98" column="13" endline="98" endcolumn="58" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="99" column="9" endline="99" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteStartAttribute" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="103" column="13" endline="103" endcolumn="70" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="104" column="9" endline="104" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteStartDocument" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="108" column="13" endline="108" endcolumn="58" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="109" column="9" endline="109" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteStartDocument" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="113" column="13" endline="113" endcolumn="48" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="114" column="9" endline="114" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteStartElement" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="118" column="13" endline="118" endcolumn="68" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="119" column="9" endline="119" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="get_WriteState" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="125" column="17" endline="125" endcolumn="48" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="126" column="13" endline="126" endcolumn="14" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteString" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="131" column="13" endline="131" endcolumn="45" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="132" column="9" endline="132" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteSurrogateCharEntity" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="136" column="13" endline="136" endcolumn="71" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="137" column="9" endline="137" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name="WriteWhitespace" excluded="false" instrumented="true" class="PivotStack.InterceptingXmlWriter">
+      <seqpnt visitcount="0" line="141" column="13" endline="141" endcolumn="47" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+      <seqpnt visitcount="0" line="142" column="9" endline="142" endcolumn="10" excluded="false" document="PivotStack\InterceptingXmlWriter.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.ItemWriter">
+      <seqpnt visitcount="1" line="11" column="9" endline="11" endcolumn="96" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="13" column="13" endline="13" endcolumn="92" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="14" column="13" endline="14" endcolumn="43" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="15" column="9" endline="15" endcolumn="10" excluded="false" document="PivotStack\ItemWriter.cs" />
+    </method>
+    <method name="WriteStartElement" excluded="false" instrumented="true" class="PivotStack.ItemWriter">
+      <seqpnt visitcount="0" line="19" column="13" endline="19" endcolumn="91" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="20" column="13" endline="20" endcolumn="60" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="21" column="9" endline="21" endcolumn="10" excluded="false" document="PivotStack\ItemWriter.cs" />
+    </method>
+    <method name="WriteString" excluded="false" instrumented="true" class="PivotStack.ItemWriter">
+      <seqpnt visitcount="0" line="25" column="13" endline="25" endcolumn="39" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="27" column="35" endline="27" endcolumn="39" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="27" column="26" endline="27" endcolumn="31" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="29" column="21" endline="29" endcolumn="35" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="31" column="25" endline="31" endcolumn="49" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="35" column="25" endline="35" endcolumn="58" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="27" column="32" endline="27" endcolumn="34" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="41" column="17" endline="41" endcolumn="41" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="43" column="9" endline="43" endcolumn="10" excluded="false" document="PivotStack\ItemWriter.cs" />
+    </method>
+    <method name="WriteEndDocument" excluded="false" instrumented="true" class="PivotStack.ItemWriter">
+      <seqpnt visitcount="0" line="47" column="13" endline="47" endcolumn="39" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="49" column="17" endline="49" endcolumn="47" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="51" column="13" endline="51" endcolumn="38" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="52" column="9" endline="52" endcolumn="10" excluded="false" document="PivotStack\ItemWriter.cs" />
+    </method>
+    <method name="WriteFullEndElement" excluded="false" instrumented="true" class="PivotStack.ItemWriter">
+      <seqpnt visitcount="0" line="56" column="13" endline="56" endcolumn="39" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="58" column="17" endline="58" endcolumn="47" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="60" column="13" endline="60" endcolumn="41" excluded="false" document="PivotStack\ItemWriter.cs" />
+      <seqpnt visitcount="0" line="61" column="9" endline="61" endcolumn="10" excluded="false" document="PivotStack\ItemWriter.cs" />
+    </method>
+    <method name="Decode" excluded="false" instrumented="true" class="PivotStack.MortonLayout">
+      <seqpnt visitcount="6" line="28" column="13" endline="28" endcolumn="53" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="29" column="13" endline="29" endcolumn="23" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="29" column="24" endline="29" endcolumn="30" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="30" column="18" endline="30" endcolumn="28" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="30" column="29" endline="30" endcolumn="44" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="96" line="32" column="17" endline="32" endcolumn="33" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="3" line="34" column="21" endline="34" endcolumn="37" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="96" line="36" column="17" endline="36" endcolumn="29" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="3" line="38" column="21" endline="38" endcolumn="37" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="96" line="30" column="63" endline="30" endcolumn="87" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="102" line="30" column="45" endline="30" endcolumn="61" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="41" column="13" endline="41" endcolumn="43" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="42" column="13" endline="42" endcolumn="27" excluded="false" document="PivotStack\MortonLayout.cs" />
+      <seqpnt visitcount="6" line="43" column="9" endline="43" endcolumn="10" excluded="false" document="PivotStack\MortonLayout.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.Namespaces">
+      <seqpnt visitcount="1" line="7" column="9" endline="8" endcolumn="71" excluded="false" document="PivotStack\Namespaces.cs" />
+      <seqpnt visitcount="1" line="10" column="9" endline="11" endcolumn="77" excluded="false" document="PivotStack\Namespaces.cs" />
+      <seqpnt visitcount="1" line="13" column="9" endline="14" endcolumn="60" excluded="false" document="PivotStack\Namespaces.cs" />
+      <seqpnt visitcount="1" line="16" column="9" endline="17" endcolumn="60" excluded="false" document="PivotStack\Namespaces.cs" />
+    </method>
+    <method name="FromDBNull" excluded="false" instrumented="true" class="PivotStack.ObjectExtensions">
+      <seqpnt visitcount="87" line="9" column="13" endline="9" endcolumn="38" excluded="false" document="PivotStack\ObjectExtensions.cs" />
+      <seqpnt visitcount="0" line="11" column="17" endline="11" endcolumn="36" excluded="false" document="PivotStack\ObjectExtensions.cs" />
+      <seqpnt visitcount="87" line="13" column="13" endline="13" endcolumn="28" excluded="false" document="PivotStack\ObjectExtensions.cs" />
+      <seqpnt visitcount="77" line="14" column="9" endline="14" endcolumn="10" excluded="false" document="PivotStack\ObjectExtensions.cs" />
+    </method>
+    <method name="LoadFromRow" excluded="false" instrumented="true" class="PivotStack.Post">
+      <seqpnt visitcount="33" line="28" column="13" endline="46" endcolumn="15" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="1" line="47" column="13" endline="47" endcolumn="27" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="1" line="48" column="9" endline="48" endcolumn="10" excluded="false" document="PivotStack\Post.cs" />
+    </method>
+    <method name="ComputeBinnedPath" excluded="false" instrumented="true" class="PivotStack.Post">
+      <seqpnt visitcount="1" line="52" column="13" endline="52" endcolumn="72" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="1" line="53" column="9" endline="53" endcolumn="10" excluded="false" document="PivotStack\Post.cs" />
+    </method>
+    <method name="ComputeBinnedPath" excluded="false" instrumented="true" class="PivotStack.Post">
+      <seqpnt visitcount="6" line="57" column="13" endline="57" endcolumn="93" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="6" line="58" column="13" endline="58" endcolumn="56" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="6" line="59" column="13" endline="59" endcolumn="31" excluded="false" document="PivotStack\Post.cs" />
+      <seqpnt visitcount="6" line="60" column="9" endline="60" endcolumn="10" excluded="false" document="PivotStack\Post.cs" />
+    </method>
+    <method name="Main" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="2" line="39" column="13" endline="77" endcolumn="15" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="79" column="13" endline="79" endcolumn="50" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="80" column="13" endline="80" endcolumn="33" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="82" column="13" endline="82" endcolumn="22" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="83" column="9" endline="83" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="Generate" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="49" line="87" column="20" endline="87" endcolumn="94" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="11" line="88" column="20" endline="88" endcolumn="96" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="11" line="90" column="17" endline="90" endcolumn="40" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="91" column="17" endline="91" endcolumn="41" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="92" column="17" endline="92" endcolumn="72" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="93" column="17" endline="93" endcolumn="75" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="96" column="17" endline="96" endcolumn="39" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="97" column="17" endline="97" endcolumn="49" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="98" column="17" endline="98" endcolumn="59" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="102" column="17" endline="102" endcolumn="54" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="103" column="17" endline="103" endcolumn="57" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="107" column="17" endline="107" endcolumn="69" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="110" column="9" endline="110" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="86" line="112" column="9" endline="112" endcolumn="42" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="86" line="114" column="13" endline="114" endcolumn="34" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="86" line="115" column="9" endline="115" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="GenerateImageManifests" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="7" line="119" column="13" endline="119" endcolumn="63" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="120" column="13" endline="120" endcolumn="64" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="122" column="13" endline="122" endcolumn="43" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="123" column="20" endline="123" endcolumn="83" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="126" column="17" endline="126" endcolumn="44" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="128" column="13" endline="128" endcolumn="48" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="3" line="130" column="36" endline="130" endcolumn="69" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="130" column="22" endline="130" endcolumn="32" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="132" column="17" endline="132" endcolumn="112" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="133" column="17" endline="134" endcolumn="100" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="135" column="17" endline="135" endcolumn="101" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="136" column="17" endline="136" endcolumn="99" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="1" line="130" column="33" endline="130" endcolumn="35" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="138" column="9" endline="138" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="GenerateImageSlices" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="9" line="142" column="13" endline="142" endcolumn="53" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="8" line="143" column="36" endline="143" endcolumn="69" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="143" column="22" endline="143" endcolumn="32" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="145" column="17" endline="145" endcolumn="45" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="5" line="143" column="33" endline="143" endcolumn="35" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="147" column="9" endline="147" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="AssembleCollections" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="9" line="151" column="13" endline="151" endcolumn="58" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="8" line="153" column="13" endline="153" endcolumn="54" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="7" line="154" column="33" endline="154" endcolumn="37" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="154" column="22" endline="154" endcolumn="29" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="156" column="17" endline="156" endcolumn="87" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="157" column="17" endline="157" endcolumn="48" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="158" column="17" endline="158" endcolumn="61" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="159" column="17" endline="159" endcolumn="58" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="7" line="154" column="30" endline="154" endcolumn="32" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="161" column="9" endline="161" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="CleanWorkingFolder" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="2" line="165" column="13" endline="165" endcolumn="68" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="167" column="17" endline="167" endcolumn="74" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="1" line="169" column="9" endline="169" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="CreateRawItems" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="2" line="173" column="13" endline="173" endcolumn="63" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="1" line="174" column="13" endline="174" endcolumn="53" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="176" column="20" endline="176" endcolumn="103" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="178" column="17" endline="178" endcolumn="60" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="179" column="17" endline="179" endcolumn="64" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="180" column="17" endline="180" endcolumn="66" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="182" column="13" endline="182" endcolumn="59" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="183" column="13" endline="183" endcolumn="57" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="185" column="13" endline="185" endcolumn="57" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="186" column="34" endline="186" endcolumn="39" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="186" column="22" endline="186" endcolumn="30" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="188" column="17" endline="188" endcolumn="105" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="189" column="17" endline="189" endcolumn="95" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="190" column="17" endline="190" endcolumn="91" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="191" column="17" endline="191" endcolumn="51" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="192" column="24" endline="192" endcolumn="85" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="194" column="28" endline="194" endcolumn="99" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="196" column="25" endline="196" endcolumn="47" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="200" column="17" endline="200" endcolumn="115" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="201" column="17" endline="201" endcolumn="99" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="202" column="17" endline="202" endcolumn="93" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="203" column="24" endline="203" endcolumn="87" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="205" column="21" endline="205" endcolumn="75" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="186" column="31" endline="186" endcolumn="33" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="208" column="9" endline="208" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="GeneratePostImageResizes" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="7" line="212" column="13" endline="212" endcolumn="53" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="6" line="214" column="13" endline="214" endcolumn="63" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="6" line="215" column="13" endline="215" endcolumn="59" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="6" line="216" column="13" endline="216" endcolumn="52" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="6" line="217" column="13" endline="217" endcolumn="63" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="218" column="36" endline="218" endcolumn="69" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="218" column="22" endline="218" endcolumn="32" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="220" column="17" endline="220" endcolumn="108" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="221" column="17" endline="221" endcolumn="99" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="222" column="17" endline="222" endcolumn="116" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="223" column="17" endline="223" endcolumn="103" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="224" column="17" endline="224" endcolumn="71" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="225" column="24" endline="225" endcolumn="85" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="226" column="24" endline="226" endcolumn="67" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="228" column="21" endline="237" endcolumn="23" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="1" line="218" column="33" endline="218" endcolumn="35" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="240" column="9" endline="240" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="ImagePost" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="1" line="244" column="13" endline="244" endcolumn="49" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="246" column="13" endline="246" endcolumn="62" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="247" column="13" endline="247" endcolumn="64" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="248" column="13" endline="248" endcolumn="52" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="249" column="9" endline="249" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="PivotizePost" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="2" line="254" column="13" endline="254" endcolumn="50" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="256" column="13" endline="256" endcolumn="81" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="257" column="13" endline="257" endcolumn="56" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="258" column="13" endline="258" endcolumn="58" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="260" column="13" endline="260" endcolumn="60" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="2" line="263" column="13" endline="263" endcolumn="95" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="264" column="13" endline="264" endcolumn="44" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="268" column="13" endline="268" endcolumn="53" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="271" column="13" endline="271" endcolumn="73" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="275" column="13" endline="275" endcolumn="73" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="279" column="13" endline="279" endcolumn="77" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="282" column="13" endline="282" endcolumn="35" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="284" column="17" endline="284" endcolumn="51" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="286" column="17" endline="286" endcolumn="94" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="291" column="17" endline="291" endcolumn="117" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="296" column="13" endline="296" endcolumn="99" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="300" column="13" endline="300" endcolumn="110" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="304" column="13" endline="304" endcolumn="49" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="306" column="17" endline="306" endcolumn="126" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="311" column="13" endline="311" endcolumn="48" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="313" column="17" endline="313" endcolumn="124" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="318" column="13" endline="318" endcolumn="36" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="320" column="17" endline="320" endcolumn="77" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="325" column="13" endline="325" endcolumn="117" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="329" column="13" endline="329" endcolumn="45" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="331" column="17" endline="331" endcolumn="113" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="338" column="13" endline="338" endcolumn="40" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="340" column="17" endline="340" endcolumn="103" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="347" column="13" endline="347" endcolumn="101" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="351" column="13" endline="351" endcolumn="81" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="354" column="13" endline="354" endcolumn="39" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="357" column="13" endline="357" endcolumn="29" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="359" column="9" endline="359" endcolumn="10" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="&lt;PivotizePost&gt;b__9" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="0" line="286" column="81" endline="286" endcolumn="91" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="&lt;PivotizePost&gt;b__a" excluded="false" instrumented="true" class="PivotStack.Program">
+      <seqpnt visitcount="0" line="291" column="73" endline="291" endcolumn="114" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name="&lt;GeneratePostImageResizes&gt;b__3" excluded="false" instrumented="true" class="PivotStack.Program+&lt;&gt;c__DisplayClass7">
+      <seqpnt visitcount="0" line="230" column="29" endline="230" endcolumn="95" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="231" column="29" endline="231" endcolumn="107" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="232" column="36" endline="232" endcolumn="89" excluded="false" document="PivotStack\Program.cs" />
+      <seqpnt visitcount="0" line="234" column="33" endline="234" endcolumn="80" excluded="false" document="PivotStack\Program.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase">
+      <seqpnt visitcount="1" line="13" column="9" endline="14" endcolumn="88" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase">
+      <seqpnt visitcount="25" line="16" column="9" endline="16" endcolumn="67" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="25" line="18" column="13" endline="18" endcolumn="38" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="25" line="19" column="9" endline="19" endcolumn="10" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name="get_Connection" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase">
+      <seqpnt visitcount="7" line="25" column="17" endline="25" endcolumn="36" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="7" line="26" column="13" endline="26" endcolumn="14" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name="EnumerateRecords" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase">
+      <seqpnt visitcount="18" line="32" column="13" endline="32" endcolumn="77" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="18" line="33" column="9" endline="33" endcolumn="10" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name="LoadCommandText" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase">
+      <seqpnt visitcount="5" line="65" column="20" endline="65" endcolumn="114" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="5" line="66" column="20" endline="66" endcolumn="57" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="4" line="68" column="17" endline="68" endcolumn="50" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="4" line="69" column="17" endline="69" endcolumn="31" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="4" line="71" column="9" endline="71" endcolumn="10" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.Repositories.DatabaseRepositoryBase+&lt;EnumerateRecords&gt;d__0">
+      <seqpnt visitcount="14" line="38" column="20" endline="38" endcolumn="62" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="10" line="40" column="17" endline="40" endcolumn="51" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="10" line="41" column="17" endline="41" endcolumn="44" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="10" line="42" column="38" endline="42" endcolumn="48" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="42" column="26" endline="42" endcolumn="34" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="44" column="21" endline="44" endcolumn="60" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="45" column="21" endline="45" endcolumn="52" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="46" column="21" endline="46" endcolumn="46" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="47" column="21" endline="47" endcolumn="52" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="10" line="42" column="35" endline="42" endcolumn="37" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="10" line="50" column="24" endline="50" endcolumn="89" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="55" column="25" endline="55" endcolumn="73" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="56" column="25" endline="56" endcolumn="56" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="57" column="25" endline="57" endcolumn="50" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+      <seqpnt visitcount="0" line="53" column="21" endline="53" endcolumn="43" excluded="false" document="PivotStack\Repositories\DatabaseRepositoryBase.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="1" line="11" column="9" endline="11" endcolumn="92" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="12" column="9" endline="12" endcolumn="97" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="13" column="9" endline="13" endcolumn="104" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="13" line="15" column="9" endline="15" endcolumn="77" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="13" line="17" column="9" endline="17" endcolumn="10" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="RetrievePosts" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="1" line="21" column="13" endline="21" endcolumn="55" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="22" column="13" endline="22" endcolumn="66" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="23" column="13" endline="23" endcolumn="26" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="24" column="9" endline="24" endcolumn="10" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="&lt;RetrievePosts&gt;b__0" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="0" line="22" column="42" endline="22" endcolumn="64" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="RetrievePostIds" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="8" line="28" column="13" endline="28" endcolumn="57" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="8" line="29" column="13" endline="29" endcolumn="58" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="8" line="30" column="13" endline="30" endcolumn="28" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="8" line="31" column="9" endline="31" endcolumn="10" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="&lt;RetrievePostIds&gt;b__2" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="0" line="29" column="44" endline="29" endcolumn="56" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="RetrievePostIds" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="1" line="35" column="13" endline="35" endcolumn="85" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="36" column="13" endline="36" endcolumn="72" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="37" column="13" endline="37" endcolumn="58" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="38" column="13" endline="38" endcolumn="28" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+      <seqpnt visitcount="1" line="39" column="9" endline="39" endcolumn="10" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name="&lt;RetrievePostIds&gt;b__5" excluded="false" instrumented="true" class="PivotStack.Repositories.PostRepository">
+      <seqpnt visitcount="0" line="37" column="44" endline="37" endcolumn="56" excluded="false" document="PivotStack\Repositories\PostRepository.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="2" line="13" column="9" endline="13" endcolumn="73" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="2" line="15" column="13" endline="15" endcolumn="38" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="2" line="16" column="9" endline="16" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Add" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="20" column="13" endline="20" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="ContainsKey" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="25" column="13" endline="25" endcolumn="50" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="26" column="9" endline="26" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="get_Keys" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="30" column="19" endline="30" endcolumn="43" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="30" column="44" endline="30" endcolumn="45" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Remove" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="35" column="13" endline="35" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="TryGetValue" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="40" column="13" endline="40" endcolumn="61" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="41" column="9" endline="41" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="get_Values" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="45" column="19" endline="45" endcolumn="45" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="45" column="46" endline="45" endcolumn="47" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="get_Item" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="50" column="19" endline="50" endcolumn="43" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="50" column="44" endline="50" endcolumn="45" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="set_Item" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="51" column="19" endline="51" endcolumn="58" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Add" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="56" column="13" endline="56" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Clear" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="61" column="13" endline="61" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Contains" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="66" column="13" endline="66" endcolumn="48" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="67" column="9" endline="67" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="CopyTo" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="71" column="13" endline="71" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="72" column="9" endline="72" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="get_Count" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="76" column="19" endline="76" endcolumn="44" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="76" column="45" endline="76" endcolumn="46" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="get_IsReadOnly" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="1" line="81" column="19" endline="81" endcolumn="31" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="1" line="81" column="32" endline="81" endcolumn="33" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="Remove" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="86" column="13" endline="86" endcolumn="52" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="GetEnumerator" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="10" line="91" column="13" endline="91" endcolumn="49" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="10" line="92" column="9" endline="92" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name="System.Collections.IEnumerable.GetEnumerator" excluded="false" instrumented="true" class="PivotStack.Repositories.ReadOnlyDictionary`2">
+      <seqpnt visitcount="0" line="97" column="13" endline="97" endcolumn="86" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+      <seqpnt visitcount="0" line="98" column="9" endline="98" endcolumn="10" excluded="false" document="PivotStack\Repositories\ReadOnlyDictionary.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.Repositories.TagRepository">
+      <seqpnt visitcount="1" line="10" column="9" endline="10" endcolumn="90" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+    </method>
+    <method name=".ctor" excluded="false" instrumented="true" class="PivotStack.Repositories.TagRepository">
+      <seqpnt visitcount="12" line="12" column="9" endline="12" endcolumn="75" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+      <seqpnt visitcount="12" line="14" column="9" endline="14" endcolumn="10" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+    </method>
+    <method name="RetrieveTags" excluded="false" instrumented="true" class="PivotStack.Repositories.TagRepository">
+      <seqpnt visitcount="8" line="18" column="13" endline="18" endcolumn="54" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+      <seqpnt visitcount="8" line="19" column="13" endline="19" endcolumn="64" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+      <seqpnt visitcount="8" line="20" column="13" endline="20" endcolumn="25" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+      <seqpnt visitcount="8" line="21" column="9" endline="21" endcolumn="10" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+    </method>
+    <method name="&lt;RetrieveTags&gt;b__0" excluded="false" instrumented="true" class="PivotStack.Repositories.TagRepository">
+      <seqpnt visitcount="0" line="19" column="41" endline="19" endcolumn="62" excluded="false" document="PivotStack\Repositories\TagRepository.cs" />
+    </method>
+    <method name="get_MaximumNumberOfDigits" excluded="false" instrumented="true" class="PivotStack.Settings">
+      <seqpnt visitcount="27" line="37" column="17" endline="37" endcolumn="57" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="27" line="38" column="13" endline="38" endcolumn="14" excluded="false" document="PivotStack\Settings.cs" />
+    </method>
+    <method name="get_FileNameIdFormat" excluded="false" instrumented="true" class="PivotStack.Settings">
+      <seqpnt visitcount="26" line="45" column="17" endline="45" endcolumn="64" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="10" line="46" column="13" endline="46" endcolumn="14" excluded="false" document="PivotStack\Settings.cs" />
+    </method>
+    <method name="GenerateImageManifest" excluded="false" instrumented="true" class="PivotStack.Settings">
+      <seqpnt visitcount="5" line="53" column="20" endline="53" endcolumn="103" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="54" column="20" endline="54" endcolumn="77" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="56" column="17" endline="56" endcolumn="47" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="57" column="17" endline="57" endcolumn="78" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="58" column="17" endline="58" endcolumn="92" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="60" column="13" endline="60" endcolumn="38" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="63" column="13" endline="63" endcolumn="64" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="64" column="13" endline="64" endcolumn="66" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="65" column="13" endline="65" endcolumn="82" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="68" column="13" endline="68" endcolumn="87" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="69" column="13" endline="69" endcolumn="71" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="70" column="13" endline="70" endcolumn="73" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="74" column="13" endline="74" endcolumn="30" excluded="false" document="PivotStack\Settings.cs" />
+      <seqpnt visitcount="5" line="75" column="9" endline="75" endcolumn="10" excluded="false" document="PivotStack\Settings.cs" />
+    </method>
+    <method name=".cctor" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="1" line="12" column="9" endline="13" endcolumn="100" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="15" column="9" endline="16" endcolumn="61" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="18" column="9" endline="26" endcolumn="11" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="28" column="9" endline="29" endcolumn="76" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="GenerateReservedCharacters" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="2" line="34" column="13" endline="34" endcolumn="72" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="2" line="35" column="13" endline="41" endcolumn="15" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="2" line="42" column="13" endline="42" endcolumn="27" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="2" line="43" column="9" endline="43" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="&lt;GenerateReservedCharacters&gt;b__0" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="37" line="37" column="21" endline="37" endcolumn="49" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="37" line="38" column="21" endline="38" endcolumn="110" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="37" line="39" column="21" endline="39" endcolumn="33" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="CleanHtml" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="3" line="61" column="13" endline="61" endcolumn="71" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="63" column="13" endline="63" endcolumn="30" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="64" column="9" endline="64" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="RelativizePath" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="7" line="68" column="13" endline="68" endcolumn="47" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="7" line="69" column="31" endline="69" endcolumn="43" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="8" line="69" column="22" endline="69" endcolumn="27" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="8" line="71" column="17" endline="71" endcolumn="93" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="73" column="21" endline="73" endcolumn="43" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="15" line="69" column="28" endline="69" endcolumn="30" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="6" line="76" column="13" endline="76" endcolumn="39" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="6" line="77" column="9" endline="77" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="GetFileNameWithoutExtension" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="28" line="85" column="13" endline="85" endcolumn="54" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="16" line="86" column="13" endline="86" endcolumn="85" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="16" line="87" column="13" endline="87" endcolumn="27" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="16" line="88" column="9" endline="88" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="ToBinnedPath" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="24" line="92" column="13" endline="92" endcolumn="75" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="13" line="93" column="13" endline="93" endcolumn="50" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="13" line="94" column="13" endline="94" endcolumn="34" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="3" line="96" column="17" endline="96" endcolumn="33" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="10" line="98" column="13" endline="98" endcolumn="45" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="6" line="99" column="13" endline="99" endcolumn="86" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="6" line="100" column="13" endline="100" endcolumn="60" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="5" line="101" column="13" endline="101" endcolumn="72" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="5" line="102" column="13" endline="102" endcolumn="27" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="17" line="105" column="17" endline="105" endcolumn="53" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="16" line="106" column="17" endline="106" endcolumn="45" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="16" line="107" column="17" endline="107" endcolumn="29" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="12" line="109" column="21" endline="109" endcolumn="39" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="12" line="110" column="21" endline="110" endcolumn="37" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="114" column="21" endline="114" endcolumn="27" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="17" line="103" column="13" endline="103" endcolumn="25" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="117" column="13" endline="117" endcolumn="48" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="118" column="13" endline="118" endcolumn="35" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="7" line="119" column="9" endline="119" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="SanitizeName" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="26" line="129" column="13" endline="129" endcolumn="51" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="26" line="131" column="13" endline="131" endcolumn="43" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="26" line="132" column="13" endline="132" endcolumn="54" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="15" line="134" column="52" endline="134" endcolumn="71" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="313" line="134" column="26" endline="134" endcolumn="48" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="313" line="136" column="21" endline="136" endcolumn="103" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="139" column="25" endline="139" endcolumn="66" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="140" column="25" endline="140" endcolumn="50" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="1" line="141" column="25" endline="141" endcolumn="31" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="327" line="134" column="49" endline="134" endcolumn="51" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="24" line="146" column="13" endline="146" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="23" line="148" column="51" endline="148" endcolumn="69" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="851" line="148" column="26" endline="148" endcolumn="47" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="851" line="150" column="21" endline="150" endcolumn="88" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="874" line="148" column="48" endline="148" endcolumn="50" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="24" line="154" column="13" endline="154" endcolumn="39" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="24" line="155" column="9" endline="155" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="CreateReadStream" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="1" line="159" column="13" endline="159" endcolumn="94" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="160" column="9" endline="160" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="CreateWriteStream" excluded="false" instrumented="true" class="PivotStack.StringExtensions">
+      <seqpnt visitcount="1" line="164" column="13" endline="164" endcolumn="97" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="165" column="9" endline="165" endcolumn="10" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.StringExtensions+&lt;BinUp&gt;d__11">
+      <seqpnt visitcount="5" line="184" column="13" endline="184" endcolumn="61" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="5" line="185" column="13" endline="185" endcolumn="40" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="187" column="17" endline="187" endcolumn="69" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="4" line="188" column="17" endline="188" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="5" line="191" column="18" endline="191" endcolumn="40" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="12" line="193" column="17" endline="193" endcolumn="58" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="12" line="194" column="17" endline="194" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="12" line="191" column="60" endline="191" endcolumn="72" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="17" line="191" column="42" endline="191" endcolumn="58" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.StringExtensions+&lt;BinUpReverse&gt;d__b">
+      <seqpnt visitcount="0" line="170" column="18" endline="170" endcolumn="34" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="172" column="17" endline="172" endcolumn="68" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="173" column="17" endline="173" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="170" column="50" endline="170" endcolumn="62" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="170" column="36" endline="170" endcolumn="48" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="175" column="13" endline="175" endcolumn="23" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="177" column="17" endline="177" endcolumn="52" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="178" column="17" endline="178" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="MoveNext" excluded="false" instrumented="true" class="PivotStack.StringExtensions+&lt;ParseTags&gt;d__2">
+      <seqpnt visitcount="0" line="47" column="13" endline="47" endcolumn="58" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="48" column="37" endline="48" endcolumn="44" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="48" column="22" endline="48" endcolumn="33" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="50" column="17" endline="50" endcolumn="53" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="51" column="17" endline="51" endcolumn="34" excluded="false" document="PivotStack\StringExtensions.cs" />
+      <seqpnt visitcount="0" line="48" column="34" endline="48" endcolumn="36" excluded="false" document="PivotStack\StringExtensions.cs" />
+    </method>
+    <method name="LoadFromRow" excluded="false" instrumented="true" class="PivotStack.Tag">
+      <seqpnt visitcount="7" line="13" column="13" endline="17" endcolumn="15" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="1" line="18" column="13" endline="18" endcolumn="27" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="1" line="19" column="9" endline="19" endcolumn="10" excluded="false" document="PivotStack\Tag.cs" />
+    </method>
+    <method name="ComputeBinnedPath" excluded="false" instrumented="true" class="PivotStack.Tag">
+      <seqpnt visitcount="9" line="23" column="13" endline="23" endcolumn="56" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="0" line="24" column="9" endline="24" endcolumn="10" excluded="false" document="PivotStack\Tag.cs" />
+    </method>
+    <method name="ComputeBinnedPath" excluded="false" instrumented="true" class="PivotStack.Tag">
+      <seqpnt visitcount="10" line="28" column="13" endline="28" endcolumn="67" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="10" line="29" column="13" endline="29" endcolumn="56" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="0" line="30" column="13" endline="30" endcolumn="31" excluded="false" document="PivotStack\Tag.cs" />
+      <seqpnt visitcount="0" line="31" column="9" endline="31" endcolumn="10" excluded="false" document="PivotStack\Tag.cs" />
+    </method>
+    <method name="AddFacet" excluded="false" instrumented="true" class="PivotStack.XElementExtensions">
+      <seqpnt visitcount="14" line="13" column="13" endline="13" endcolumn="65" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="0" line="14" column="9" endline="14" endcolumn="10" excluded="false" document="PivotStack\XElementExtensions.cs" />
+    </method>
+    <method name="AddFacet" excluded="false" instrumented="true" class="PivotStack.XElementExtensions">
+      <seqpnt visitcount="48" line="19" column="13" endline="19" endcolumn="81" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="46" line="20" column="13" endline="20" endcolumn="52" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="46" line="21" column="35" endline="21" endcolumn="41" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="65" line="21" column="22" endline="21" endcolumn="31" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="65" line="23" column="17" endline="23" endcolumn="91" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="63" line="24" column="17" endline="24" endcolumn="43" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="108" line="21" column="32" endline="21" endcolumn="34" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="43" line="26" column="13" endline="26" endcolumn="36" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="0" line="27" column="9" endline="27" endcolumn="10" excluded="false" document="PivotStack\XElementExtensions.cs" />
+    </method>
+    <method name="AddFacetLink" excluded="false" instrumented="true" class="PivotStack.XElementExtensions">
+      <seqpnt visitcount="5" line="32" column="13" endline="32" endcolumn="70" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="0" line="33" column="9" endline="33" endcolumn="10" excluded="false" document="PivotStack\XElementExtensions.cs" />
+    </method>
+    <method name="AddFacetLink" excluded="false" instrumented="true" class="PivotStack.XElementExtensions">
+      <seqpnt visitcount="16" line="38" column="13" endline="38" endcolumn="88" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="14" line="39" column="13" endline="39" endcolumn="58" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="14" line="40" column="34" endline="40" endcolumn="47" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="17" line="40" column="22" endline="40" endcolumn="30" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="17" line="42" column="17" endline="42" endcolumn="39" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="15" line="43" column="17" endline="43" endcolumn="40" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="15" line="44" column="17" endline="44" endcolumn="121" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="9" line="45" column="17" endline="45" endcolumn="42" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="22" line="40" column="31" endline="40" endcolumn="33" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="5" line="47" column="13" endline="47" endcolumn="36" excluded="false" document="PivotStack\XElementExtensions.cs" />
+      <seqpnt visitcount="0" line="48" column="9" endline="48" endcolumn="10" excluded="false" document="PivotStack\XElementExtensions.cs" />
+    </method>
+  </module>
+</coverage>
