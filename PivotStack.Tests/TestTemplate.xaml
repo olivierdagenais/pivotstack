@@ -1,4 +1,4 @@
-<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Background="White">
+<Page xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" Background="White" FontSize="11">
   <Grid VerticalAlignment="Top" HorizontalAlignment="Left">
     <Grid.ColumnDefinitions>
       <ColumnDefinition Width="120px" />

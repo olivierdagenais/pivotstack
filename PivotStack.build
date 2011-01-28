@@ -1,0 +1,32 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<project name="PivotStack" default="test"
+    xmlns="http://pivotstack.googlecode.com/schemas/nant.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pivotstack.googlecode.com/schemas/nant.xsd Tools/NAnt.xsd">
+
+    <loadtasks assembly="Tools/nantcontrib/bin/NAnt.Contrib.Tasks.dll" />
+    <loadtasks assembly="Tools/SoftwareNinjas.NAnt.dll" />
+
+    <property name="configuration" value="Release" overwrite="false" />
+    <property name="projects" value="PivotStack,PivotStack.Tests" />
+
+    <target name="schema">
+        <nantschema output="Tools/NAnt.xsd" target-ns="http://pivotstack.googlecode.com/schemas/nant.xsd"/>
+    </target>
+
+    <target name="clean">
+        <clean projects="${projects}"/>
+    </target>
+
+    <target name="compile" depends="clean">
+        <msbuild project="PivotStack.sln">
+            <arg value="/property:Configuration=${configuration}" />
+            <arg value="/verbosity:minimal" />
+        </msbuild>
+    </target>
+
+    <target name="test" depends="compile">
+        <test projects="PivotStack.Tests" configuration="${configuration}" />
+    </target>
+
+</project>
