@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
-<project name="PivotStack" default="test"
+<project name="PivotStack" default="postResults"
     xmlns="http://pivotstack.googlecode.com/schemas/nant.xsd"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://pivotstack.googlecode.com/schemas/nant.xsd Tools/NAnt.xsd">
@@ -62,6 +62,23 @@
                 <parameter name="reference" value="reference.xml" />
             </parameters>
         </style>
+    </target>
+
+    <target name="postResults" depends="test">
+        <property name="coverageFile" value="${fixedCoverageFile}" />
+        <xpath file="${coverageFile}" property="tsp" query="count(//seqpnt)" />
+        <xpath file="${coverageFile}" property="vsp" query="count(//seqpnt[not(@visitcount='0')])" />
+        <post action="https://spreadsheets0.google.com/formResponse?formkey=dG9zQnFtTlQ0Z1dGUjI5TUlFMnpFWWc6MQ&amp;ifq">
+            <!-- Batch # -->        <input name="entry.1.single" value="private" />
+            <!-- Project -->        <input name="entry.2.single" value="PivotStack" />
+            <!-- Variation -->      <input name="entry.3.single" value="project-base" />
+            <!-- TODD version -->   <input name="entry.4.single" value="n/a" />
+            <!-- TSP -->            <input name="entry.5.single" value="${tsp}" />
+            <!-- VSP -->            <input name="entry.6.single" value="${vsp}" />
+            <!-- Google -->         <input name="pageNumber" value="0" />
+            <!-- Google -->         <input name="backupCache" value="" />
+            <!-- Google -->         <input name="submit" value="Submit" />
+        </post>
     </target>
 
 </project>
