@@ -36,7 +36,7 @@ namespace PivotStack
         public static int Main (string[] args)
         {
             // TODO: initialize Settings instance from app.config and/or command-line
-            var settings = new Settings
+            var settings = new Settings(new SettingsBuilder
             {
                 ItemImageSize = new Size(800, 400),
                 TileSize = 254,
@@ -74,7 +74,7 @@ namespace PivotStack
                 AbsoluteWorkingFolder = Path.GetFullPath (WorkingFolderName),
                 AbsoluteOutputFolder = Path.GetFullPath (OutputFolderName),
                 PostImageEncoding = ImageFormat.Png,
-            };
+            });
 
             var program = new Program (settings);
             program.Generate ();

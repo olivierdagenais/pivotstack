@@ -96,6 +96,7 @@
     <Compile Include="Repositories\PostRepository.cs" />
     <Compile Include="Repositories\TagRepository.cs" />
     <Compile Include="Settings.cs" />
+    <Compile Include="SettingsBuilder.cs" />
     <Compile Include="StringExtensions.cs" />
     <Compile Include="Tag.cs" />
     <Compile Include="XElementExtensions.cs" />

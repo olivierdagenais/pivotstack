@@ -386,13 +386,13 @@ namespace PivotStack.Tests
         [Test]
         public void GenerateImageCollection ()
         {
-            var settings = new Settings
+            var settings = new Settings(new SettingsBuilder
             {
                 HighestId = 4000,
                 PostImageEncoding = ImageFormat.Png,
                 ItemImageSize = new Size(800, 400),
                 XmlWriterSettings = XmlWriterSettings,
-            };
+            });
             var dzc = new DeepZoomCollection (settings);
 
             const string expectedXml = @"
@@ -420,10 +420,10 @@ namespace PivotStack.Tests
         [Test]
         public void CreateImageCollectionItemNode_Typical ()
         {
-            var settings = new Settings
+            var settings = new Settings(new SettingsBuilder
             {
                 HighestId = 4000,
-            };
+            });
             var dzc = new DeepZoomCollection (settings);
             const string expectedXml = @"
 <I N='0' Id='351' Source='../../..\0/0351.dzi' xmlns='http://schemas.microsoft.com/deepzoom/2008' />";

@@ -93,10 +93,10 @@ namespace PivotStack.Tests
 
         private static Size TestComputeLevelSize(Size itemImageSize, int levelNumber)
         {
-            var settings = new Settings
+            var settings = new Settings(new SettingsBuilder
             {
                 ItemImageSize = itemImageSize,
-            };
+            });
             var dzi = new DeepZoomImage (settings);
             return dzi.ComputeLevelSize (levelNumber);
         }
@@ -161,11 +161,11 @@ namespace PivotStack.Tests
 
         private static IEnumerable<Tile> TestComputeTiles (Size levelSize, int tileSize, int tileOverlap)
         {
-            var settings = new Settings
+            var settings = new Settings(new SettingsBuilder
             {
                 TileSize = tileSize,
                 TileOverlap = tileOverlap,
-            };
+            });
             var dzi = new DeepZoomImage (settings);
             return dzi.ComputeTiles (levelSize);
         }
@@ -433,7 +433,7 @@ namespace PivotStack.Tests
                 {"1_0", new MemoryStream()},
                 {"1_1", new MemoryStream()},
             };
-            var settings = new Settings { PostImageEncoding = ImageFormat.Png, };
+            var settings = new Settings(new SettingsBuilder { PostImageEncoding = ImageFormat.Png, });
             var dzi = new DeepZoomImage (settings);
 
             try
