@@ -192,7 +192,7 @@ namespace PivotStack
         internal IEnumerable<Bitmap> OpenLevelImages(IEnumerable<int> postIds, int level)
         {
             var levelName = Convert.ToString (level, 10);
-            var inputFileName = Path.ChangeExtension (DeepZoomImage.TileZeroZero, _imageFormatName);
+            var inputFileName = Path.ChangeExtension (Tile.TileZeroZero, _imageFormatName);
             foreach (var postId in postIds)
             {
                 var relativeFolder = Post.ComputeBinnedPath (postId, null, _settings.FileNameIdFormat) + "_files";

@@ -6,14 +6,10 @@ using System.IO;
 
 using SoftwareNinjas.Core;
 
-using Tile = SoftwareNinjas.Core.Pair<System.Drawing.Rectangle, string>;
-
 namespace PivotStack
 {
     public class DeepZoomImage
     {
-        internal const string TileNameTemplate = "{0}_{1}";
-        internal static readonly string TileZeroZero = "0_0";
         internal static readonly Size OneByOne = new Size (1, 1);
 
         private readonly Settings _settings;
@@ -65,20 +61,11 @@ namespace PivotStack
             return result;
         }
 
-        internal static string TileName(int row, int column)
-        {
-            if (0 == row && 0 == column)
-            {
-                return TileZeroZero;
-            }
-            return TileNameTemplate.FormatInvariant (column, row);
-        }
-
         internal static IEnumerable<Pair<Bitmap,string>> Slice (Bitmap source, IEnumerable<Tile> tiles)
         {
             foreach (var tile in tiles)
             {
-                var rect = tile.First;
+                var rect = tile.Rectangle;
                 var targetWidth = rect.Width;
                 var targetHeight = rect.Height;
                 using (var targetImage = new Bitmap (targetWidth, targetHeight))
@@ -95,7 +82,7 @@ namespace PivotStack
                         targetHeight,
                         GraphicsUnit.Pixel
                     );
-                    yield return new Pair<Bitmap, string> (targetImage, tile.Second);
+                    yield return new Pair<Bitmap, string> (targetImage, tile.TileName);
                 }
             }
         }
@@ -157,8 +144,8 @@ namespace PivotStack
             var maxDimension = Math.Max (width, height);
             if (maxDimension <= _settings.TileSize)
             {
-                var pair = new Tile (CreateRectangle (levelSize), TileZeroZero);
-                yield return pair;
+                var tile = new Tile (levelSize, 0, 0);
+                yield return tile;
             }
             else
             {
@@ -176,9 +163,7 @@ namespace PivotStack
                         var top = 0 == row ? 0 : row * _settings.TileSize - _settings.TileOverlap;
                         var bottom = Math.Min ((int) height - 1, (row + 1) * tileOffsetMultiplier);
 
-                        var rect = CreateRectangle (new Point (left, top), new Point (right, bottom));
-                        var tileName = TileName (row, column);
-                        yield return new Tile (rect, tileName);
+                        yield return new Tile (left, top, right, bottom, row, column);
                     }
                 }
             }
@@ -204,16 +189,6 @@ namespace PivotStack
             }
 
             return targetImage;
-        }
-
-        internal static Rectangle CreateRectangle(Size size)
-        {
-            return new Rectangle (0, 0, size.Width, size.Height);
-        }
-
-        internal static Rectangle CreateRectangle(Point point1, Point point2)
-        {
-            return new Rectangle (point1.X, point1.Y, point2.X - point1.X + 1, point2.Y - point1.Y + 1);
         }
 
         public void GeneratePostImageResizes(Bitmap sourceBitmap, Action<int, Bitmap> saveAction)

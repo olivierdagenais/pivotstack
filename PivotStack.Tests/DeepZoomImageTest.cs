@@ -7,7 +7,6 @@ using System.IO;
 using NUnit.Framework;
 using SoftwareNinjas.Core;
 using EnumerableExtensions = SoftwareNinjas.Core.Test.EnumerableExtensions;
-using Tile = SoftwareNinjas.Core.Pair<System.Drawing.Rectangle, string>;
 
 namespace PivotStack.Tests
 {
@@ -17,71 +16,6 @@ namespace PivotStack.Tests
         private static readonly Size PortraitImageSize = new Size (1200, 1500);
         private static readonly Size PowerOfTwoSize = new Size (1024, 512);
         private static readonly Size SquareLogoSize = new Size (700, 700);
-
-        private static void AssertAreEqual (System.Windows.Rect expected, Rectangle actual)
-        {
-            Assert.AreEqual ((int) expected.X,      actual.X);
-            Assert.AreEqual ((int) expected.Y,      actual.Y);
-            Assert.AreEqual ((int) expected.Width,  actual.Width);
-            Assert.AreEqual ((int) expected.Height, actual.Height);
-
-            Assert.AreEqual ((int) expected.Top,    actual.Top);
-            Assert.AreEqual ((int) expected.Bottom, actual.Bottom);
-            Assert.AreEqual ((int) expected.Left,   actual.Left);
-            Assert.AreEqual ((int) expected.Right,  actual.Right);
-        }
-
-        private static void CheckRectangleBySize(int width, int height)
-        {
-            var expected = new System.Windows.Rect (new System.Windows.Size (width, height));
-            var actual = DeepZoomImage.CreateRectangle (new Size (width, height));
-            AssertAreEqual (expected, actual);
-        }
-
-        [Test]
-        public void CreateRectangle_WithSize_EdgeCases()
-        {
-            CheckRectangleBySize (         0,          0);
-            CheckRectangleBySize (         1,          1);
-            CheckRectangleBySize (       255,        255);
-            CheckRectangleBySize (     32768,      32768);
-            CheckRectangleBySize (2147483647, 2147483647);
-        }
-
-        private static void CheckRectangleWithTwoPoints(int x1, int y1, int x2, int y2)
-        {
-            // The constructor below is documented as:
-            // "Initializes a new instance of the Rect structure that is
-            // exactly large enough to contain the two specified points."
-            var expected = new System.Windows.Rect
-            (
-                new System.Windows.Point (x1, y1),
-                new System.Windows.Point (x2 + 1, y2 + 1)
-            );
-            var actual = DeepZoomImage.CreateRectangle (new Point (x1, y1), new Point (x2, y2));
-            AssertAreEqual (expected, actual);
-        }
-
-        [Test]
-        public void CreateRectangle_WithTwoPoints_Typical()
-        {
-            CheckRectangleWithTwoPoints (  0,   0, 254, 254);
-            CheckRectangleWithTwoPoints (  0, 253, 254, 374);
-            CheckRectangleWithTwoPoints (253,   0, 299, 254);
-            CheckRectangleWithTwoPoints (253, 253, 299, 374);
-        }
-
-        [Test]
-        public void CreateRectangle_WithTwoPoints_EdgeCases()
-        {
-            CheckRectangleWithTwoPoints (  0,   0,   0,   0);
-            CheckRectangleWithTwoPoints (  0,   0,   1,   1);
-            CheckRectangleWithTwoPoints (  1,   1,   1,   1);
-            CheckRectangleWithTwoPoints (  2,   2,   2,   2);
-            CheckRectangleWithTwoPoints (  2,   2,   4,   4);
-            CheckRectangleWithTwoPoints (  0,   0, 255, 255);
-            CheckRectangleWithTwoPoints (  2,   2,   2,   2);
-        }
 
         [Test]
         public void DetermineMaximumLevel_Base ()
@@ -175,7 +109,7 @@ namespace PivotStack.Tests
         {
             var size = new Size(150, 188);
             var actual = TestComputeTiles (size, 254, 1);
-            var expected = new[] {new Tile (DeepZoomImage.CreateRectangle (size), "0_0")};
+            var expected = new[] {new Tile (size, 0, 0)};
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
 
@@ -184,7 +118,7 @@ namespace PivotStack.Tests
         {
             var size = new Size (254, 254);
             var actual = TestComputeTiles (size, 254, 1);
-            var expected = new[] {new Tile (DeepZoomImage.CreateRectangle (size), "0_0")};
+            var expected = new[] {new Tile (size, 0, 0)};
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
 
@@ -195,11 +129,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 374)), "0_1"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 253, 254, 374, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(299, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(299, 374)), "1_1"),
+                new Tile (253,   0, 299, 254, 0, 1),
+                new Tile (253, 253, 299, 374, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -211,17 +145,17 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 508)), "0_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 507), new Point(254, 699)), "0_2"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 253, 254, 508, 1, 0),
+                new Tile (  0, 507, 254, 699, 2, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(508, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(508, 508)), "1_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 507), new Point(508, 699)), "1_2"),
+                new Tile (253,   0, 508, 254, 0, 1),
+                new Tile (253, 253, 508, 508, 1, 1),
+                new Tile (253, 507, 508, 699, 2, 1),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(507,   0), new Point(699, 254)), "2_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(507, 253), new Point(699, 508)), "2_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(507, 507), new Point(699, 699)), "2_2"),
+                new Tile (507,   0, 699, 254, 0, 2),
+                new Tile (507, 253, 699, 508, 1, 2),
+                new Tile (507, 507, 699, 699, 2, 2),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -233,11 +167,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(255, 255)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 252), new Point(255, 374)), "0_1"),
+                new Tile (  0,   0, 255, 255, 0, 0),
+                new Tile (  0, 252, 255, 374, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252,   0), new Point(299, 255)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252, 252), new Point(299, 374)), "1_1"),
+                new Tile (252,   0, 299, 255, 0, 1),
+                new Tile (252, 252, 299, 374, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -249,11 +183,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 3);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(256, 256)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 251), new Point(256, 374)), "0_1"),
+                new Tile (  0,   0, 256, 256, 0, 0),
+                new Tile (  0, 251, 256, 374, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(251,   0), new Point(299, 256)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(251, 251), new Point(299, 374)), "1_1"),
+                new Tile (251,   0, 299, 256, 0, 1),
+                new Tile (251, 251, 299, 374, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -265,11 +199,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 254)), "0_1"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 253, 254, 254, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(254, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(254, 254)), "1_1"),
+                new Tile (253,   0, 254, 254, 0, 1),
+                new Tile (253, 253, 254, 254, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -281,11 +215,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 252), new Point(254, 254)), "0_1"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 252, 254, 254, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252,   0), new Point(254, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252, 252), new Point(254, 254)), "1_1"),
+                new Tile (252,   0, 254, 254, 0, 1),
+                new Tile (252, 252, 254, 254, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -297,11 +231,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 255)), "0_1"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 253, 254, 255, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(255, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(255, 255)), "1_1"),
+                new Tile (253,   0, 255, 254, 0, 1),
+                new Tile (253, 253, 255, 255, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -313,11 +247,11 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 2);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(255, 255)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 252), new Point(255, 255)), "0_1"),
+                new Tile (  0,   0, 255, 255, 0, 0),
+                new Tile (  0, 252, 255, 255, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252,   0), new Point(255, 255)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(252, 252), new Point(255, 255)), "1_1"),
+                new Tile (252,   0, 255, 255, 0, 1),
+                new Tile (252, 252, 255, 255, 1, 1),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -329,40 +263,40 @@ namespace PivotStack.Tests
             var actual = TestComputeTiles (size, 254, 1);
             var expected = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0,    0), new Point( 254,  254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0,  253), new Point( 254,  508)), "0_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0,  507), new Point( 254,  762)), "0_2"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0,  761), new Point( 254, 1016)), "0_3"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0, 1015), new Point( 254, 1270)), "0_4"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(   0, 1269), new Point( 254, 1499)), "0_5"),
+                new Tile (   0,    0,  254,  254, 0, 0),
+                new Tile (   0,  253,  254,  508, 1, 0),
+                new Tile (   0,  507,  254,  762, 2, 0),
+                new Tile (   0,  761,  254, 1016, 3, 0),
+                new Tile (   0, 1015,  254, 1270, 4, 0),
+                new Tile (   0, 1269,  254, 1499, 5, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253,    0), new Point( 508,  254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253,  253), new Point( 508,  508)), "1_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253,  507), new Point( 508,  762)), "1_2"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253,  761), new Point( 508, 1016)), "1_3"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253, 1015), new Point( 508, 1270)), "1_4"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 253, 1269), new Point( 508, 1499)), "1_5"),
+                new Tile ( 253,    0,  508,  254, 0, 1),
+                new Tile ( 253,  253,  508,  508, 1, 1),
+                new Tile ( 253,  507,  508,  762, 2, 1),
+                new Tile ( 253,  761,  508, 1016, 3, 1),
+                new Tile ( 253, 1015,  508, 1270, 4, 1),
+                new Tile ( 253, 1269,  508, 1499, 5, 1),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507,    0), new Point( 762,  254)), "2_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507,  253), new Point( 762,  508)), "2_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507,  507), new Point( 762,  762)), "2_2"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507,  761), new Point( 762, 1016)), "2_3"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507, 1015), new Point( 762, 1270)), "2_4"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 507, 1269), new Point( 762, 1499)), "2_5"),
+                new Tile ( 507,    0,  762,  254, 0, 2),
+                new Tile ( 507,  253,  762,  508, 1, 2),
+                new Tile ( 507,  507,  762,  762, 2, 2),
+                new Tile ( 507,  761,  762, 1016, 3, 2),
+                new Tile ( 507, 1015,  762, 1270, 4, 2),
+                new Tile ( 507, 1269,  762, 1499, 5, 2),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761,    0), new Point(1016,  254)), "3_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761,  253), new Point(1016,  508)), "3_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761,  507), new Point(1016,  762)), "3_2"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761,  761), new Point(1016, 1016)), "3_3"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761, 1015), new Point(1016, 1270)), "3_4"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point( 761, 1269), new Point(1016, 1499)), "3_5"),
+                new Tile ( 761,    0, 1016,  254, 0, 3),
+                new Tile ( 761,  253, 1016,  508, 1, 3),
+                new Tile ( 761,  507, 1016,  762, 2, 3),
+                new Tile ( 761,  761, 1016, 1016, 3, 3),
+                new Tile ( 761, 1015, 1016, 1270, 4, 3),
+                new Tile ( 761, 1269, 1016, 1499, 5, 3),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015,    0), new Point(1199,  254)), "4_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015,  253), new Point(1199,  508)), "4_1"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015,  507), new Point(1199,  762)), "4_2"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015,  761), new Point(1199, 1016)), "4_3"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015, 1015), new Point(1199, 1270)), "4_4"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(1015, 1269), new Point(1199, 1499)), "4_5"),
+                new Tile (1015,    0, 1199,  254, 0, 4),
+                new Tile (1015,  253, 1199,  508, 1, 4),
+                new Tile (1015,  507, 1199,  762, 2, 4),
+                new Tile (1015,  761, 1199, 1016, 3, 4),
+                new Tile (1015, 1015, 1199, 1270, 4, 4),
+                new Tile (1015, 1269, 1199, 1499, 5, 4),
             };
             EnumerableExtensions.EnumerateSame (expected, actual);
         }
@@ -376,7 +310,7 @@ namespace PivotStack.Tests
                     var e = tiles.GetEnumerator ();
                     e.MoveNext ();
                     var firstTile = e.Current;
-                    var actualRectangle = firstTile.First;
+                    var actualRectangle = firstTile.Rectangle;
                     var expectedRectangle = new Rectangle (0, 0, expectedFirstTileSize, expectedFirstTileSize);
                     Assert.AreEqual (expectedRectangle, actualRectangle);
                     var actualTileCount = 1;
@@ -420,11 +354,11 @@ namespace PivotStack.Tests
         {
             var tiles = new[]
             {
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0,   0), new Point(254, 254)), "0_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(  0, 253), new Point(254, 374)), "0_1"),
+                new Tile (  0,   0, 254, 254, 0, 0),
+                new Tile (  0, 253, 254, 374, 1, 0),
 
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253,   0), new Point(299, 254)), "1_0"),
-                new Tile (DeepZoomImage.CreateRectangle (new Point(253, 253), new Point(299, 374)), "1_1"),
+                new Tile (253,   0, 299, 254, 0, 1),
+                new Tile (253, 253, 299, 374, 1, 1),
             };
             var streams = new Dictionary<string, MemoryStream>
             {

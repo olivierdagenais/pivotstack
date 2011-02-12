@@ -21,7 +21,7 @@ namespace PivotStack
             _row = row;
             _column = column;
             _startingMortonNumber = startingMortonNumber;
-            _tileName = DeepZoomImage.TileName (row, column);
+            _tileName = Tile.ComputeTileName (row, column);
             _ids = new List<int> (ids).AsReadOnly ();
 
             var hashCode = _row ^ _column ^ _startingMortonNumber;
