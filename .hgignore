@@ -8,3 +8,4 @@ glob:PivotStack.sln.cache
 glob:coverage.log
 glob:coverage.xml
 glob:fixed-coverage.xml
+glob:PivotStack.5.1.ReSharper.user
